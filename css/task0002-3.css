@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft YaHei, sans-serif;
+}
+#images {
+    position: relative;
+    overflow: hidden;
+}
+ul#photo {
+    position: absolute;
+}
+ul#photo li{
+    list-style-type: none;
+}
+img {
+    display: block;
+}
+#side_list {
+    width: 20px;
+    height: 220px;
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    margin-top: -110px;
+}
+#list {
+    width: 20px;
+    height: 220px;
+    position: relative;
+}
+#list li {
+    float: left;
+    list-style-type: none;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.2;
+}
+#list li#mark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: orangered;
+    opacity: 0.6;
+}
+#list li.no_margin_bottom {
+    margin-bottom: 0;
+}

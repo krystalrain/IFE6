@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Microsoft YaHei, sans-serif;
+}
+body {
+    background-color: #e2e2e2;
+}
+.center {
+    width: 1000px;
+    margin: 0 auto;
+}
+.center h2 {
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto;
+}
+.myTextArea {
+    width: 980px;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 14px;
+    -webkit-border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+    border-top-color: #c0c0c0;
+}
+
+.myTextArea:hover {
+    border: 1px solid #b9b9b9;
+    border-top-color: #a0a0a0;
+}
+
+.myTextArea:focus {
+    border: 1px solid #4d90fe;
+}
+.deal button {
+    width: 100px;
+    height: 28px;
+    background-color: #fff;
+    border-radius: 6px;
+    color: #666;
+    line-height: 28px;
+    border: none;
+    margin: 20px 20px 20px 0;
+}
+.deal button:hover {
+    background-color:#f6f6f6;
+}
+.error {
+    display: inline-block;
+    margin-top: 20px;
+    color: red;
+}
+input {
+    margin-right: 10px;
+}
