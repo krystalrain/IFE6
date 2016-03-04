@@ -14,40 +14,60 @@ window.onload = function () {
         ulArrLi[i].style.width = clientWidth + "px";
         ulArrLi[i].style.height = clientHeight + "px";
     }
-    function addEvent(element, type, handler) {
-        if (element.addEventListener) {
-            element.addEventListener(type, handler, false);
-        } else if (element.attachEvent) {
-            element.attachEvent("on" + type, handler);
-        } else {
-            element["on" + type] = handler;
-        }
+    ul.onmousewheel = scrollImages;
+    if (ul.addEventListener) {//只有FF才支持的鼠标滚动事件
+        ul.addEventListener("DOMMouseScroll", scrollImages, false);
     }
-    ul.addEventListener("DOMMouseScroll", scrollImages, false);
     function scrollImages(ev) {
         var x = ev || event;
-        if (x.detail > 0) {
-            current++;
-            if (current > len - 1) {
-                current = len - 1;
+        if (x.wheelDelta) {//IE和Chrome
+            if (x.wheelDelta > 0) {//值大于0表示向上滚动
+                current--;
+                if (current < 0) {
+                    current = 0;
+                }
+                startMoveTimeVersion(mark, {
+                    top: current * 40
+                }, 300, "Expo", "easeOut");
+                startMoveTimeVersion(ul, {
+                    top: current * (-clientHeight)
+                }, 300, "Expo", "easeOut");
+            } else {//值小于0表示向下滚动
+                current++;
+                if (current > len - 1) {
+                    current = len - 1;
+                }
+                startMoveTimeVersion(mark, {
+                    top: current * 40
+                }, 300, "Expo", "easeOut");
+                startMoveTimeVersion(ul, {
+                    top: current * (-clientHeight)
+                }, 300, "Expo", "easeOut");
             }
-            startMoveTimeVersion(mark, {
-                top: current * 40
-            }, 300, "Expo", "easeOut");
-            startMoveTimeVersion(ul, {
-                top: current * (-clientHeight)
-            }, 300, "Expo", "easeOut");
-        } else {
-            current--;
-            if (current < 0) {
-                current = 0;
+        } else {//FF
+            if (x.detail < 0) {//值小于0表示向上滚动
+                current--;
+                if (current < 0) {
+                    current = 0;
+                }
+                startMoveTimeVersion(mark, {
+                    top: current * 40
+                }, 300, "Expo", "easeOut");
+                startMoveTimeVersion(ul, {
+                    top: current * (-clientHeight)
+                }, 300, "Expo", "easeOut");
+            } else {//值大于0表示向下滚动
+                current++;
+                if (current > len - 1) {
+                    current = len - 1;
+                }
+                startMoveTimeVersion(mark, {
+                    top: current * 40
+                }, 300, "Expo", "easeOut");
+                startMoveTimeVersion(ul, {
+                    top: current * (-clientHeight)
+                }, 300, "Expo", "easeOut");
             }
-            startMoveTimeVersion(mark, {
-                top: current * 40
-            }, 300, "Expo", "easeOut");
-            startMoveTimeVersion(ul, {
-                top: current * (-clientHeight)
-            }, 300, "Expo", "easeOut");
         }
     }
     window.onresize = function () {

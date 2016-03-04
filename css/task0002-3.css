@@ -9,6 +9,8 @@
 }
 ul#photo {
     position: absolute;
+    top: 0;
+    left: 0;
 }
 ul#photo li{
     list-style-type: none;
