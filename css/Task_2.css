@@ -1,0 +1,99 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Microsoft YaHei UI", sans-serif;
+}
+body {
+    background-color: rgb(222, 222, 222);
+}
+header {
+    background-color: rgb(51, 51, 51);
+    height: 100px;
+    width: 100%;
+}
+#top {
+    width: 1300px;
+    height: 100px;
+    margin: 0 auto;
+}
+#top a {
+    text-decoration: none;
+    color: white;
+}
+#top a:hover {
+    text-decoration: underline;
+}
+#top img {
+    height: 80px;
+    margin-top: 10px;
+}
+#nav {
+    margin: 0;
+    padding: 0;
+    float: right;
+    height: 100px;
+    line-height: 100px;
+}
+#nav li {
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 20px;
+}
+
+article {
+    width: 85%;
+    border: thin solid rgb(203, 203, 203);
+    padding: 30px;
+    margin: 30px auto;
+    background-color: white;
+    line-height: 30px;
+    text-indent: 2em;
+    word-break: normal;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0 auto;
+}
+th {
+    background-color: rgb(51, 51, 51);
+    color: white;
+    border: 1px solid rgb(203, 203, 203);
+}
+td {
+    border: 1px solid rgb(203, 203, 203);
+}
+.line {
+    width: 40%;
+}
+.last {
+    width: 20%;
+}
+.last-row {
+    background-color: rgb(203, 203, 203);
+}
+
+#register h2 {
+    border-left: 3px solid rgb(205, 205, 205);
+    height: 40px;
+    line-height: 40px;
+}
+#submit {
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    line-height: 40px;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(51, 85, 208);
+}
+
+footer {
+    height: 100px;
+    background-color: black;
+    color: white;
+    line-height: 100px;
+    text-align: center;
+}
