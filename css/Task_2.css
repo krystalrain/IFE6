@@ -47,6 +47,8 @@ article {
     background-color: white;
     line-height: 30px;
     word-break: normal;
+    border-right-style: ridge;
+    border-bottom-style: ridge;
 }
 article p {
     text-indent: 2em;

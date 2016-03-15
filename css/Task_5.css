@@ -61,7 +61,10 @@ header {
     background-color: white;
     margin-bottom: 30px;
 }
-
+article {
+    border-right-style: ridge;
+    border-bottom-style: ridge;
+}
 article p {
     text-indent: 2em;
 }
