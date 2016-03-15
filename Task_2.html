@@ -23,7 +23,7 @@
 <article>
 	<h2>文章一级标题</h2>
 	<h2>文章二级标题</h2>
-	<p>文章作者 文章发表时间</p>
+	<h3>文章作者 文章发表时间</h3>
 	<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br />换行了<br />这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br />这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段<br />落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。</p>
 	<img src="image/1.gif" title="卡哇伊" alt="cute" />
 	<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br />这是一个很长很长的段落，换行了<br />这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com" target="_blank">这里有个链接点击后打开新窗口链接<br />到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是<br />一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。</p>
@@ -32,7 +32,7 @@
 <article>
 	<h2>另一篇文章一级标题</h2>
 	<h2>文章二级标题</h2>
-	<p>文章作者 文章发表时间</p>
+	<h3>文章作者 文章发表时间</h3>
 	<p>这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，<br />换行了<br />这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，换行了<br />这是一个很长很长的段落，这是一个很长很长的段落，<a href="http://ife.baidu.com">这里有个链接链接到http://ife.baidu.com</a>这是一个很长很长的段落，这是一个很长很长的段落，<strong>这里有个粗体字</strong>这是一个很长很长的段<br />落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落，这是一个很长很长的段落。</p>
 	<img src="image/1.gif" title="卡哇伊" alt="cute" />
 	<ul>
@@ -71,7 +71,7 @@
 <article>
 	<h2>最后一篇文章一级标题</h2>
 	<h2>文章二级标题</h2>
-	<p>文章作者 文章发表时间</p>
+	<h3>文章作者 文章发表时间</h3>
 	<ol>
 		<li>排名1</li>
 		<li>排名2</li>
@@ -120,20 +120,20 @@
 	<form method="post" action="http://ife.baidu.com">
 
 		<p><label for="email">请输入邮箱地址：<input id="email" type="email" placeholder="user@domain.com" name="email" /></label></p>
-		<p>邮箱地址请按要求格式输入</p>
-		<p><label for="password">请输入密码：<input id="password" type="password" placeholder="Min 6 characters" name="password" /></label></p>
+		<p class="text">邮箱地址请按要求格式输入</p>
+		<p><label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请输入密码：<input id="password" type="password" placeholder="Min 6 characters" name="password" /></label></p>
 		<p><label for="repeat-password"> 请重复输入密码：<input id="repeat-password" type="password" placeholder="repeat password" name="repeat-password" /></label></p>
-		<p>密码请为6-16位英文数字</p>
+		<p class="text">密码请为6-16位英文数字</p>
 
-		<p>
+		<p class="detail">
 			<span>性别：</span>
 			<label for="man"><input id="man" checked value="男" type="radio" name="gender" />男</label>
 			<label for="woman"><input id="woman" value="女" type="radio" name="gender" />女</label>
 		</p>
 
-		<p>
+		<p class="detail">
 			<label for="city">
-				城市:
+				城市 :
 				<select name="city" id="city">
 					<option value="1" selected label="北京">北京</option>
 					<option value="2" label="武汉">武汉</option>
@@ -144,16 +144,16 @@
 			</label>
 		</p>
 
-		<p>
+		<p class="detail">
 			<span>爱好：</span>
 			<label for="sport"><input type="checkbox" id="sport" name="sport" /> 运动</label>
 			<label for="art"><input type="checkbox" id="art" name="art" /> 艺术</label>
 			<label for="science"><input type="checkbox" id="science" name="science" /> 科学</label>
 		</p>
 
-		<p>
-			<span>个人描述：</span>
-			<textarea cols="50" rows="5" name="detail" id="detail" wrap="hard" title="describe">这是一个多行输入框，输入您的个人描述</textarea>
+		<p id="message">
+			<span id="describe">个人描述：</span>
+			<textarea cols="40" rows="5" name="detail" id="detail" wrap="hard" title="describe">这是一个多行输入框，输入您的个人描述</textarea>
 		</p>
 
 		<input id="submit" type="submit" value="确认提交" />
