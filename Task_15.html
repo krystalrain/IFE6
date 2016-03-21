@@ -56,7 +56,7 @@
 	 */
 	function sortAqiData(data) {
 		function compare(value1, value2) {//二维数组排序
-			return value2[1] - value1[1];
+			return value1[1] - value2[1];
 		}
 		data.sort(compare);
 		console.log(data);
