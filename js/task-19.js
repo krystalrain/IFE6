@@ -1,16 +1,21 @@
 window.onload = function () {
-    var text = document.getElementById("text");
-    var leftIn = document.getElementById("left-in");
-    var leftOut = document.getElementById("left-out");
-    var rightIn = document.getElementById("right-in");
-    var rightOut = document.getElementById("right-out");
-    var display = document.getElementById("display");
+    function $(id) {
+        return document.getElementById(id);
+    }
+    var text = $("text");
+    var leftIn = $("left-in");
+    var leftOut = $("left-out");
+    var rightIn = $("right-in");
+    var rightOut = $("right-out");
+    var display = $("display");
     var arrLi = display.getElementsByTagName("li");
-    var sort = document.getElementById("sort");
+    var sort = $("sort");
+    var reset = $("reset");
+    var random = $("random");
     var num = [];
-    var result = [];
     var count = 0;
-    var isCompleted = false;
+    var complete = false;
+
     function addEvent(element, type, handler) {
         if (element.addEventListener) {
             element.addEventListener(type, handler, false);
@@ -20,30 +25,29 @@ window.onload = function () {
             element["on" + type] = handler;
         }
     }
-    function isLegal() {
+
+    addEvent(leftIn, "click", function () {
         if (text.value !== "") {
-            var temp = parseInt(text.value);
-            if (temp < 10 || temp > 100) {
+            if (!/^\d+$/.test(text.value) || parseInt(text.value) < 10 || parseInt(text.value) > 100) {
                 alert("请输入10-100以内的数字！");
                 text.value = "";
-                return false;
+            } else {
+                if (count < 60) {
+                    num.unshift(parseInt(text.value));
+                    var li = document.createElement("li");
+                    li.style.height = parseInt(text.value) + "%";
+                    li.innerHTML = text.value;
+                    count++;
+                    display.insertBefore(li, display.firstChild);
+                } else {
+                    alert("输入数据太多啦！不能超过60个！")
+                }
             }
-            return true;
-        }
-        alert("输入不能为空！");
-        return false;
-    }
-    addEvent(leftIn, "click", function () {
-        if (isLegal() && count <= 60) {
-            num.unshift(parseInt(text.value));
-            var li = document.createElement("li");
-            li.style.height = parseInt(text.value) * 3 + "px";
-            li.style.lineHeight = parseInt(text.value) * 3 + "px";
-            li.innerHTML = text.value;
-            count++;
-            display.insertBefore(li, display.firstChild);
+        } else {
+            alert("输入不能为空！");
         }
     });
+
     addEvent(leftOut, "click", function () {
         if (display.firstChild !== null) {
             num.shift();
@@ -52,17 +56,29 @@ window.onload = function () {
             alert("已经空了，没有可以移除的了！");
         }
     });
+
     addEvent(rightIn, "click", function () {
-        if (isLegal() && count <= 60) {
-            num.push(parseInt(text.value));
-            var li = document.createElement("li");
-            li.style.height = parseInt(text.value) * 3 + "px";
-            li.style.lineHeight = parseInt(text.value) * 3 + "px";
-            li.innerHTML = text.value;
-            count++;
-            display.appendChild(li);
+        if (text.value !== "") {
+            if (!/^\d+$/.test(text.value) || parseInt(text.value) < 10 || parseInt(text.value) > 100) {
+                alert("请输入10-100以内的数字！");
+                text.value = "";
+            } else {
+                if (count < 60) {
+                    num.push(parseInt(text.value));
+                    var li = document.createElement("li");
+                    li.style.height = parseInt(text.value) + "%";
+                    li.innerHTML = text.value;
+                    count++;
+                    display.appendChild(li);
+                } else {
+                    alert("输入数据太多啦！不能超过60个！")
+                }
+            }
+        } else {
+            alert("输入不能为空！");
         }
     });
+
     addEvent(rightOut, "click", function () {
         if (display.lastChild !== null) {
             num.pop();
@@ -71,56 +87,80 @@ window.onload = function () {
             alert("已经空了，没有可以移除的了！");
         }
     });
+
     addEvent(text, "focus", function () {
         text.value = "";
     });
+
+    addEvent(random, "click", function () {
+        randomQueue();
+    });
+
     addEvent(reset, "click", function () {
         text.value = "";
-        result = [];
         num = [];
         display.innerHTML = "";
-        isCompleted = false;
+        complete = false;
     });
+
     addEvent(sort, "click", function () {
-        if (!isCompleted) {
-            for (var i = 0, len = arrLi.length; i < len; i++) {
-                arrLi[i].style.order = i;
-                num[i] = [num[i], i];
+        if (!complete) {
+            if (arrLi[0]) {
+                startBubbleSort(num);
+                complete = true;
+            } else {
+                alert("通过左侧入或者右侧入输入一些要排序的数据！");
             }
-            mergeSort(num);
-            for (i = 0; i < num.length; i++) {
-                for (var j = 0; j < len; j++) {
-                    if (parseInt(css(arrLi[j], "order")) === num[i][1]) {
-                        result[num[i][1]] = i;
-                        break;
-                    }
-                }
-            }
-            for (i = 0; i < result.length; i++) {
-                arrLi[i].style.order = result[i];
-            }
-            isCompleted = true;
         } else {
-            alert("请点击重置按钮！");
+            alert("请点击重置数据按钮才能开始新的排序！");
         }
     });
-    function mergeSort(array) {
-        var temp = null;
-        for (var i = 0, len = array.length; i < len - 1; i++) {
-            for (var j = i + 1; j < len; j++) {
-                if (array[i][0] > array[j][0]) {
-                    temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
+
+    function flashDOM(array) {
+        var html = "";
+        for (var i = 0; i < array.length; i++) {
+            html += "<li style='height: " + array[i] + "%;'><p>" + array[i] + "</p></li>";
+        }
+        display.innerHTML = html;
+    }
+
+    function startBubbleSort(array) {
+        var i = 0,
+            j = 1,
+            temp,
+            len = array.length;
+        run();
+        function run() {
+            if (i < len) {
+                if (j < len) {
+                    if (array[i] > array[j]) {
+                        temp = array[i];
+                        array[i] = array[j];
+                        array[j] = temp;
+                        arrLi[i].style.height = array[i] + "%";
+                        arrLi[i].innerHTML = "<p>" + array[i] + "</p>";
+                        arrLi[j].style.height = array[j] + "%";
+                        arrLi[j].innerHTML = "<p>" + array[j] + "</p>";
+                    }
+                    j++;
+                } else {
+                    i++;
+                    j = i + 1;
                 }
+                setTimeout(run, 60);
+            } else {
+                return;
             }
         }
     }
-    function css(obj, attribute) {
-        if (obj.currentStyle) {
-            return obj.currentStyle[attribute];
-        } else {
-            return getComputedStyle(obj, false)[attribute];
+
+    function randomQueue() {
+        num= [];
+        for(var i = 0; i < 60; i++) {
+            num.push(parseInt(Math.random() * 91) + 10);
         }
+        count = 60;
+        flashDOM(num);
     }
+
 };

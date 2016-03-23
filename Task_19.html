@@ -20,33 +20,42 @@
 			width: 400px;
 		}
 		#display {
-			width: 80%;
-			height: 500px;
+			width: 99%;
+			height: 650px;
 			margin: 0 auto;
+			padding: 20px 0;
 			border: 1px solid black;
 			display: flex;
 			justify-content: center;
 			align-items: flex-end;
 			background: white;
+			overflow: auto;
+			position: relative;
 		}
 		#display li {
 			list-style: none;
-			margin: 10px;
-			width: 2%;
+			margin: 0 1px;
+			width: 24px;
 			background-color: gray;
-			color: orange;
+			position: relative;
+		}
+		#display li p {
+			position: absolute;
+			top: -20px;
 			text-align: center;
+			width: 24px;
 		}
 	</style>
 </head>
 <body>
-<input id="text" type="text" value="输入想加入队列的10-100以内的数字">
+<input id="text" type="text" value="">
 <input id="left-in" type="button" value="左侧入">
 <input id="right-in" type="button" value="右侧入">
 <input id="left-out" type="button" value="左侧出">
 <input id="right-out" type="button" value="右侧出">
 <input id="sort" type="button" value="点我开始冒泡排序">
 <input id="reset" type="button" value="重置数据">
+<input id="random" type="button" value="生成随机数">
 <ul id="display"></ul>
 </body>
 </html>
