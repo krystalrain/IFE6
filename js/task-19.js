@@ -119,7 +119,7 @@ window.onload = function () {
     function flashDOM(array) {
         var html = "";
         for (var i = 0; i < array.length; i++) {
-            html += "<li style='height: " + array[i] + "%; background;'><p>" + array[i] + "</p></li>";
+            html += "<li style='height: " + array[i] + "%; background: " + randomColor() + ";'><p>" + array[i] + "</p></li>";
         }
         display.innerHTML = html;
     }
@@ -130,7 +130,7 @@ window.onload = function () {
             temp,
             len = array.length,
             timer = null;
-        timer = setInterval(run, 30);
+        timer = setInterval(run, 10);
         function run() {
             if (i < len) {
                 if (j < len) {
@@ -158,7 +158,7 @@ window.onload = function () {
     function randomColor() {
         var rand = Math.floor(Math.random() * 0xFFFFFF).toString(16);
         if (rand.length === 6) {
-            return rand;
+            return "#" + rand;
         } else {
             return randomColor();
         }
