@@ -116,7 +116,7 @@ window.onload = function () {
         }
     });
 
-    function flashDOM(array) {
+    function flashDOM(array) {//刷新DOM
         var html = "";
         for (var i = 0; i < array.length; i++) {
             html += "<li style='height: " + array[i] + "%; background: " + randomColor() + ";'><p>" + array[i] + "</p></li>";
@@ -124,13 +124,13 @@ window.onload = function () {
         display.innerHTML = html;
     }
 
-    function startBubbleSort(array) {
+    function startBubbleSort(array) {//开始冒泡排序
         var i = 0,
             j = 1,
             temp,
             len = array.length,
             timer = null;
-        timer = setInterval(run, 10);
+        timer = setInterval(run, 100);//每次调用run()，如果发现有符合条件的则交换数值
         function run() {
             if (i < len) {
                 if (j < len) {
@@ -155,7 +155,7 @@ window.onload = function () {
         }
     }
 
-    function randomColor() {
+    function randomColor() {//生产随机颜色
         var rand = Math.floor(Math.random() * 0xFFFFFF).toString(16);
         if (rand.length === 6) {
             return "#" + rand;
@@ -164,7 +164,7 @@ window.onload = function () {
         }
     }
 
-    function randomQueue() {
+    function randomQueue() {//生成随机数据
         num= [];
         for(var i = 0; i < 60; i++) {
             num.push(parseInt(Math.random() * 91) + 10);
