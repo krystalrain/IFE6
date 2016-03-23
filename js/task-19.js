@@ -130,7 +130,7 @@ window.onload = function () {
             temp,
             len = array.length,
             timer = null;
-        timer = setInterval(run, 100);//每次调用run()，如果发现有符合条件的则交换数值
+        timer = setInterval(run, 30);//每次调用run()，如果发现有符合条件的则交换数值
         function run() {
             if (i < len) {
                 if (j < len) {
