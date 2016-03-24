@@ -110,5 +110,9 @@ window.onload = function () {
             alert("输入不能为空！");
         }
     });
-
+    addEvent(resetRight, "click", function () {
+        text.value = "";
+        hobbyList.innerHTML = "";
+        hobbyNum = [];
+    });
 };
