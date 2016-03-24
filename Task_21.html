@@ -43,6 +43,7 @@
 			margin: 0 auto;
 		}
 		#display li, #hobby-display li {
+			width: 100px;
 			list-style: none;
 			background-color: aqua;
 			float: left;
@@ -51,6 +52,16 @@
 			padding: 10px;
 			line-height: 50px;
 			text-align: center;
+			color: white;
+			-webkit-transition: all 1s ease-in-out;
+			-moz-transition: all 1s ease-in-out;
+			-o-transition: all 1s ease-in-out;
+			transition: all 1s ease-in-out;
+		}
+		#display li.mouseover {
+			width: 200px;
+			background-color: red;
+			cursor: pointer;
 		}
 		@media screen and (max-width: 800px) {
 			fieldset#left, fieldset#right {
