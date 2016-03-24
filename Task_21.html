@@ -52,9 +52,6 @@
 			line-height: 50px;
 			text-align: center;
 		}
-		#suggestion {
-			color: red;
-		}
 		@media screen and (max-width: 800px) {
 			fieldset#left, fieldset#right {
 				width: 100%;
@@ -66,7 +63,7 @@
 <body>
 <fieldset id="left">
 	<legend>标签</legend>
-	<label form="tagInput">Tag：<input id="tagInput" type="text"><span id="suggestion"></span></label>
+	<label form="tagInput">Tag：<input id="tagInput" type="text"></label>
 	<input id="reset-left" type="button" value="重置">
 	<ul id="display"></ul>
 </fieldset>
