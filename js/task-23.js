@@ -71,6 +71,8 @@ window.onload = function () {
         var choose = $("choose");
         var text = "";
         var found = false;
+        var startTime = 0,
+            endTime = 0;
         /*
          添加事件
          */
@@ -100,6 +102,8 @@ window.onload = function () {
          */
         function reset() {
             if (traversalResult.length > 0) { //如果队列非空即正在遍历
+                startTime = 0;
+                endTime = 0;
                 found = false;
                 text = "";
                 head.style.backgroundColor = "#fff";//清除残留蓝色
@@ -226,7 +230,8 @@ window.onload = function () {
                 if (trim(text) === search.value) {
                     head.style.backgroundColor = "deeppink";
                     found = true;
-                    alert("Bingo！红色的就是");
+                    endTime = new Date();
+                    alert("Bingo！本次查询时间：" + (endTime - startTime) / 1000 + "s");
                     return;
                 } else {
                     head.style.backgroundColor = "#6fa3ff";//显示蓝色
@@ -252,6 +257,7 @@ window.onload = function () {
          */
         $.delegateEvent(choose, "button", "click", startTraversal);
         function startTraversal() {
+            startTime = new Date();
             if (this.id === "preDFS") {
                 preDFS(root);
             } else if (this.id === "inDFS") {
