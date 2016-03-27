@@ -156,6 +156,10 @@ window.onload = function () {
             }
         }
         function reset() {
+            if (currentClick) {//查找之前如果有点击状态下的项目，则先去除掉样式
+                removeClass(currentClick, "clicked");
+                spanDisplay(currentClick, "none");
+            }
             if (traversalResult.length > 0) { //如果队列非空即正在遍历
                 found = false;
                 text = "";
