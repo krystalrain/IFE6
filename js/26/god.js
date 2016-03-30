@@ -8,6 +8,9 @@
     无线电介质
      */
     var contain = basicFunction.getElement("#contain");
+    /*
+    上帝是万能的，飞船由上帝来创造
+     */
     god.createSpaceship = function (orbitId) {
         //1秒后发送创建飞船消息
         setTimeout(function() {
@@ -25,6 +28,9 @@
             contain.appendChild(spaceshipDiv);
         }, 1000);
     };
+    /*
+     Mediator介质由上帝创造
+     */
     god.Mediator = {
         sendMessage: function (message) {
             //1秒后发送消息

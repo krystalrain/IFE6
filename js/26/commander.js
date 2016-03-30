@@ -1,7 +1,7 @@
 (function (window, undefined) {
     var commander = {};
     /*
-    记录各个轨道上的状态
+    记录各个轨道的状态，看是否存在飞船
      */
     commander.orbitStatusRecord = [false, false, false, false];
     /*
