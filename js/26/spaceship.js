@@ -11,6 +11,9 @@
         this.deg = 0;
         this.degTimer = null;
         this.energyTimer = null;
+        /*
+        动力系统，飞行和停止
+         */
         this.powerSystem = {
             //开始飞行
             start: function () {
@@ -67,6 +70,9 @@
                 that.deg = that.deg % 360;
             }
         };
+        /*
+        能量系统，能量消耗以及太阳能的补充
+         */
         this.energySystem = {
             solarEnergy: function () {
                 that.energy += 2;
@@ -88,6 +94,9 @@
                 return that.energy;
             }
         };
+        /*
+        无线电系统，飞船用来接收控制官发来的消息
+         */
         this.radioSystem = {
             recieveMessage: function (message) {
                 //检查消息是否是发给自己的

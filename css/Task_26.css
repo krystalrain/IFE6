@@ -168,6 +168,10 @@ body {
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     transform: rotate(0deg);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
 }
 
 .space-ship div {
@@ -177,6 +181,10 @@ body {
     top: 0;
     width: 100px;
     height: 25px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
 }
 .space-ship p {
     position: absolute;
@@ -186,4 +194,8 @@ body {
     height: 25px;
     line-height: 25px;
     text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
 }
