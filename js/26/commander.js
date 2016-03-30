@@ -16,7 +16,7 @@
         basicFunction.showMessage("在轨道" + (orbitId + 1) + "上创建飞船！", "yellow");
         god.createSpaceship(orbitId);
     };
-    //开始飞行
+    //开始飞行，如果该轨道上存在多艘飞船，则一起飞行
     commander.startNavigate = function (orbitId) {
         if(!this.orbitStatusRecord[orbitId]) {//记录中该轨道没有飞船
             basicFunction.showMessage("轨道" + (orbitId + 1) + "上不存在飞船！", "orange");
@@ -29,7 +29,7 @@
             command: 'start'
         });
     };
-    //停止飞行
+    //停止飞行，如果该轨道上存在多艘飞船，则一起停止
     commander.stopNavigate = function (orbitId) {
         if(!this.orbitStatusRecord[orbitId]) {//记录中该轨道没有飞船
             basicFunction.showMessage("轨道" + (orbitId + 1) + "上不存在飞船！", "orange");
@@ -42,7 +42,7 @@
             command: 'stop'
         });
     };
-    //销毁飞船
+    //销毁飞船，如果该轨道上存在多艘飞船，则一起销毁
     commander.spaceshipDestroy = function (orbitId) {
         if(!this.orbitStatusRecord[orbitId]) {//记录中该轨道没有飞船
             basicFunction.showMessage("轨道" + (orbitId + 1) + "上不存在飞船！", "orange");

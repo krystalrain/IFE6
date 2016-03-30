@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Microsoft YaHei UI",sans-serif;
+}
+body {
+    background: url("../image/night.jpg") no-repeat;
+    background-size: cover;
+}
+
+#contain {
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    left: 70%;
+    top: 50%;
+    margin: -200px 0 0 -200px;
+}
+#earth {
+    display: block;
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -75px 0 0 -100px;
+}
+
+#console {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 600px;
+    height: 350px;
+    border: 10px solid white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+}
+#console-title {
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: white;
+}
+#console-text {
+    background-color: rgba(150, 150, 150, 0.3);
+    height: 260px;
+    overflow: auto;
+    padding: 20px;
+}
+
+#control {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 500px;
+    height: 400px;
+    border: 10px solid white;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -o-border-radius: 20px;
+    border-radius: 20px;
+}
+#control-radio {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#control-radio table {
+    color: white;
+}
+#control-main {
+    color: white;
+    height: 200px;
+    background-color: rgba(150, 150, 150, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/** 飞船整体 */
+.space-ship {
+    background-color: red;
+    width: 100px;
+    height: 25px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    /** 旋转角度 */
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.space-ship div {
+    background-color: greenyellow;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 25px;
+}
+.space-ship p {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+}

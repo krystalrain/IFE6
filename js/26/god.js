@@ -17,9 +17,9 @@
                 return;
             }
             basicFunction.showMessage("向轨道" + (orbitId + 1) + "发送 create 指令成功！", "green");
-            god.spaceshipObject.push(new Spaceship(orbitId));
+            var shipId = god.spaceshipObject.push(new Spaceship(orbitId));
             var spaceshipDiv = document.createElement("div");
-            spaceshipDiv.id = "spaceship" + orbitId;
+            spaceshipDiv.id = "spaceship" + shipId;
             spaceshipDiv.className = "space-ship orbit-ship" + orbitId;
             spaceshipDiv.innerHTML = "<div></div><p>100%</p>";
             contain.appendChild(spaceshipDiv);
@@ -46,5 +46,52 @@
             }, 1000);
         }
     };
+    /*
+    运动定时器
+     */
+    (function () {
+        var contain = basicFunction.getElement("#contain");
+        god.moveTimer = setInterval(function () {
+            for(var i = 0; i < god.spaceshipObject.length; i++) {
+                var ship = basicFunction.getElement("#spaceship" + (i + 1));
+                //destroyed为true的飞船不处理
+                //destroyed为true，再判断是否removed为false，如果是则从DOM中移除该飞船
+                if (god.spaceshipObject[i].destroyed) {
+                    if (!god.spaceshipObject[i].removed) {
+                        contain.removeChild(ship);
+                        god.spaceshipObject[i].removed = true;
+                    }
+                    continue;
+                }
+                //改变角度
+                god.spaceshipObject[i].powerSystem.changeDeg();
+                //修改飞船位置
+                ship.style.webkitTransform = "rotate(" + god.spaceshipObject[i].deg + "deg)";
+                ship.style.mozTransform = "rotate(" + god.spaceshipObject[i].deg + "deg)";
+                ship.style.msTransform = "rotate(" + god.spaceshipObject[i].deg + "deg)";
+                ship.style.oTransform = "rotate(" + god.spaceshipObject[i].deg + "deg)";
+                ship.style.transform = "rotate(" + god.spaceshipObject[i].deg + "deg)";
+                //能源显示
+                var currentEnergy = god.spaceshipObject[i].energySystem.getCurrentEnergy();
+                ship.firstElementChild.style.width = currentEnergy + "px";
+                ship.lastElementChild.innerHTML = currentEnergy + "%";
+            }
+        }, 100);
+        /*
+        能量定时器
+         */
+        god.energyTimer = setInterval(function () {
+            for(var i = 0; i < god.spaceshipObject.length; i++) {
+                //已销毁的飞船不处理
+                if(god.spaceshipObject[i].destroyed) {
+                    continue;
+                }
+                //太阳能充能系统
+                god.spaceshipObject[i].energySystem.solarEnergy();
+                //飞行耗能
+                god.spaceshipObject[i].energySystem.consumeEnergy();
+            }
+        }, 1000);
+    })();
     window.god = god;
 })(window);

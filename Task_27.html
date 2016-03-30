@@ -1,0 +1,50 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>IFE JavaScript Task 27</title>
+	<link href="css/Task_27.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- 地球与轨道 -->
+<div id="contain">
+	<img src="image/24.png" id="earth" alt="earth">
+</div>
+
+<!-- 控制台 -->
+<div id="console">
+	<div id="console-title">消息窗</div>
+	<div id="console-text"></div>
+</div>
+
+<!-- 操作面板 -->
+<div id="control">
+	<div id="control-radio">
+		<table>
+			<tr>
+				<td>
+					动力系统选择：
+				</td>
+				<td>
+					<label><input type="radio" name="powerSystem" checked>前进号（速率10deg/s，能耗5%/s）</label><br>
+					<label><input type="radio" name="powerSystem">奔腾号（速率20deg/s，能耗7%/s）</label><br>
+					<label><input type="radio" name="powerSystem">超越号（速率50deg/s，能耗9%/s）</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					能源系统选择：
+				</td>
+				<td>
+					<label><input type="radio" name="energySystem" checked>劲量型（补充能源速度2%/s）</label><br>
+					<label><input type="radio" name="energySystem">光能型（补充能源速度3%/s）</label><br>
+					<label><input type="radio" name="energySystem">永久型（补充能源速度4%/s）</label>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="control-main"></div>
+</div>
+</body>
+</html>
