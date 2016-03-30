@@ -172,6 +172,7 @@ body {
     -moz-border-radius: 10px;
     -o-border-radius: 10px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .space-ship div {
@@ -181,10 +182,6 @@ body {
     top: 0;
     width: 100px;
     height: 25px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
 }
 .space-ship p {
     position: absolute;
