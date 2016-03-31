@@ -9,12 +9,12 @@ body {
 }
 
 #contain {
-    width: 400px;
-    height: 400px;
+    width: 800px;
+    height: 800px;
     position: absolute;
     left: 70%;
     top: 50%;
-    margin: -200px 0 0 -200px;
+    margin: -400px 0 0 -400px;
 }
 #earth {
     display: block;
@@ -24,6 +24,36 @@ body {
     left: 50%;
     top: 50%;
     margin: -75px 0 0 -100px;
+}
+.orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border: 1px dashed white;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+#orbit0 {
+    width: 300px;
+    height: 300px;
+    margin: -150px 0 0 -150px;
+}
+#orbit1 {
+    width: 450px;
+    height: 450px;
+    margin: -225px 0 0 -225px;
+}
+#orbit2 {
+    width: 600px;
+    height: 600px;
+    margin: -300px 0 0 -300px;
+}
+#orbit3 {
+    width: 800px;
+    height: 800px;
+    margin: -400px 0 0 -400px;
 }
 
 #console {
@@ -39,15 +69,16 @@ body {
     border-radius: 20px;
 }
 #console-title {
-    height: 50px;
+    height: 100px;
     text-align: center;
-    line-height: 50px;
+    line-height: 100px;
     color: white;
 }
 #console-text {
     background-color: rgba(150, 150, 150, 0.3);
-    height: 260px;
+    height: 210px;
     overflow: auto;
+    color: white;
     padding: 20px;
 }
 
@@ -55,32 +86,72 @@ body {
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 500px;
-    height: 400px;
+    width: 700px;
+    height: 350px;
     border: 10px solid white;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -o-border-radius: 20px;
     border-radius: 20px;
 }
-#control-radio {
-    height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-#control-radio table {
+#control-title {
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
     color: white;
 }
 #control-main {
-    color: white;
-    height: 200px;
+    height: 250px;
     background-color: rgba(150, 150, 150, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: white;
+}
+
+/** 第一轨道的飞船 */
+.orbit-ship0 {
+    margin: -160px 0 0 -50px;
+    /** 旋转中心 */
+    -webkit-transform-origin: center 160px;
+    -moz-transform-origin: center 160px;
+    -ms-transform-origin: center 160px;
+    -o-transform-origin: center 160px;
+    transform-origin: center 160px;
+}
+
+/** 第二轨道的飞船 */
+.orbit-ship1 {
+    margin: -235px 0 0 -50px;
+    /** 旋转中心 */
+    -webkit-transform-origin: center 235px;
+    -moz-transform-origin: center 235px;
+    -ms-transform-origin: center 235px;
+    -o-transform-origin: center 235px;
+    transform-origin: center 235px;
+}
+
+/** 第三轨道的飞船 */
+.orbit-ship2 {
+    margin: -310px 0 0 -50px;
+    /** 旋转中心 */
+    -webkit-transform-origin: center 310px;
+    -moz-transform-origin: center 310px;
+    -ms-transform-origin: center 310px;
+    -o-transform-origin: center 310px;
+    transform-origin: center 310px;
+}
+
+/** 第四轨道的飞船 */
+.orbit-ship3 {
+    margin: -410px 0 0 -50px;
+    /** 旋转中心 */
+    -webkit-transform-origin: center 410px;
+    -moz-transform-origin: center 410px;
+    -ms-transform-origin: center 410px;
+    -o-transform-origin: center 410px;
+    transform-origin: center 410px;
 }
 
 /** 飞船整体 */
