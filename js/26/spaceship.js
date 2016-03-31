@@ -6,9 +6,9 @@
         var that = this;
         this.orbitId = orbitId;
         this.status = 0;//0表示停止，1表示飞行
-        this.energy = 100;
+        this.energy = 100;//初始能量100%
         this.destroyed = false;
-        this.deg = 0;
+        this.deg = 0;//初始旋转角度0
         this.removed = false;//是否已经从DOM中移除了该飞船，false表示还没有，true表示已经移除
         /*
         动力系统，飞行和停止
@@ -40,27 +40,27 @@
          */
         this.energySystem = {
             solarEnergy: function () {
-                that.energy += 2;
+                that.energy += 2;//太阳能补充速度
                 if(that.energy > 100) {
                     that.energy = 100;
                 }
             },
             consumeEnergy: function () {
                 if(that.status === 1) {
-                    that.energy -= 5;
+                    that.energy -= 5;//能量每秒消耗速度
                 }
                 if(that.energy <= 0) {
                     that.status = 0;
                     that.energy = 0;
                 }
             },
-            //取当前能源值
+            //获取当前能源值
             getCurrentEnergy: function () {
                 return that.energy;
             }
         };
         /*
-        无线电系统，飞船用来接收控制官发来的消息
+        飞船上的无线电系统，用来接收控制官发来的消息
          */
         this.radioSystem = {
             recieveMessage: function (message) {
@@ -94,5 +94,8 @@
             }
         };
     };
+    /*
+    返回接口
+     */
     window.Spaceship = Spaceship;
 })(window);

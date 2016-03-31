@@ -146,6 +146,9 @@
             }
         });
     };
+    /*
+    为control-main添加事件代理
+     */
     var controlMain = basicFunction.getElement("#control-main");
     basicFunction.delegateEvent(controlMain, "button", "click", basicFunction.buttonClick);
     /*
