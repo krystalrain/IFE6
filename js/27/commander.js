@@ -29,7 +29,7 @@
         basicFunction.showMessage("向轨道" + (orbitId + 1) + "发送开始飞行指令！", "yellow");
         //发送广播消息
         god.BUS.sendMessage(god.BUS.Adapter.encoding(orbitId, {
-            command: 'start'
+            command: "start"
         }));
     };
     //停止飞行，如果该轨道上存在多艘飞船，则一起停止
@@ -41,7 +41,7 @@
         basicFunction.showMessage("向轨道" + (orbitId + 1) + "发送停止飞行指令！", "yellow");
         //发送广播消息
         god.BUS.sendMessage(god.BUS.Adapter.encoding(orbitId, {
-            command: 'stop'
+            command: "stop"
         }));
     };
     //销毁飞船，如果该轨道上存在多艘飞船，则一起销毁
@@ -55,7 +55,7 @@
         basicFunction.showMessage("向轨道" + (orbitId + 1) + "发送销毁指令！", "yellow");
         //发送广播消息
         god.BUS.sendMessage(god.BUS.Adapter.encoding(orbitId, {
-            command: 'destroy'
+            command: "destroy"
         }));
     };
     /*

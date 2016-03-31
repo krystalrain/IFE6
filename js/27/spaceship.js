@@ -76,11 +76,11 @@
                 //执行命令
                 switch(msg.message.command) {
                     //开始飞行
-                    case 'start':
+                    case "start":
                         that.powerSystem.start();
                         break;
                     //停止飞行
-                    case 'stop':
+                    case "stop":
                         that.powerSystem.stop();
                         break;
                     //自爆

@@ -92,21 +92,21 @@
      */
     var systemType = {
         powerType: [
-            {type: '前进号', deg: 3, consumeEnergy: 5},
-            {type: '奔腾号', deg: 5, consumeEnergy: 7},
-            {type: '超越号', deg: 8, consumeEnergy: 9}
+            {type: "前进号", deg: 3, consumeEnergy: 5},
+            {type: "奔腾号", deg: 5, consumeEnergy: 7},
+            {type: "超越号", deg: 8, consumeEnergy: 9}
         ],
         energyType: [
-            {type: '劲量型', solarEnergy: 2},
-            {type: '光能型', solarEnergy: 3},
-            {type: '永久型', solarEnergy: 4}
+            {type: "劲量型", solarEnergy: 2},
+            {type: "光能型", solarEnergy: 3},
+            {type: "永久型", solarEnergy: 4}
         ]
     };
     var controlMain = basicFunction.getElement("#control-main");
     var arrSelect = controlMain.getElementsByTagName("select");
     var option = null;
     for(var i = 0; i < arrSelect.length; i++) {
-        if(arrSelect[i].dataset.type == 'powerSystem') {
+        if(arrSelect[i].dataset.type == "powerSystem") {
             for(var j = 0; j < systemType.powerType.length; j++) {
                 option = document.createElement("option");
                 option.setAttribute("value", j.toString());
@@ -132,36 +132,36 @@
         var orbit = parseInt(this.parentNode.dataset.id);
         var message = this.dataset.type;
         switch(message) {
-            case 'create':
+            case "create":
                 var powerSystem = this.previousElementSibling.previousElementSibling;//获取动力类型下拉框
                 var energySystem = this.previousElementSibling;//获取能量类型下拉框
-                if(this.dataset.status === 'create') {
+                if(this.dataset.status === "create") {
                     commander.createSpaceship(orbit, parseInt(powerSystem.value), parseInt(energySystem.value));
-                    this.dataset.status = 'created';
-                    this.innerHTML = '自爆销毁';
+                    this.dataset.status = "created";
+                    this.innerHTML = "自爆销毁";
                     this.nextElementSibling.disabled = false;
                     powerSystem.disabled = true;
                     energySystem.disabled = true;
                 } else {
                     commander.spaceshipDestroy(orbit);
-                    this.dataset.status = 'create';
-                    this.innerHTML = '创建飞船';
+                    this.dataset.status = "create";
+                    this.innerHTML = "创建飞船";
                     this.nextElementSibling.disabled = true;
-                    this.nextElementSibling.dataset.status = 'start';
-                    this.nextElementSibling.innerHTML = '飞行';
+                    this.nextElementSibling.dataset.status = "start";
+                    this.nextElementSibling.innerHTML = "飞行";
                     powerSystem.disabled = false;
                     energySystem.disabled = false;
                 }
                 break;
             default:
-                if(this.dataset.status === 'start') {
+                if(this.dataset.status === "start") {
                     commander.startNavigate(orbit);
-                    this.dataset.status = 'stop';
-                    this.innerHTML = '停止';
+                    this.dataset.status = "stop";
+                    this.innerHTML = "停止";
                 } else {
                     commander.stopNavigate(orbit);
-                    this.dataset.status = 'start';
-                    this.innerHTML = '飞行';
+                    this.dataset.status = "start";
+                    this.innerHTML = "飞行";
                 }
                 break;
         }

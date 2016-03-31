@@ -28,7 +28,7 @@
             setTimeout(function () {
                 //解码
                 var msg = god.BUS.Adapter.decoding(message);
-                if(message.substr(0, 1) === '1') {//如果是重发的消息
+                if(message.substr(0, 1) === "1") {//如果是重发的消息
                     message = message.substr(1);//去除第一个
                 }
                 //10%概率丢包
@@ -75,7 +75,7 @@
                     case 3: binary += "011"; break;
                 }
                 switch(message.command) {
-                    case 'create':
+                    case "create":
                         binary += "00";
                         switch(message.powerSystem) {
                             case 0: binary += "00"; break;
@@ -88,9 +88,9 @@
                             case 2: binary += "10"; break;
                         }
                         break;
-                    case 'start': binary += "01"; break;
-                    case 'stop': binary += "10"; break;
-                    case 'destroy': binary += "11"; break;
+                    case "start": binary += "01"; break;
+                    case "stop": binary += "10"; break;
+                    case "destroy": binary += "11"; break;
                 }
                 return binary;
             },
@@ -99,33 +99,33 @@
              */
             decoding: function (data) {
                 var originalCommand = {receiver: null, message: {}, retried: false};//解码之后的命令格式
-                if(data.substr(0, 1) === '1') {//如果该命令属于重发命令
+                if(data.substr(0, 1) === "1") {//如果该命令属于重发命令
                     originalCommand.retried = true;//retried为true表示该指令属于重发指令
                     data = data.substr(1);//去除重发标志
                 }
                 switch(data.substr(0, 3)) {//取前三个
-                    case '000': originalCommand.receiver = '轨道1'; originalCommand.message.id = 0; break;
-                    case '001': originalCommand.receiver = '轨道2'; originalCommand.message.id = 1; break;
-                    case '010': originalCommand.receiver = '轨道3'; originalCommand.message.id = 2; break;
-                    case '011': originalCommand.receiver = '轨道4'; originalCommand.message.id = 3; break;
+                    case "000": originalCommand.receiver = "轨道1"; originalCommand.message.id = 0; break;
+                    case "001": originalCommand.receiver = "轨道2"; originalCommand.message.id = 1; break;
+                    case "010": originalCommand.receiver = "轨道3"; originalCommand.message.id = 2; break;
+                    case "011": originalCommand.receiver = "轨道4"; originalCommand.message.id = 3; break;
                 }
                 switch(data.substr(3, 2)) {//取第四个和第五个
-                    case '00'://create命令
-                        originalCommand.message.command = 'create';
+                    case "00"://create命令
+                        originalCommand.message.command = "create";
                         switch(data.substr(5, 2)) {//取第六个和第七个
-                            case '00': originalCommand.message.drive = 0; break;
-                            case '01': originalCommand.message.drive = 1; break;
-                            case '10': originalCommand.message.drive = 2; break;
+                            case "00": originalCommand.message.drive = 0; break;
+                            case "01": originalCommand.message.drive = 1; break;
+                            case "10": originalCommand.message.drive = 2; break;
                         }
                         switch(data.substr(7, 2)) {//取第八个个和第九个
-                            case '00': originalCommand.message.energy = 0; break;
-                            case '01': originalCommand.message.energy = 1; break;
-                            case '10': originalCommand.message.energy = 2; break;
+                            case "00": originalCommand.message.energy = 0; break;
+                            case "01": originalCommand.message.energy = 1; break;
+                            case "10": originalCommand.message.energy = 2; break;
                         }
                         break;
-                    case '01': originalCommand.message.command = 'start'; break;
-                    case '10': originalCommand.message.command = 'stop'; break;
-                    case '11': originalCommand.message.command = 'destroy'; break;
+                    case "01": originalCommand.message.command = "start"; break;
+                    case "10": originalCommand.message.command = "stop"; break;
+                    case "11": originalCommand.message.command = "destroy"; break;
                 }
                 return originalCommand;
             }
