@@ -31,8 +31,8 @@
                 if(message.substr(0, 1) === '1') {//如果是重发的消息
                     message = message.substr(1);//去除第一个
                 }
-                //一定概率（10%）丢包
-                if(Math.random() <= 0.9) {
+                //10%概率丢包
+                if(Math.random() <= 0.1) {
                     basicFunction.showMessage("向 " + msg.receiver + " 发送的 " + msg.message.command + " 指令丢包！重新发送指令中...", "red");
                     god.BUS.sendMessage("1" + message);//发送指令失败，在前面添加1，表示该指令属于重发指令，继续尝试发送
                     return;
