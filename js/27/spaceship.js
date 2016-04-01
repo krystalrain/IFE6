@@ -4,6 +4,9 @@
      */
     var Spaceship = function (orbitId, powerSystem, energySystem) {
         var that = this;
+        /*
+        建造飞船，初始化飞船对象
+         */
         this.orbitId = orbitId;
         this.rate = systemType.powerType[powerSystem].deg;
         this.consume = systemType.powerType[powerSystem].consumeEnergy;
