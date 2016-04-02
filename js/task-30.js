@@ -3,6 +3,13 @@ var myQuery = {
      * 用于存储每一项的验证结果
      */
     result: [false, false, false, false, false],
+    helpMessage: [
+        "4-16个字符，中文及中文符号占2字符，英文、数字及英文符号占1字符",
+        "以字母开头，长度在6~18之间，只能包含字符、数字和下划线",
+        "请再输入一次密码",
+        "请输入合法的邮箱",
+        "请输入中国大陆内合法的手机号"
+    ],
     /**
      * 获取DOM元素
      * @param id
@@ -130,9 +137,13 @@ var arrInput = document.getElementsByTagName("input");
  * 为每个input添加获得焦点事件，这里有个问题，如果给form或者table添加事件代理则无效
  */
 for (var i = 0, len = arrInput.length; i < len; i++) {
-    myQuery.addEvent(arrInput[i], "focus", function () {
-        myQuery.getElement("#" + this.dataset.help).style.display = "block";
-    });
+    (function (k) {
+        myQuery.addEvent(arrInput[i], "focus", function () {
+            myQuery.getElement("#" + this.dataset.help).innerHTML = myQuery.helpMessage[k];
+            myQuery.getElement("#" + this.dataset.help).style.color = "lightgray";
+            this.style.border = "2px solid gray";
+        });
+    })(i);
     myQuery.addEvent(arrInput[i], "blur", check);
 }
 /**
