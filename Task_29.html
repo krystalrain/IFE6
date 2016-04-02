@@ -7,13 +7,32 @@
 		* {
 			margin: 0;
 			padding: 0;
+			font-size: 30px;
+			font-family: "Microsoft YaHei UI", sans-serif;
+		}
+		#validate {
+			width: 500px;
+			height: 50px;
+			padding: 10px;
+		}
+		.text {
+			width: 100px;
 		}
 		table {
-			width: 400px;
+			width: 800px;
 			margin: 200px auto 0;
 		}
 		table td {
-			height: 20px;
+			height: 50px;
+		}
+		#confirm {
+			width: 80px;
+			height: 50px;
+			color: white;
+			border: none;
+			background-color: #2F79BA;
+			border-radius: 10px;
+			outline: none;
 		}
 	</style>
 </head>
@@ -21,7 +40,7 @@
 <form>
 	<table>
 		<tr>
-			<td>
+			<td class="text">
 				<p>名称：</p>
 			</td>
 			<td>
@@ -30,7 +49,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td></td>
+			<td class="text"></td>
 			<td>
 				<p id="message"></p>
 			</td>
