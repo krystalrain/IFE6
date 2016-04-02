@@ -10,22 +10,16 @@
 			font-size: 30px;
 			font-family: "Microsoft YaHei UI", sans-serif;
 		}
-		#validate {
-			width: 500px;
-			height: 50px;
-			padding: 10px;
-		}
-		.text {
+		td.text {
 			width: 100px;
 		}
 		table {
-			width: 800px;
 			margin: 200px auto 0;
 		}
-		table td {
-			height: 50px;
+		table tr td {
+			height: 80px;
 		}
-		#confirm {
+		input#confirm {
 			width: 80px;
 			height: 50px;
 			color: white;
@@ -33,6 +27,20 @@
 			background-color: #2F79BA;
 			border-radius: 10px;
 			outline: none;
+		}
+		input#validate {
+			width: 500px;
+			height: 50px;
+			padding: 10px;
+			border: 1px solid gray;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			-o-border-radius: 10px;
+			border-radius: 10px;
+		}
+		p#message {
+			width: 550px;
+			color: #e2e2e2;
 		}
 	</style>
 </head>
@@ -51,7 +59,7 @@
 		<tr>
 			<td class="text"></td>
 			<td>
-				<p id="message"></p>
+				<p id="message">请输入4-16位中文、英文、数字、中文符号或英文符号</p>
 			</td>
 		</tr>
 	</table>

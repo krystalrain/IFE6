@@ -41,4 +41,9 @@ var addEvent = function (element, event, listener) {
         element["on" + event] = listener;
     }
 };
+var deleteMessage = function () {
+    message.innerHTML = "";
+    validate.style.border = "1px solid gray";
+};
 addEvent(confirm, "click", validateInput);
+addEvent(validate, "focus", deleteMessage);//输入框每次获得焦点清空提示内容并恢复边框颜色
