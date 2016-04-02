@@ -85,10 +85,23 @@
                         that.powerSystem.stop();
                         break;
                     //自爆
-                    default:
+                    case "destroy":
                         that.destroySystem.destroy();
                         break;
                 }
+            },
+            /**
+             * 飞船的广播系统，用于向全宇宙广播自身状态
+             */
+            broadcastMessage: function () {
+                god.BUS.sendMessage(god.BUS.Adapter.encoding("commander", {
+                    id: that.orbitId,
+                    command: "broadcast",
+                    status: that.status,
+                    energy: that.energy,
+                    powerSystem: powerSystem,
+                    energySystem: energySystem
+                }));
             }
         };
         /**

@@ -24,6 +24,7 @@
      */
     var console = basicFunction.getElement("#console");
     var control = basicFunction.getElement("#control");
+    var supervise = basicFunction.getElement("#supervise");
     basicFunction.drag = function (obj) {
         var timer = null,
             disY = 0,
@@ -68,11 +69,12 @@
                 document.onmousemove = null;
                 document.onmouseup = null;
             };
-            //return false;//如果阻止默认行为的话，将导致select无法显示下拉框
+            //return false;如果阻止默认行为的话，将导致select无法显示下拉框
         };
     };
     basicFunction.drag(console);
     basicFunction.drag(control);
+    basicFunction.drag(supervise);
     /**
      消息窗体显示消息
      */
