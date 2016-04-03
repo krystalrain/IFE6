@@ -69,6 +69,7 @@ var myQuery = {
             message.innerHTML = "输入长度为4-16位字符";
             message.style.color = "red";
             inputBorder.style.border = "2px solid red";
+            myQuery.result[0] = false;
         } else {
             message.innerHTML = "输入合法";
             message.style.color = "green";
@@ -92,6 +93,7 @@ var myQuery = {
             message.innerHTML = "密码不符合规范，请重新输入";
             message.style.color = "red";
             inputBorder.style.border = "2px solid red";
+            myQuery.result[1] = false;
         }
     },
     /**
@@ -110,6 +112,7 @@ var myQuery = {
             message.innerHTML = "邮箱不符合规范，请重新输入";
             message.style.color = "red";
             inputBorder.style.border = "2px solid red";
+            myQuery.result[3] = false;
         }
     },
     /**
@@ -128,6 +131,7 @@ var myQuery = {
             message.innerHTML = "手机号码不符合规范，请重新输入";
             message.style.color = "red";
             inputBorder.style.border = "2px solid red";
+            myQuery.result[4] = false;
         }
     }
 };
@@ -163,6 +167,7 @@ function check() {
                 myQuery.getElement("#" + this.dataset.help).innerHTML = "两次密码输入不一致，请重新输入！";
                 myQuery.getElement("#" + this.dataset.help).style.color = "red";
                 this.style.border = "2px solid red";
+                myQuery.result[2] = false;
             } else {
                 myQuery.getElement("#" + this.dataset.help).innerHTML = "输入合法";
                 myQuery.getElement("#" + this.dataset.help).style.color = "green";
@@ -173,6 +178,7 @@ function check() {
             myQuery.getElement("#" + this.dataset.help).innerHTML = "密码不符合规范，请重新输入";
             myQuery.getElement("#" + this.dataset.help).style.color = "red";
             this.style.border = "2px solid red";
+            myQuery.result[2] = false;
         }
     } else if (this.name === "validate_email") {
         myQuery.validateUserEmail(myQuery.getElement("#" + this.dataset.help), this, this.value);
