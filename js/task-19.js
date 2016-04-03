@@ -101,6 +101,7 @@ window.onload = function () {
         num = [];
         display.innerHTML = "";
         complete = false;
+        count = 0;
     });
 
     addEvent(sort, "click", function () {
