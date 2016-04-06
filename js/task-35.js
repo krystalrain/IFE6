@@ -85,13 +85,13 @@ var func = (function () {
          * @param event
          * @param listener
          */
-        addEvent: function (element, event, listener) {
-            if (element.addEventListener) { //标准
-                element.addEventListener(event, listener, false);
-            } else if (element.attachEvent) { //低版本ie
-                element.attachEvent("on" + event, listener);
-            } else { //都不行的情况
-                element["on" + event] = listener;
+        addEvent: function (element, event, listener) {
+            if (element.addEventListener) { //标准
+                element.addEventListener(event, listener, false);
+            } else if (element.attachEvent) { //低版本ie
+                element.attachEvent("on" + event, listener);
+            } else { //都不行的情况
+                element["on" + event] = listener;
             }
         }
     }
@@ -274,3 +274,10 @@ function startMove() {
             break;
     }
 }
+
+
+
+
+
+
+

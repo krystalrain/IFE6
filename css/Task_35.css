@@ -14,6 +14,17 @@ h1 {
 .inputArea {
     text-align: center;
 }
+button {
+    width: 200px;
+    height: 20px;
+    border: 1px solid #aaa;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    background: white;
+    margin: 10px;
+}
 .clearfix {
     zoom: 1;
 }
@@ -44,4 +55,14 @@ h1 {
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
+}
+
+textarea#command {
+    width: 360px;
+    height: 130px;
+    background-color: black;
+    color: #12ff00;
+    resize: none;
+    padding: 10px;
+    overflow: auto;
 }
