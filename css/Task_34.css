@@ -6,13 +6,11 @@
 h1 {
     text-align: center;
 }
+
 #container {
     border: 2px solid #000;
     position: relative;
     margin: 0 auto;
-}
-.inputArea {
-    text-align: center;
 }
 .clearfix {
     zoom: 1;
@@ -25,8 +23,8 @@ h1 {
 .maze-block {
     width: 42px;
     height: 42px;
-    border-bottom: 1px solid rgb(237 ,237 ,237);
-    border-right: 1px solid rgb(237 ,237 ,237);
+    border-bottom: 1px solid #aaa;
+    border-right: 1px solid #aaa;
     float: left;
 }
 .bottom-maze-block {
@@ -35,6 +33,7 @@ h1 {
 .right-maze-block {
     border-right: none;
 }
+
 .Action {
     width: 42px;
     height: 34px;
@@ -44,4 +43,8 @@ h1 {
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
     transition: all 1s ease;
+}
+
+.inputArea {
+    text-align: center;
 }

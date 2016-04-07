@@ -6,8 +6,10 @@ var square = null;
 /**
  * 定义常量
  */
-var WIDTH = 42;
-var HEIGHT = 42;
+var WIDTH = 42;//小方块的宽
+var HEIGHT = 42;//小方块的高
+var ROW = 18;//地图行数
+var COL = 18;//地图列数
 /**
  * 一些基础功能
  * @type {{craetTable, $, addEvent}}
@@ -72,6 +74,24 @@ var func = (function () {
             return oAction;
         },
         /**
+         * 生成索引
+         * @param topList
+         * @param leftList
+         * @param config
+         */
+        createList: function (topList, leftList, config) {
+            var str = "";
+            for (var i = 0; i < config.x; i++) {
+                str += "<li>" + i + "</li>";
+            }
+            leftList.innerHTML = str;
+            str = "";
+            for (i = 0; i < config.y; i++) {
+                str += "<li>" + i + "</li>";
+            }
+            topList.innerHTML = str;
+        },
+        /**
          * 获取元素
          * @param id
          * @returns {Element|HTMLElement}
@@ -85,14 +105,55 @@ var func = (function () {
          * @param event
          * @param listener
          */
-        addEvent: function (element, event, listener) {
-            if (element.addEventListener) { //标准
-                element.addEventListener(event, listener, false);
-            } else if (element.attachEvent) { //低版本ie
-                element.attachEvent("on" + event, listener);
-            } else { //都不行的情况
-                element["on" + event] = listener;
+        addEvent: function (element, event, listener) {
+            if (element.addEventListener) { //标准
+                element.addEventListener(event, listener, false);
+            } else if (element.attachEvent) { //低版本ie
+                element.attachEvent("on" + event, listener);
+            } else { //都不行的情况
+                element["on" + event] = listener;
             }
+        },
+        /**
+         * 对代码编号框进行渲染
+         * @param inputArea
+         * @param index
+         */
+        renderCmd: function (inputArea, index) {
+            var error = false;//每次渲染都新建这个变量，代表所有输入的指令是否合法，false表示所有指令都合法，反之表示有不合法的指令存在
+            var arrData = inputArea.value.split("\n");//用换行符分割
+            var str = "";
+            for (var i = 0; i < arrData.length; i++) {
+                if (func.checkCmd(arrData[i])) {
+                    str += "<li class='error'>" + (i + 1) + "</li>";
+                    error = true;//如果有不合法的指令则变为true
+                } else {
+                    str += "<li>" + (i + 1) + "</li>";
+                }
+            }
+            index.innerHTML = str;
+            /**
+             * 返回一个对象，包含代表所有指令是否合法的布尔值和分割好的初始指令序列
+             */
+            return {
+                haveError: error,
+                commandArray: arrData
+            };
+        },
+        /**
+         * 对每条指令进行检查，允许的指令格式为
+         * GO，GO n
+         * TUN LEF，TUN RIG，TUN BAC
+         * TRA LEF n，TRA RIG n，TRA TOP n，TRA BOT n，TRA LEF，TRA RIG，TRA TOP，TRA BOT
+         * MOV LEF n，MOV RIG n，MOV TOP n，MOV BOT n，MOV LEF，MOV RIG，MOV TOP，MOV BOT
+         * @param data
+         * @returns {boolean}
+         */
+        checkCmd: function (data) {
+            var regGO = /^GO(\s\d+)?$/;
+            var regTUN = /^TUN\s(LEF|BAC|RIG)$/; //检测TUN指令
+            var regTRAMOV = /^(TRA|MOV)\s(LEF|RIG|TOP|BOT)(\s\d+)?$/; //检测TRA指令跟MOV指令
+            return !regGO.test(data) && !regTUN.test(data) && !regTRAMOV.test(data);//返回检测结果
         }
     }
 })();
@@ -102,8 +163,17 @@ var func = (function () {
  */
 var container = func.$("container");
 square = func.createMap(container, {
-    x: 10,
-    y: 10
+    x: ROW,
+    y: COL
+});
+/**
+ * 生成顶部和左边的索引
+ */
+var topList = func.$("list_top");
+var leftList = func.$("list_left");
+func.createList(topList, leftList, {
+    x: ROW,
+    y: COL
 });
 /**
  * 小方块构造器
@@ -128,9 +198,9 @@ Square.prototype.go = function () {
     if (this.direction === 0) {//往上走
         this.x > 0 && this.x--;
     } else if (this.direction === 1) {//往右走
-        this.y < 9 && this.y++;
+        this.y < COL - 1 && this.y++;
     } else if (this.direction === 2) {//往下走
-        this.x < 9 && this.x++;
+        this.x < ROW - 1 && this.x++;
     } else if (this.direction === 3) {//往左走
         this.y > 0 && this.y--;
     }
@@ -178,9 +248,9 @@ Square.prototype.translationSquare = function (value) {
     if (value === "left") {//往左平移一格
         this.y > 0 && this.y--;
     } else if (value === "right") {//往右平移一格
-        this.y < 9 && this.y++;
+        this.y < COL - 1 && this.y++;
     } else if (value === "bottom") {//往下平移一格
-        this.x < 9 && this.x++;
+        this.x < ROW - 1 && this.x++;
     } else if (value === "top") {//往上平移一格
         this.x > 0 && this.x--;
     }
@@ -228,14 +298,11 @@ Square.prototype.moveAndRotate = function (value) {
     this.go();//旋转之后前进
 };
 /**
- * 输入命令并运行
- * @type {*|Element|HTMLElement}
+ * 分析、运行指令
+ * @param value
  */
-var command = func.$("command");
-var sure = func.$("sure");
-func.addEvent(sure, "click", startMove);
-function startMove() {
-    switch (command.value.trim()){
+Square.prototype.analyseCommand = function (value) {
+    switch (value) {
         case "GO":
             square.go();
             break;
@@ -273,11 +340,70 @@ function startMove() {
             square.moveAndRotate("bottom");
             break;
     }
+};
+/**
+ * 输入命令并运行
+ * @type {*|Element|HTMLElement}
+ */
+var command = func.$("command");//获取输入区域
+var sure = func.$("sure");//获取执行按钮
+var index = func.$("index");//获取左侧代码编号框
+func.addEvent(sure, "click", startMove);
+/**
+ * 点击执行按钮运行的事件处理函数
+ */
+function startMove() {
+    var result = func.renderCmd(command, index);//再次检查是否有不合法的指令
+    var i = 0;
+    if (!result.haveError) {//如果所有指令都输入正确
+        runCommand(getCommandNumber(result.commandArray));//开始执行指令
+    }
 }
-
-
-
-
-
-
-
+/**
+ * 接收分割好的初始指令序列作为参数
+ * 解析初始指令序列，分离出指令和执行次数，比如GO 4，那么返回的数组中这样出现：GO, GO, GO, GO
+ * @param originCommandArray
+ */
+function getCommandNumber(originCommandArray) {
+    var newCommandArray = [];
+    for (var i in originCommandArray) {
+        if (/\d/.test(originCommandArray[i])) {//如果数据包含数字
+            var lastSpace = originCommandArray[i].lastIndexOf(" ");//找最后出现的空格
+            for (var j = 0; j < parseInt(originCommandArray[i].substring(lastSpace + 1, originCommandArray[i].length)); j++) {
+                newCommandArray.push(originCommandArray[i].substring(0, lastSpace));
+            }
+        } else {
+            newCommandArray.push(originCommandArray[i]);
+        }
+    }
+    return newCommandArray;
+}
+/**
+ * 接收来自getCommandNumber返回的处理好的单指令序列
+ * 延时递归调用runCommand，每一秒执行一条指令
+ * @param commandArray
+ */
+function runCommand(commandArray) {
+    var command = commandArray.shift();//从队首弹出一个指令并执行
+    if (command) {//指令存在的话才执行
+        square.analyseCommand(command);
+        setTimeout(function () {
+            runCommand(commandArray);
+        }, 1000);
+    }
+}
+/**
+ * 给输入区域添加输入事件，每次输入都动态刷新代码行编号框
+ */
+func.addEvent(command, "input", renderConsole);
+func.addEvent(command, "propertychange", renderConsole);//兼容IE
+function renderConsole() {
+    func.renderCmd(command, index);
+}
+/**
+ * 给输入区域添加滚动事件，让左侧的代码编号框也一起滚动
+ */
+func.addEvent(command, "scroll", checkScroll);
+function checkScroll() {
+    index.scrollTop = command.scrollTop;
+}
