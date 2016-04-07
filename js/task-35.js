@@ -414,4 +414,5 @@ var refresh = func.$("refresh");
 func.addEvent(refresh, "click", clear);
 function clear() {
     command.value = "";
+    index.innerHTML = "<li>1</li>";
 }
