@@ -407,3 +407,11 @@ func.addEvent(command, "scroll", checkScroll);
 function checkScroll() {
     index.scrollTop = command.scrollTop;
 }
+/**
+ * 清空命令输入框
+ */
+var refresh = func.$("refresh");
+func.addEvent(refresh, "click", clear);
+function clear() {
+    command.value = "";
+}
