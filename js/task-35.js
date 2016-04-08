@@ -119,12 +119,12 @@ var func = (function () {
          * @param inputArea
          * @param index
          */
-        renderCmd: function (inputArea, index) {
+        renderCmd: function (inputArea, index, isCheck) {//isCheck为false表示不检查，true表示进行检查
             var error = false;//每次渲染都新建这个变量，代表所有输入的指令是否合法，false表示所有指令都合法，反之表示有不合法的指令存在
             var arrData = inputArea.value.split("\n");//用换行符分割
             var str = "";
             for (var i = 0; i < arrData.length; i++) {
-                if (func.checkCmd(arrData[i])) {
+                if (isCheck && func.checkCmd(arrData[i])) {
                     str += "<li class='error'>" + (i + 1) + "</li>";
                     error = true;//如果有不合法的指令则变为true
                 } else {
@@ -353,7 +353,7 @@ func.addEvent(sure, "click", startMove);
  * 点击执行按钮运行的事件处理函数
  */
 function startMove() {
-    var result = func.renderCmd(command, index);//再次检查是否有不合法的指令
+    var result = func.renderCmd(command, index, true);//再次渲染代码编号框并进行检查
     var i = 0;
     if (!result.haveError) {//如果所有指令都输入正确
         runCommand(getCommandNumber(result.commandArray));//开始执行指令
@@ -396,9 +396,9 @@ function runCommand(commandArray) {
  * 给输入区域添加输入事件，每次输入都动态刷新代码行编号框
  */
 func.addEvent(command, "input", renderConsole);
-func.addEvent(command, "propertychange", renderConsole);//兼容IE
+func.addEvent(command, "propertychange", renderConsole);//兼容IE8及以下
 function renderConsole() {
-    func.renderCmd(command, index);
+    func.renderCmd(command, index, false);
 }
 /**
  * 给输入区域添加滚动事件，让左侧的代码编号框也一起滚动
