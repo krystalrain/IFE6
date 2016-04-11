@@ -2,13 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>IFE JavaScript Task 35</title>
-	<link href="css/Task_35.css" rel="stylesheet">
+	<title>IFE JavaScript Task 36</title>
+	<link href="css/Task_36.css" rel="stylesheet">
 </head>
 <body>
 <header>
 	<h1>
-		任务三十五：听指令的小方块（三）
+		任务三十六：听指令的小方块（四）
 	</h1>
 </header>
 <div class="clearfix">
@@ -24,6 +24,7 @@
 		</div>
 		<button type="button" id="sure">执行</button>
 		<button type="button" id="refresh">清空</button>
+		<button type="button" id="random">随机造墙</button>
 	</section>
 	<p id="tips">
 		可输入指令序列，n代表数字，如果是0表示当前指令不会执行<br>
@@ -33,9 +34,12 @@
 		* TRA LEF n，TRA RIG n，TRA TOP n，TRA BOT n<br>
 		* TRA LEF，TRA RIG，TRA TOP，TRA BOT<br>
 		* MOV LEF n，MOV RIG n，MOV TOP n，MOV BOT n<br>
-		* MOV LEF，MOV RIG，MOV TOP，MOV BOT
+		* MOV LEF，MOV RIG，MOV TOP，MOV BOT<br>
+		* BUILD，在小方块面对的方向造墙<br>
+		* BRU #ffffff/#fff，颜色值为16进制，3位或6位<br>
+		* MOV TO n,n，自动寻路，移动到指定坐标点
 	</p>
 </div>
-<script type="text/javascript" src="js/task-35.js"></script>
+<script type="text/javascript" src="js/task-36.js"></script>
 </body>
 </html>
