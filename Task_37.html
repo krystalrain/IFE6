@@ -1,0 +1,63 @@
+<!DOCTYPE>
+<html lang="zh_CN">
+<head>
+	<meta charset="utf-8">
+	<title>IFE JavaScript Task 37</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/Task_37.css" rel="stylesheet">
+</head>
+<body>
+<audio src="music/ori.mp3" controls></audio>
+<header>
+	<img src="image/ori.png" alt="Ori">
+	<h1>
+		任务三十七：UI组件之浮出层
+	</h1>
+</header>
+<section class="btn">
+	<input type="button" value="click at me" id="btn">
+</section>
+<section class="pop-up">
+	<section class="pop-wrap">
+		<header class="pop-header">
+			<h3></h3>
+		</header>
+		<article class="pop-content">
+			<p></p>
+		</article>
+		<footer class="pop-control">
+			<input type="button" class="confirm" value="确定">
+			<input type="button" class="cancel" value="取消">
+		</footer>
+	</section>
+</section>
+<script type="text/javascript" src="js/task-37.js"></script>
+<script type="text/javascript">
+	var btn = document.querySelector("#btn");
+	var cover = document.querySelector(".pop-up");//遮盖层
+	//这里直接初始化一个对象，如果多次初始化对象，会导致事件重复绑定的BUG
+	var pop = Popup({
+		wrap: cover,
+		type: "warning",
+		width: 300,//最小300
+		height: 200,//最小200
+		confirm: function () {
+			alert("ori");
+		},
+		cancel: function () {
+			alert("spirit tree");
+		},
+		title: "Ori and Blind Forest",
+		content: "Ori",
+		drag: true,//弹出层能否拖拽，true表示能拖拽，false表示不能
+		pageWheel: true//弹出层出现时页面是否允许滚动，false表示不能滚动，true表示能滚动。不论为true或false，弹出层消失后页面仍然能滚动
+	});
+	Popup.prototype.addEvent(btn, "click", function () {
+		pop.toggle();
+	});
+</script>
+</body>
+</html>
