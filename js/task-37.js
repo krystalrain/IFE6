@@ -197,12 +197,14 @@
             handler.style.cursor = "move";
             util.addEvent(handler, "mousedown", function (event) {
                 event = util.getEvent(event);
+                util.preventDefault(event);
                 var disY,
                     disX;
                 disX = event.clientX - dom.offsetLeft;
                 disY = event.clientY - dom.offsetTop;
                 document.onmousemove = function (event) {
                     event = util.getEvent(event);
+                    util.preventDefault(event);
                     var tempX = event.clientX - disX + dom.width / 2,
                         tempY = event.clientY - disY + dom.height / 2;
                     //拖拽时不能超过视窗边界
