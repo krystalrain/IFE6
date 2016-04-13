@@ -137,3 +137,59 @@ section input[type="button"]:hover {
     background-color: #c44133;
 }
 
+.pop-up .resizeBR {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 0;
+    bottom: 0;
+    cursor:nw-resize;
+}
+.pop-up .resizeL, .pop-up .resizeT, .pop-up .resizeR, .pop-up .resizeB, .pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB {
+    position: absolute;
+    background: #000;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.pop-up .resizeL, .pop-up .resizeR {
+    top:0;
+    width: 5px;
+    height: 100%;
+    cursor: w-resize;
+}
+.pop-up .resizeR {
+    right: 0;
+}
+.pop-up .resizeT, .pop-up .resizeB {
+    width: 100%;
+    height: 5px;
+    cursor: n-resize;
+}
+.pop-up .resizeT {
+    top: 0;
+}
+.pop-up .resizeB {
+    bottom: 0;
+}
+.pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB {
+    width: 8px;
+    height: 8px;
+    background: #FF0;
+}
+.pop-up .resizeLT {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+}
+.pop-up .resizeTR {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+}
+.pop-up .resizeLB {
+    left: 0;
+    bottom: 0;
+    cursor: ne-resize;
+}
+
