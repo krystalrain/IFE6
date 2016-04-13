@@ -74,6 +74,8 @@ section input[type="button"]:hover {
     top: 50%;
     background-color: #fff;
     border-radius: 3px;
+    min-height: 200px;
+    min-width: 300px;
 }
 .pop-up.info .pop-header {
     background-color: #fff;
@@ -89,8 +91,25 @@ section input[type="button"]:hover {
     color: #fff; }
 .pop-up .pop-header {
     padding: 10px;
+    overflow: hidden;
+}
+.pop-up .pop-header a {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    opacity: 0.4;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+.pop-up .pop-header a:hover {
+    opacity: 1;
 }
 .pop-up h3 {
+    float: left;
     margin: 0;
     font-size: 20px;
     font-weight: bold;

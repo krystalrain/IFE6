@@ -33,6 +33,13 @@
                 element["on" + event] = null;
             }
         },
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
+        },
         /**
          * 创建弹出层
          */
@@ -44,6 +51,11 @@
             header.className = "pop-header";
             var h3 = document.createElement("h3");
             header.appendChild(h3);
+            var a = document.createElement("a");
+            a.className = "close";
+            a.innerHTML = "X";
+            a.href = "javascript:;";
+            header.appendChild(a);
             var article = document.createElement("article");
             article.className = "pop-content";
             var p = document.createElement("p");
@@ -106,6 +118,7 @@
             this.createPopup(para);
             this.cover = document.querySelector(".pop-up");
             this.wrap = this.cover.querySelector(".pop-wrap");
+            this.close = this.cover.querySelector(".close");
             //设置弹出层的宽和高
             this.wrap.width = para.width;
             this.wrap.height = para.height;
@@ -142,12 +155,10 @@
                 para.cancel();
                 that.hide();
             });
-            //给遮盖层添加点击事件
-            this.addEvent(this.cover, "click", function (event) {
+            //给关闭按钮添加点击事件
+            this.addEvent(this.close, "click", function (event) {
                 event = event || window.event;
-                if (event.target.className === that.cover.className) { //判断event.target是不是遮盖层
-                    that.hide();
-                }
+                that.hide();
             });
             //是否允许拖拽
             if (this.allowDrag) {
@@ -185,8 +196,8 @@
             var that = this;
             this.addEvent(handle, "mousedown", function (event) {
                 event = event || window.event;
-                var disX = event.clientX-handle.offsetLeft;//初始X
-                var disY = event.clientY-handle.offsetTop;//初始Y
+                var disX = event.clientX - handle.offsetLeft;//初始X
+                var disY = event.clientY - handle.offsetTop;//初始Y
                 var iParentTop = oParent.offsetTop;//浮出层相对于父容器的上边距
                 var iParentLeft = oParent.offsetLeft;//浮出层相对于父容器的左边距
                 var iParentWidth = oParent.offsetWidth;//浮出层的宽度
@@ -199,16 +210,16 @@
                     var maxH = document.documentElement.clientHeight - oParent.offsetTop - 2;//设置最大高度
                     var iW = isLeft ? iParentWidth - iL : handle.offsetWidth + iL;//判断是否是可以左右伸缩
                     var iH = isTop ? iParentHeight - iT : handle.offsetHeight + iT;//判断是否可以上下伸缩
-                    var dragMinWidth = that.wrap.width;//设置最小宽度
-                    var dragMinHeight = that.wrap.height;//设置最小高度
+                    var dragMinWidth = that.wrap.width;//将弹出层的宽度设置为缩放最小宽度
+                    var dragMinHeight = that.wrap.height;//将弹出层的高度设置为缩放最小高度
                     isLeft && (oParent.style.left = iParentLeft + iL + that.wrap.width / 2 + "px");
                     isTop && (oParent.style.top = iParentTop + iT + that.wrap.height / 2 + "px");
                     iW < dragMinWidth && (iW = dragMinWidth);//判断最小宽度
                     iW > maxW && (iW = maxW);
                     lockX || (oParent.style.width = iW + "px");
                     iH < dragMinHeight && (iH = dragMinHeight);//判断最小高度
-                    lockY || (oParent.style.height = iH + "px");
                     iH > maxH && (iH = maxH);
+                    lockY || (oParent.style.height = iH + "px");
                     if((isLeft && iW == dragMinWidth) || (isTop && iH == dragMinHeight)) document.onmousemove = null;
                     return false;
                 };
@@ -239,32 +250,32 @@
             var that = this;
             this.header.style.cursor = "move";
             this.addEvent(this.header, "mousedown", function (event) {
-                event = event || window.event;
-                var disY,
+                event = event || window.event;
+                var disY,
                     disX;
-                disX = event.clientX - that.wrap.offsetLeft;
-                disY = event.clientY - that.wrap.offsetTop;
-                document.onmousemove = function (event) {
-                    event = event || window.event;
-                    var tempX = event.clientX - disX + that.wrap.width / 2,
-                        tempY = event.clientY - disY + that.wrap.height / 2;
+                disX = event.clientX - that.wrap.offsetLeft;
+                disY = event.clientY - that.wrap.offsetTop;
+                document.onmousemove = function (event) {
+                    event = event || window.event;
+                    var tempX = event.clientX - disX + that.wrap.width / 2,
+                        tempY = event.clientY - disY + that.wrap.height / 2;
                     //拖拽时不能超过视窗边界
-                    if (tempX > document.documentElement.offsetWidth - that.wrap.offsetWidth + that.wrap.width / 2) {
-                        tempX = document.documentElement.offsetWidth - that.wrap.offsetWidth + that.wrap.width / 2;
-                    } else if (tempX < that.wrap.width / 2) {
-                        tempX = that.wrap.width / 2;
+                    if (tempX > document.documentElement.offsetWidth - that.wrap.offsetWidth + that.wrap.width / 2) {
+                        tempX = document.documentElement.offsetWidth - that.wrap.offsetWidth + that.wrap.width / 2;
+                    } else if (tempX < that.wrap.width / 2) {
+                        tempX = that.wrap.width / 2;
                     }
-                    if (tempY > document.documentElement.offsetHeight - that.wrap.offsetHeight + that.wrap.height / 2) {
-                        tempY = document.documentElement.offsetHeight - that.wrap.offsetHeight + that.wrap.height / 2;
-                    } else if (tempY < that.wrap.height / 2) {
-                        tempY = that.wrap.height / 2;
+                    if (tempY > document.documentElement.offsetHeight - that.wrap.offsetHeight + that.wrap.height / 2) {
+                        tempY = document.documentElement.offsetHeight - that.wrap.offsetHeight + that.wrap.height / 2;
+                    } else if (tempY < that.wrap.height / 2) {
+                        tempY = that.wrap.height / 2;
                     }
-                    that.wrap.style.left = tempX + "px";
-                    that.wrap.style.top = tempY + "px";
+                    that.wrap.style.left = tempX + "px";
+                    that.wrap.style.top = tempY + "px";
                 };
-                document.onmouseup = function () {
-                    document.onmousemove = null;
-                    document.onmouseup = null;
+                document.onmouseup = function () {
+                    document.onmousemove = null;
+                    document.onmouseup = null;
                 };
                 return false;
             });
