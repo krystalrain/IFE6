@@ -7,6 +7,10 @@
     -ms-user-select: none;
     user-select: none;
 }
+html, body {
+    height: 100%;
+    width: 100%;
+}
 header img {
     display: block;
     width: 200px;
@@ -72,10 +76,10 @@ section input[type="button"]:hover {
     position: absolute;
     left: 50%;
     top: 50%;
+    min-width: 300px;
+    min-height: 200px;
     background-color: #fff;
     border-radius: 3px;
-    min-height: 200px;
-    min-width: 300px;
 }
 .pop-up.info .pop-header {
     background-color: #fff;
@@ -156,45 +160,44 @@ section input[type="button"]:hover {
     background-color: #c44133;
 }
 
-.pop-up .resizeBR {
+.pop-up .resizeL, .pop-up .resizeT, .pop-up .resizeR, .pop-up .resizeB, .pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB, .pop-up .resizeBR {
     position: absolute;
-    width: 8px;
-    height: 8px;
-    right: 0;
-    bottom: 0;
-    cursor:nw-resize;
-}
-.pop-up .resizeL, .pop-up .resizeT, .pop-up .resizeR, .pop-up .resizeB, .pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB {
-    position: absolute;
-    background: #000;
     overflow: hidden;
     opacity: 0;
     filter: alpha(opacity=0);
 }
+
 .pop-up .resizeL, .pop-up .resizeR {
-    top:0;
-    width: 5px;
+    top: 0;
+    width: 8px;
     height: 100%;
+}
+.pop-up .resizeL {
+    left: 0;
     cursor: w-resize;
 }
 .pop-up .resizeR {
     right: 0;
+    cursor: e-resize;
 }
+
 .pop-up .resizeT, .pop-up .resizeB {
     width: 100%;
-    height: 5px;
-    cursor: n-resize;
+    height: 8px;
+    left: 0;
 }
 .pop-up .resizeT {
     top: 0;
+    cursor: n-resize;
 }
 .pop-up .resizeB {
     bottom: 0;
+    cursor: s-resize;
 }
-.pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB {
+
+.pop-up .resizeLT, .pop-up .resizeTR, .pop-up .resizeLB, .pop-up .resizeBR {
     width: 8px;
     height: 8px;
-    background: #FF0;
 }
 .pop-up .resizeLT {
     top: 0;
@@ -209,6 +212,11 @@ section input[type="button"]:hover {
 .pop-up .resizeLB {
     left: 0;
     bottom: 0;
-    cursor: ne-resize;
+    cursor: sw-resize;
+}
+.pop-up .resizeBR {
+    right: 0;
+    bottom: 0;
+    cursor: se-resize;
 }
 
