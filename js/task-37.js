@@ -195,24 +195,20 @@
                     event = event || window.event;
                     var iL = event.clientX - disX;
                     var iT = event.clientY - disY;
-                    var maxW = document.documentElement.clientWidth - oParent.offsetLeft - 2;//最大宽度   document.documentElement.clientWidth:当前浏览器的宽度
-                    var maxH = document.documentElement.clientHeight - oParent.offsetTop - 2;//最大高度   document.documentElement.clientHeight 当前浏览器的高度
-                    var iW = isLeft ? iParentWidth - iL : handle.offsetWidth + iL; //判断是否是可以左右伸缩
+                    var maxW = document.documentElement.clientWidth - oParent.offsetLeft - 2;//设置最大宽度
+                    var maxH = document.documentElement.clientHeight - oParent.offsetTop - 2;//设置最大高度
+                    var iW = isLeft ? iParentWidth - iL : handle.offsetWidth + iL;//判断是否是可以左右伸缩
                     var iH = isTop ? iParentHeight - iT : handle.offsetHeight + iT;//判断是否可以上下伸缩
-                    var dragMinWidth = that.wrap.width;  //设置最小宽度
+                    var dragMinWidth = that.wrap.width;//设置最小宽度
                     var dragMinHeight = that.wrap.height;//设置最小高度
-
-                    isLeft && (oParent.style.left = iParentLeft + iL + that.wrap.width / 2 + "px");//因为定位是top:50% left:50% margin-left margin-right定位的 所以 left:还要在+上1半的宽度
+                    isLeft && (oParent.style.left = iParentLeft + iL + that.wrap.width / 2 + "px");
                     isTop && (oParent.style.top = iParentTop + iT + that.wrap.height / 2 + "px");
-
-                    iW < dragMinWidth && (iW = dragMinWidth); //判断最小宽度
+                    iW < dragMinWidth && (iW = dragMinWidth);//判断最小宽度
                     iW > maxW && (iW = maxW);
                     lockX || (oParent.style.width = iW + "px");
-
                     iH < dragMinHeight && (iH = dragMinHeight);//判断最小高度
                     lockY || (oParent.style.height = iH + "px");
                     iH > maxH && (iH = maxH);
-
                     if((isLeft && iW == dragMinWidth) || (isTop && iH == dragMinHeight)) document.onmousemove = null;
                     return false;
                 };
