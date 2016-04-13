@@ -68,32 +68,6 @@
             cover.className = "pop-up";
             cover.appendChild(section);
             body.appendChild(cover);
-            if (para.flexible) {
-                var div = document.createElement("div");
-                div.className = "resizeL";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeT";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeR";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeB";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeLT";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeTR";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeBR";
-                section.appendChild(div);
-                div = document.createElement("div");
-                div.className = "resizeLB";
-                section.appendChild(div);
-            }
         },
         /**
          * 初始化
