@@ -34,8 +34,7 @@
             }
         },
         /**
-         * 创建DOM元素
-         * @param para
+         * 创建弹出层
          */
         createPopup: function (para) {
             var body = document.getElementsByTagName("body")[0];
