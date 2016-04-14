@@ -7,6 +7,9 @@
     -ms-user-select: none;
     user-select: none;
 }
+body {
+    height: 3000px;
+}
 header h1 {
     text-align: center;
     height: 100px;
@@ -14,29 +17,33 @@ header h1 {
 }
 
 .sort-table {
-    width: 1024px;
-    text-align: center;
-    font-size: 18px;
-    border-collapse: collapse;
     margin: 0 auto;
+}
+.sort-table, .hidden {
+    font-size: 18px;
+    text-align: center;
+    border-collapse: collapse;
+}
+.hidden {
+    top: 0;
 }
 .sort-table tr {
     line-height: 34px;
 }
-.sort-table tr:first-child {
+.sort-table tr:first-child, .hidden tr:first-child {
     color: #FFFFFF;
     background: #aaa;
     line-height: 44px;
 }
-.sort-table th {
-    width: 230px;
+.sort-table th, .hidden th {
     position: relative;
+    width: 230px;
 }
-.sort-table th:hover {
+.sort-table th:hover , .hidden th:hover{
     background: #000;
     cursor: pointer;
 }
-.sort-table td, .sort-table th {
+.sort-table td, .sort-table th, .hidden th {
     border: 1px solid black;
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -48,7 +55,7 @@ header h1 {
     color: white;
     cursor: pointer;
 }
-.sort-table .icon {
+.sort-table .icon, .hidden .icon {
     position: absolute;
     top: 10px;
     width: 24px;
@@ -77,3 +84,5 @@ header h1 {
 .icon.icon-desc {
     right: 10px;
 }
+
+
