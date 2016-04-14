@@ -16,6 +16,22 @@
         }
     };
     /**
+     * 事件代理
+     * @param element
+     * @param tag
+     * @param eventName
+     * @param listener
+     */
+    util.delegateEvent = function (element, tag, eventName, listener) {
+        util.addEvent(element, eventName, function (event) {
+            event = event || window.event;
+            var target = event.target || event.srcElement;
+            if (target && target.tagName === tag.toUpperCase()) {
+                listener.call(target, event);
+            }
+        });
+    };
+    /**
      * 移除事件
      * @param element
      * @param event
@@ -61,6 +77,26 @@
             return obj.currentStyle[attribute];//是IE浏览器则返回当前元素的对应属性的值
         } else {
             return getComputedStyle(obj, false)[attribute];//IE9及以上或者非IE浏览器例如FF和Chrome支持getComputedStyle
+        }
+    };
+    util.Gsc = {
+        getid: function (id) {
+            return /#/.test(id) ? document.querySelector(id) : document.getElementById(id);
+        },
+        getclass: function (classname) {
+            return /./.test(classname) ? document.querySelector(classname) : document.getElementsByClassName(classname)[0];
+        },
+        newElement: function (tag) {
+            return document.createElement(tag);
+        },
+        addAttr: function (dom, attr, value) {
+            dom[attr] = value;
+        },
+        addChild: function (dom, child) {
+            dom.appendChild(child);
+        },
+        html: function (dom, value) {
+            dom.innerHTML = value;
         }
     };
     window.util = util;
