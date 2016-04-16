@@ -19,6 +19,13 @@ section input {
     margin: 100px;
 }
 
+#j_Date-date {
+    border: 1px solid #ff6fc1;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
 .calendar {
     background: #fff;
     float: left;
@@ -27,6 +34,7 @@ section input {
     border-color: #85BEE5 #3485C0 #3485C0 #85BEE5;
     position: relative;
     padding: 10px;
+    margin: 10px;
 }
 .calendar dl, .calendar dd {
     width: 183px;
@@ -35,7 +43,6 @@ section input {
 }
 .calendar dt.title-date {
     display: block;
-    border-bottom: 1px solid #E4E4E4;
     font-weight: 700;
     position: relative;
     margin-bottom: 5px;
@@ -55,7 +62,7 @@ section input {
     width: 183px;
     height: 139px;
     font-weight: 700;
-    background: rgb(156, 135, 114);
+    background: url(../image/o_bg.png) no-repeat;
     margin: 0;
 }
 .prevyear, .nextyear, .prevmonth, .nextmonth {
@@ -90,7 +97,6 @@ section input {
     float: left;
     width: 25px;
     height: 22px;
-    color: rgb(252, 254, 255);
     overflow: hidden;
     text-decoration: none;
     margin: 1px 0 0 1px;
@@ -100,25 +106,44 @@ section input {
     -o-transition: all .5s ease;
     transition: all .5s ease;
 }
+.calendar dd a.live {
+    color: black;
+    cursor: pointer;
+}
 .calendar dd a.disabled {
     color: rgb(186, 201, 207);
 }
 .calendar dd a.tody {
-    background: rgb(204, 155, 41);
+    color: #ff7221;
 }
-.calendar dd a.tody:hover {
-    background: rgb(204, 155, 41);
-}
-.calendar dd a:hover {
-    background: rgb(0, 127, 159);
-}
-.calendar dd a.live {
-    cursor: pointer;
+.calendar dd a.clicked {
+    color: white;
+    background: #62ff87;
 }
 .input {
+    width: 218px;
     border: 1px solid #ccc;
     padding: 4px;
     background: url(../image/o_nextprv.png) no-repeat right -18px;
 }
+
+button {
+    width: 100px;
+    border: 1px solid black;
+    margin: 10px;
+    height: 30px;
+    background: white;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+}
+button:hover {
+    background: #41beff;
+    color: white;
+}
+
+
+
 
 

@@ -12,24 +12,17 @@
 	</h1>
 </header>
 <section>
-	<label for="j_Date1"></label><input type="text" id="j_Date1" class="input">
-	<label for="j_Date2"></label><input type="text" id="j_Date2" class="input">
+	<label for="j_Date"></label><input type="text" id="j_Date" class="input">
 </section>
-<script type="text/javascript" src="js/task-41.js"></script>
+<script type="text/javascript" src="js/task-42.js"></script>
 <script type="text/javascript">
-	var myDate1 = new Calender({
-		id: 'j_Date1',
-		isSelect: false,
-		callBack: function () {
-			alert("选择日期成功！这是回调");
-		}
-	});
-	var myDate2 = new Calender({
-		id: 'j_Date2',
+	var myDate = new Calender({
+		id: 'j_Date',
 		isSelect: true,
 		callBack: function () {
 			alert("选择日期成功！这是回调");
-		}
+		},
+		isRange: true
 	});
 </script>
 </body>

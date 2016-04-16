@@ -45,6 +45,16 @@ _CalF = {
             node['on' + type] = handler;
         }
     },
+    //事件代理
+    delegateEvent: function (element, tag, eventName, listener) {
+        _CalF.bind(element, eventName, function () {
+            var event = arguments[0] || window.event,
+                target = event.target || event.srcElement;
+            if (target && target.tagName === tag.toUpperCase()) {
+                listener.call(target, event);
+            }
+        });
+    },
     // 获取元素位置
     getPos: function (node) {
         var scrollx = document.documentElement.scrollLeft || document.body.scrollLeft,
@@ -102,17 +112,95 @@ Calender.prototype = {
     initialize: function (options) {
         this.id = options.id; // input的ID
         this.input = _CalF.$('#'+ this.id); // 获取input元素
-        this.isSelect = options.isSelect;   // 是否支持下拉select选择年月，默认不显示
-        this.callBack = options.callBack;
+        this.isSelect = options.isSelect; // 是否支持下拉select选择年月，默认不显示
+        this.callBack = options.callBack; // 选择日期后的回调
+        this.isRange = options.isRange; // 是否进行日期范围选择
         this.inputEvent(); // input的事件绑定，获取焦点事件
     },
     // 表单的事件
     inputEvent: function () {
-        var that = this;
+        var that = this; // this指向顶层实例
         _CalF.bind(this.input, 'focus', function () {
+            that.input.value = '';
             that.createContainer();
-            that.drawDate(new Date());
+            if (!that.isRange) { // 如果不需要进行日期范围选择
+                that.singleCalendar = Object.create(that); // 在顶层实例下新建一个对象，把顶层实例对象作为它的原型
+                that.singleCalendar.drawDate(new Date()); // 渲染日历，保存在该对象下的dateWarp属性中
+                // 添加
+                that.container.appendChild(that.singleCalendar.dateWarp); // 添加
+                that.singleCalendar.linkOn(); // 绑定点击事件
+                that.outClick();
+            } else {
+                that.doubleCalendar = { // 如果需要进行日期范围选择，在顶层实例下新建一个对象，再在里面创建2个对象，把顶层实例对象作为它们的原型
+                    calendarOne: Object.create(that),
+                    calendarTwo: Object.create(that)
+                };
+                var nowDate = new Date(),
+                    nowyear = nowDate.getFullYear(),
+                    nowmonth = nowDate.getMonth(),
+                    nowdate = nowDate.getDate();
+                that.doubleCalendar.calendarOne.drawDate(new Date(nowyear, nowmonth, nowdate));
+                // 添加
+                that.container.appendChild(that.doubleCalendar.calendarOne.dateWarp);
+                that.doubleCalendar.calendarOne.linkOn();
+                that.doubleCalendar.calendarTwo.drawDate(new Date(nowyear, nowmonth + 1, nowdate));
+                // 添加
+                that.container.appendChild(that.doubleCalendar.calendarTwo.dateWarp);
+                that.doubleCalendar.calendarTwo.linkOn();
+                that.createBtn(); // 添加按钮
+                that.outClick();
+            }
         });
+    },
+    // 添加按钮
+    createBtn: function () {
+        var btnWarp = document.createElement('div'),
+            confirm = document.createElement('button'),
+            cancel = document.createElement('button'),
+            that = this;
+        confirm.type = 'button';
+        confirm.className = 'confirm';
+        confirm.innerHTML = '确认';
+        cancel.type = 'button';
+        cancel.className = 'cancel';
+        cancel.innerHTML = '取消';
+        _CalF.bind(confirm, "click", function () {
+            if (that.doubleCalendar.calendarOne.current && that.doubleCalendar.calendarTwo.current) { // 如果日期范围的起点和终点都选定好了
+                var calendarOneYear = that.doubleCalendar.calendarOne.year,
+                    calendarOneMonth = that.doubleCalendar.calendarOne.month,
+                    calendarOneDate = that.doubleCalendar.calendarOne.date,
+                    calendarTwoYear = that.doubleCalendar.calendarTwo.year,
+                    calendarTwoMonth = that.doubleCalendar.calendarTwo.month,
+                    calendarTwoDate = that.doubleCalendar.calendarTwo.date,
+                    calendarOne = that.doubleCalendar.calendarOne.year + '-' + that.doubleCalendar.calendarOne.month + '-' + that.doubleCalendar.calendarOne.date,
+                    calendarTwo = that.doubleCalendar.calendarTwo.year + '-' + that.doubleCalendar.calendarTwo.month + '-' + that.doubleCalendar.calendarTwo.date;
+                if (calendarOneYear > calendarTwoYear) {
+                    that.input.value = calendarTwo + ' to ' + calendarOne;
+                } else if (calendarOneYear < calendarTwoYear) {
+                    that.input.value = calendarOne + ' to ' + calendarTwo;
+                } else {
+                    if (calendarOneMonth > calendarTwoMonth) {
+                        that.input.value = calendarTwo + ' to ' + calendarOne;
+                    } else if (calendarOneMonth < calendarTwoMonth) {
+                        that.input.value = calendarOne + ' to ' + calendarTwo;
+                    } else {
+                        if (calendarOneDate > calendarTwoDate) {
+                            that.input.value = calendarTwo + ' to ' + calendarOne;
+                        } else {
+                            that.input.value = calendarOne + ' to ' + calendarTwo;
+                        }
+                    }
+                }
+                that.container.innerHTML = '';
+                that.callBack();
+            }
+        });
+        _CalF.bind(cancel, "click", function () {
+            that.container.innerHTML = '';
+        });
+        btnWarp.appendChild(confirm);
+        btnWarp.appendChild(cancel);
+        this.container.appendChild(btnWarp);
     },
     // 创建日期最外层盒子，并设置盒子的绝对定位
     createContainer: function () {
@@ -163,7 +251,7 @@ Calender.prototype = {
             var selectHtmls = [];
             // 添加年份下拉框
             selectHtmls.push('<select>');
-            for (i = 2020; i > 1970; i--) {
+            for (i = 2100; i > 1970; i--) {
                 if (i != this.year) {
                     selectHtmls.push('<option value ="'+ i +'">'+ i +'</option>');
                 } else {
@@ -220,34 +308,42 @@ Calender.prototype = {
             }
         }
         dd.innerHTML = ddHtml.join('');
-
-        // 如果存在，则先移除
-        this.removeDate();
-        // 添加
-        this.container.appendChild(dateWarp);
-
-        //IE6select遮罩
-        var ie6  = !!window.ActiveXObject && !window.XMLHttpRequest;
-        if (ie6) dateWarp.appendChild(this.createIframe());
-
-        // A link事件绑定
-        this.linkOn();
-        // 区域外事件绑定
-        this.outClick();
     },
-    // 处理IE6下的遮罩
-    createIframe: function () {
-        var myIframe =  document.createElement('iframe');
-        myIframe.src = 'about:blank';
-        myIframe.style.position = 'absolute';
-        myIframe.style.zIndex = '-1';
-        myIframe.style.left = '-1px';
-        myIframe.style.top = 0;
-        myIframe.style.border = 0;
-        myIframe.style.filter = 'alpha(opacity= 0 )';
-        myIframe.style.width = this.container.offsetWidth + 'px';
-        myIframe.style.height = this.container.offsetHeight + 'px';
-        return myIframe;
+    // 上一月、下一月、上一年和下一年按钮事件
+    btnEvent: function () {
+        var prevyear = _CalF.$('.prevyear', this.dateWarp)[0],
+            prevmonth = _CalF.$('.prevmonth', this.dateWarp)[0],
+            nextyear = _CalF.$('.nextyear', this.dateWarp)[0],
+            nextmonth = _CalF.$('.nextmonth', this.dateWarp)[0],
+            that = this;
+        _CalF.bind(prevyear, 'click', function () {
+            var idate = new Date(that.year - 1, that.month - 1, that.date),
+                oldDateWarp = that.dateWarp;
+            that.drawDate(idate);
+            that.container.replaceChild(that.dateWarp, oldDateWarp); // 替换原来的日历
+            that.linkOn();
+        });
+        _CalF.bind(prevmonth, 'click', function () {
+            var idate = new Date(that.year, that.month - 2, that.date),
+                oldDateWarp = that.dateWarp;
+            that.drawDate(idate);
+            that.container.replaceChild(that.dateWarp, oldDateWarp);
+            that.linkOn();
+        });
+        _CalF.bind(nextyear, 'click', function () {
+            var idate = new Date(that.year + 1,that.month - 1, that.date),
+                oldDateWarp = that.dateWarp;
+            that.drawDate(idate);
+            that.container.replaceChild(that.dateWarp, oldDateWarp); // 替换原来的日历
+            that.linkOn();
+        });
+        _CalF.bind(nextmonth, 'click', function () {
+            var idate = new Date(that.year , that.month, that.date),
+                oldDateWarp = that.dateWarp;
+            that.drawDate(idate);
+            that.container.replaceChild(that.dateWarp, oldDateWarp); // 替换原来的日历
+            that.linkOn();
+        });
     },
     // 下拉框选择事件
     selectChange: function () {
@@ -259,60 +355,44 @@ Calender.prototype = {
         yearSelect = selects[0];
         monthSelect = selects[1];
         _CalF.bind(yearSelect, 'change', function () {
-            var year = yearSelect.value;
-            var month = monthSelect.value;
+            var year = yearSelect.value,
+                month = monthSelect.value,
+                oldDateWarp = that.dateWarp;
             that.drawDate(new Date(year, month - 1, that.date));
+            that.container.replaceChild(that.dateWarp, oldDateWarp);
+            that.linkOn();
         });
         _CalF.bind(monthSelect, 'change', function () {
-            var year = yearSelect.value;
-            var month = monthSelect.value;
+            var year = yearSelect.value,
+                month = monthSelect.value,
+                oldDateWarp = that.dateWarp;
             that.drawDate(new Date(year, month - 1, that.date));
-        });
-    },
-    // 移除日期DIV.calendar
-    removeDate: function () {
-        var odiv = _CalF.$('.calendar', this.container)[0];
-        if (!!odiv) {
-            this.container.removeChild(odiv);
-        }
-    },
-    // 上一月、下一月、上一年和下一年按钮事件
-    btnEvent: function () {
-        var prevyear = _CalF.$('.prevyear', this.dateWarp)[0],
-            prevmonth = _CalF.$('.prevmonth', this.dateWarp)[0],
-            nextyear = _CalF.$('.nextyear', this.dateWarp)[0],
-            nextmonth = _CalF.$('.nextmonth', this.dateWarp)[0],
-            that = this;
-        _CalF.bind(prevyear, 'click', function () {
-            var idate = new Date(that.year - 1, that.month - 1, that.date);
-            that.drawDate(idate);
-        });
-        _CalF.bind(prevmonth, 'click', function () {
-            var idate = new Date(that.year, that.month - 2, that.date);
-            that.drawDate(idate);
-        });
-        _CalF.bind(nextyear, 'click', function () {
-            var idate = new Date(that.year + 1,that.month - 1, that.date);
-            that.drawDate(idate);
-        });
-        _CalF.bind(nextmonth, 'click', function () {
-            var idate = new Date(that.year , that.month, that.date);
-            that.drawDate(idate);
+            that.container.replaceChild(that.dateWarp, oldDateWarp);
+            that.linkOn();
         });
     },
     // A 的事件
     linkOn: function () {
-        var links = _CalF.$('.live', this.dd),
-            i,
-            l = links.length,
-            that = this;
-        for (i = 0; i < l; i++) {
-            links[i].index = i;
-            _CalF.bind(links[i], 'click', function () {
-                that.date = this.innerHTML;
-                that.input.value = that.year + '-' + that.month + '-' + that.date;
-                that.removeDate();
-                that.callBack();
+        var that = this;
+        if (this.isRange) { // 如果是日期范围选择
+            _CalF.delegateEvent(this.dd, 'a', 'click', function () {
+                if (this.innerHTML != '&nbsp;') {
+                    if (that.current) { // current用于存放选择好的aDOM对象
+                        _CalF.removeClass('clicked', that.current);
+                    }
+                    that.date = this.innerHTML;
+                    _CalF.addClass('clicked', this);
+                    that.current = this;
+                }
+            });
+        } else { // 单个日历
+            _CalF.delegateEvent(this.dd, 'a', 'click', function () {
+                if (this.innerHTML != '&nbsp;') {
+                    that.date = this.innerHTML;
+                    that.input.value = that.year + '-' + that.month + '-' + that.date;
+                    that.container.innerHTML = '';
+                    that.callBack();
+                }
             });
         }
     },
@@ -325,7 +405,7 @@ Calender.prototype = {
             if (target == that.input) {
                 return;
             }
-            that.removeDate();
+            that.container.innerHTML = '';
         });
     }
 };
