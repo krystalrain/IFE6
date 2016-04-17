@@ -65,6 +65,9 @@ section input {
     background: url(../image/o_bg.png) no-repeat;
     margin: 0;
 }
+.btnWarp {
+    clear: both;
+}
 .prevyear, .nextyear, .prevmonth, .nextmonth {
     cursor: pointer;
     height: 9px;

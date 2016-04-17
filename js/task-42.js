@@ -200,6 +200,7 @@ Calender.prototype = {
         });
         btnWarp.appendChild(confirm);
         btnWarp.appendChild(cancel);
+        btnWarp.className = 'btnWarp';
         this.container.appendChild(btnWarp);
     },
     // 创建日期最外层盒子，并设置盒子的绝对定位
