@@ -386,7 +386,7 @@ Calender.prototype = {
                         oA: this,
                         year: that.year,
                         month: that.month,
-                        date: this.innerHTML
+                        date: parseInt(this.innerHTML)
                     });
                     _CalF.addClass('clicked', this);
                 }
