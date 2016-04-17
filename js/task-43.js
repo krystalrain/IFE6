@@ -82,7 +82,6 @@ _CalF = {
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
     }
 };
-
 /**
  * @name Calender
  * @constructor
@@ -125,28 +124,29 @@ Calender.prototype = {
             that.input.value = '';
             that.createContainer();
             if (!that.isRange) { // 如果不需要进行日期范围选择
-                var singleCalendar = Object.create(that); // 新建一个对象，把顶层实例对象作为它的原型
-                singleCalendar.drawDate(new Date()); // 渲染日历，保存在该对象下的dateWarp属性中
+                that.singleCalendar = Object.create(that); // 在顶层实例下新建一个对象，把顶层实例对象作为它的原型
+                that.singleCalendar.drawDate(new Date()); // 渲染日历，保存在该对象下的dateWarp属性中
                 // 添加
-                that.container.appendChild(singleCalendar.dateWarp); // 添加
-                singleCalendar.linkOn(); // 绑定点击事件
+                that.container.appendChild(that.singleCalendar.dateWarp); // 添加
+                that.singleCalendar.linkOn(); // 绑定点击事件
                 that.outClick();
             } else {
-                that.chooseQueue = []; // 选择队列，用于存储选择的两个日期
-                var calendarOne = Object.create(that), // 新建一个对象，把顶层实例对象作为它的原型
-                    calendarTwo = Object.create(that), // 新建一个对象，把顶层实例对象作为它的原型
-                    nowDate = new Date(),
+                that.doubleCalendar = { // 如果需要进行日期范围选择，在顶层实例下新建一个对象，再在里面创建2个对象，把顶层实例对象作为它们的原型
+                    calendarOne: Object.create(that),
+                    calendarTwo: Object.create(that)
+                };
+                var nowDate = new Date(),
                     nowyear = nowDate.getFullYear(),
                     nowmonth = nowDate.getMonth(),
                     nowdate = nowDate.getDate();
-                calendarOne.drawDate(new Date(nowyear, nowmonth, nowdate));
+                that.doubleCalendar.calendarOne.drawDate(new Date(nowyear, nowmonth, nowdate));
                 // 添加
-                that.container.appendChild(calendarOne.dateWarp);
-                calendarOne.linkOn();
-                calendarTwo.drawDate(new Date(nowyear, nowmonth + 1, nowdate));
+                that.container.appendChild(that.doubleCalendar.calendarOne.dateWarp);
+                that.doubleCalendar.calendarOne.linkOn();
+                that.doubleCalendar.calendarTwo.drawDate(new Date(nowyear, nowmonth + 1, nowdate));
                 // 添加
-                that.container.appendChild(calendarTwo.dateWarp);
-                calendarTwo.linkOn();
+                that.container.appendChild(that.doubleCalendar.calendarTwo.dateWarp);
+                that.doubleCalendar.calendarTwo.linkOn();
                 that.createBtn(); // 添加按钮
                 that.outClick();
             }
@@ -165,15 +165,15 @@ Calender.prototype = {
         cancel.className = 'cancel';
         cancel.innerHTML = '取消';
         _CalF.bind(confirm, "click", function () {
-            if (that.chooseQueue.length == 2) {
-                var calendarOneYear = that.chooseQueue[0].year,
-                    calendarOneMonth = that.chooseQueue[0].month,
-                    calendarOneDate = that.chooseQueue[0].date,
-                    calendarTwoYear = that.chooseQueue[1].year,
-                    calendarTwoMonth = that.chooseQueue[1].month,
-                    calendarTwoDate = that.chooseQueue[1].date,
-                    calendarOne = that.chooseQueue[0].year + '-' + that.chooseQueue[0].month + '-' + that.chooseQueue[0].date,
-                    calendarTwo = that.chooseQueue[1].year + '-' + that.chooseQueue[1].month + '-' + that.chooseQueue[1].date;
+            if (that.doubleCalendar.calendarOne.current && that.doubleCalendar.calendarTwo.current) { // 如果日期范围的起点和终点都选定好了
+                var calendarOneYear = that.doubleCalendar.calendarOne.year,
+                    calendarOneMonth = that.doubleCalendar.calendarOne.month,
+                    calendarOneDate = that.doubleCalendar.calendarOne.date,
+                    calendarTwoYear = that.doubleCalendar.calendarTwo.year,
+                    calendarTwoMonth = that.doubleCalendar.calendarTwo.month,
+                    calendarTwoDate = that.doubleCalendar.calendarTwo.date,
+                    calendarOne = that.doubleCalendar.calendarOne.year + '-' + that.doubleCalendar.calendarOne.month + '-' + that.doubleCalendar.calendarOne.date,
+                    calendarTwo = that.doubleCalendar.calendarTwo.year + '-' + that.doubleCalendar.calendarTwo.month + '-' + that.doubleCalendar.calendarTwo.date;
                 if (calendarOneYear > calendarTwoYear) {
                     that.input.value = calendarTwo + ' to ' + calendarOne;
                 } else if (calendarOneYear < calendarTwoYear) {
@@ -373,21 +373,16 @@ Calender.prototype = {
     },
     // A 的事件
     linkOn: function () {
-        var that = this;
+        var that = this; // 这里的this指向日期对象
         if (this.isRange) { // 如果是日期范围选择
             _CalF.delegateEvent(this.dd, 'a', 'click', function () {
                 if (this.innerHTML != '&nbsp;') {
-                    if (that.chooseQueue.length == 2) {
-                        var obj = that.chooseQueue.shift();
-                        _CalF.removeClass('clicked', obj.oA);
+                    if (that.current) { // current用于存放选择好的aDOM对象
+                        _CalF.removeClass('clicked', that.current);
                     }
-                    that.chooseQueue.push({
-                        oA: this,
-                        year: that.year,
-                        month: that.month,
-                        date: this.innerHTML
-                    });
+                    that.date = this.innerHTML;
                     _CalF.addClass('clicked', this);
+                    that.current = this;
                 }
             });
         } else { // 单个日历

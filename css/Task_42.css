@@ -16,10 +16,10 @@ section {
     text-align: center;
 }
 section input {
-    margin: 100px;
+    margin: 200px;
 }
 
-#j_Date-date {
+#j_Date1-date, #j_Date2-date {
     border: 1px solid #ff6fc1;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
