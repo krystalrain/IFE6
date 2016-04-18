@@ -4,6 +4,17 @@
 	<meta charset="utf-8">
 	<title>IFE JavaScript Task 43</title>
 	<link href="css/Task_43.css" rel="stylesheet">
+	<style type="text/css">
+		/*FF不支持CSS clip-path，只支持内联svg和外联svg，并且下面的代码不能放在外联CSS文件中，否则无效*/
+		.Jigsaw.layout-2 .imgCover:nth-child(1) {
+			-webkit-clip-path: url("#clip-shape1");
+			clip-path: url("#clip-shape1");
+		}
+		.Jigsaw.layout-2 .imgCover:last-child {
+			-webkit-clip-path: url("#clip-shape2");
+			clip-path: url("#clip-shape2");
+		}
+	</style>
 </head>
 <body>
 <section id="pic-1"></section>
@@ -12,6 +23,23 @@
 <section id="pic-4"></section>
 <section id="pic-5"></section>
 <section id="pic-6"></section>
+
+<svg class="clip-svg">
+	<defs>
+		<clipPath id="clip-shape1" clipPathUnits="objectBoundingBox" >
+			<polygon points="0 0, 0.666666 0, 0.333333 1, 0 1" />
+		</clipPath>
+	</defs>
+</svg>
+
+<svg class="clip-svg">
+	<defs>
+		<clipPath id="clip-shape2" clipPathUnits="objectBoundingBox" >
+			<polygon points="0.666666 0, 1 0, 1 1, 0.333333 1" />
+		</clipPath>
+	</defs>
+</svg>
+
 <script type="text/javascript" src="js/task-43.js"></script>
 <script type="text/javascript">
 	var p1 = Jigsaw({
