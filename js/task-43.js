@@ -1,60 +1,40 @@
-(function(window, document) {
-
-    function yoPhoto(param) {
-        return new yoPhoto.prototype.init(param);
+(function (window, undefined) {
+    function Jigsaw(param) {
+        return new Jigsaw.prototype.init(param);
     }
-
-    yoPhoto.prototype = {
-
-        constructor: yoPhoto,
-        wrap: null,
-        imgList: null,
+    Jigsaw.prototype = {
+        constructor: Jigsaw,
         prefix: 'layout',
-        width: 0,
-        height: 0,
-        imgPop: null,
-
-        init: function(param) {
-
-            var self = this;
-
+        init: function (param) {
+            var that = this;
             this.wrap = param.wrap;
-            this.imgList = this.wrap.querySelectorAll('img');
+            this.imgList = param.imgList;
 
-            this.wrap.className += ' yoPhoto';
+            this.wrap.className += 'Jigsaw';
             this.wrap.style.width = this.width = param.width || '960px';
             this.wrap.style.height = this.height = param.height || '400px';
 
-            this.imgPop = document.querySelector('#yoPhoto-pop') || null;
-            if(!this.imgPop) {
-
-                this.imgPop = document.createElement('div');
-                this.imgPop.id = 'yoPhoto-pop';
-                document.body.appendChild(this.imgPop);
-            }
-            this.imgPop.addEventListener('click', function(event) {
+            this.imgPop = document.createElement('div');
+            this.imgPop.id = 'Jigsaw-pop';
+            this.imgPop.addEventListener('click', function (event) {
                 event = event || window.event;
-                console.log(event.target.id);
-                if(event.target.id === 'yoPhoto-pop') {
-                    self.imgPop.className = self.imgPop.className.replace('show', '');
+                if(event.target.id === 'Jigsaw-pop') {
+                    that.imgPop.className = that.imgPop.className.replace('show', '');
                 }
-            })
+            }, false);
+            document.body.appendChild(this.imgPop);
 
-            this.layout(this.imgList.length);
-
+            this.layout();
         },
-
-        layout: function(count) {
-
-            count = parseInt(count, 10);
-
+        layout: function() {
             var divList = [],
-                self = this,
+                that = this,
                 width = parseInt(this.width, 10),
                 height = parseInt(this.height, 10),
+                count = this.imgList.length,
                 i;
 
-            for(i = 0; i<this.imgList.length; i++) {
+            for(i = 0; i < count; i++) {
 
                 var div = document.createElement('div');
 
@@ -63,59 +43,42 @@
                 div.dataset.src = this.imgList[i].src;
                 div.dataset.alt = this.imgList[i].alt || '';
 
-                //this.wrap.removeChild(imgList[i]);
                 divList.push(div);
             }
 
-            divList.forEach(function(item) {
+            divList.forEach(function (item) {
                 item.addEventListener('click', function() {
 
                     var img = document.createElement('img');
 
-                    self.imgPop.className += ' show';
-                    self.imgPop.innerHTML = '';
+                    that.imgPop.className += 'show';
+                    that.imgPop.innerHTML = '';
                     img.src = item.dataset.src;
 
-                    self.imgPop.appendChild(img);
+                    that.imgPop.appendChild(img);
                 });
             });
 
             switch (count) {
-
                 case 1:
-                {
                     this.wrap.className +=  ' ' + this.prefix + '-1';
-
-                    divList.forEach(function(item) {
-                        self.wrap.appendChild(item);
+                    divList.forEach(function (item) {
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
-
+                    break;
                 case 2:
-                {
-
                     this.wrap.className +=  ' ' + this.prefix + '-2';
-
-                    divList.forEach(function(item) {
-
+                    divList.forEach(function (item) {
                         if(!('clip-path' in document.body.style)) {
                             item.style.width = width / 2 + 'px';
                         }
-
-                        self.wrap.appendChild(item);
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
-
+                    break;
                 case 3:
-                {
-
                     this.wrap.className +=  ' ' + this.prefix + '-3';
-
                     i = 0;
-                    divList.forEach(function(item) {
-
+                    divList.forEach(function (item) {
                         switch (i++) {
                             case 0:
                                 item.style.width = width - (height / 2) + 'px';
@@ -127,32 +90,20 @@
                                 item.style.width = item.style.height = height / 2 + 'px';
                                 break;
                         }
-
-                        self.wrap.appendChild(item);
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
-
+                    break;
                 case 4:
-                {
-
                     this.wrap.className +=  ' ' + this.prefix + '-4';
-
                     divList.forEach(function(item) {
-                        self.wrap.appendChild(item);
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
+                    break;
                 case 5:
-                {
-
                     this.wrap.className +=  ' ' + this.prefix + '-5';
-
                     i = 0;
                     divList.forEach(function(item) {
-
                         switch (i++) {
-
                             case 0:
                                 item.style.height = height * 2 / 3  + 'px';
                                 item.style.width = width * 2 / 3 + 'px';
@@ -171,21 +122,14 @@
                                 item.style.width = width / 3 + 'px';
                                 break;
                         }
-
-                        self.wrap.appendChild(item);
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
+                    break;
                 case 6:
-                {
-
                     this.wrap.className +=  ' ' + this.prefix + '-6';
-
                     i = 0;
                     divList.forEach(function(item) {
-
                         switch (i++) {
-
                             case 0:
                                 item.style.height = height * 2 / 3  + 'px';
                                 item.style.width = width * 2 / 3 + 'px';
@@ -199,26 +143,13 @@
                                 item.style.width = width / 3 + 'px';
                                 break;
                         }
-
-                        self.wrap.appendChild(item);
+                        that.wrap.appendChild(item);
                     });
-
-                } break;
+                    break;
                 default: console.warn('Doesn\'t support.'); break;
             }
-
-        },
-
-        pop: function (index) {
-
-            var img = this.imgPop.querySelector('img');
-
-            this.imgPop.className += ' show';
-            img.src = this.imgList[index].src;
         }
     };
-
-    yoPhoto.prototype.init.prototype = yoPhoto.prototype;
-    window.yoPhoto = yoPhoto;
-
-})(window, document);
+    Jigsaw.prototype.init.prototype = Jigsaw.prototype;
+    window.Jigsaw = Jigsaw;
+})(window, undefined);
