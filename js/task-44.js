@@ -41,6 +41,26 @@ _CalF = {
             node['on' + type] = handler;
         }
     },
+    // 移除事件
+    removeEvent: function (node, type, handler) {
+        if (node.removeEventListener) {
+            node.removeEventListener(type, handler, false);
+        } else if (node.detachEvent) {
+            node.detachEvent('on' + type, handler);
+        } else {
+            node['on' + type] = null;
+        }
+    },
+    // 事件代理
+    delegateEvent: function (element, tag, eventname, listener) {
+        _CalF.bind(element, eventname, function (event) {
+            event = event || window.event;
+            var target = event.target || event.srcElement;
+            if (target.tagName === tag.toUpperCase()) {
+                listener.call(target, event);
+            }
+        });
+    },
     // 获取元素位置
     getPos: function (node) {
         var scrollx = document.documentElement.scrollLeft || document.body.scrollLeft,
@@ -64,9 +84,17 @@ _CalF = {
     },
     // 阻止冒泡
     stopPropagation: function (event) {
-        event = event || window.event;
         event.stopPropagation ? event.stopPropagation() : event.cancelBubble = true;
     },
+    // 组织默认事件
+    preventDefault: function (event) {
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            evant.returnValue = false;
+        }
+    },
+    // 创建XHR对象
     createXHR: function (undefined) {
         if (typeof XMLHttpRequest !== "undefined") {
             return new XMLHttpRequest();
@@ -90,6 +118,7 @@ _CalF = {
             throw new Errpr("No XHR object available.");
         }
     },
+    // AJAX
     ajax: function (method, url, data, callback) {
         var xhr = new _CalF.createXHR();
         xhr.onreadystatechange = function () {
@@ -119,72 +148,129 @@ _CalF = {
     }
     WaterfallLayout.prototype = {
         init: function (param) {
-            this.columnNumer = param.columnNumber;
             this.id = param.id;
+            this.col = param.col || 5;
+            this.cpage = 1;
+            this.control = true;
             this.createContainer(this.id);
-            this.renderColumn(this.columnNumer);
+            this.renderColumn(this.col);
+            this.getData();
+            var that = this;
+            _CalF.bind(window, "scroll", function () {
+                var min = that.getShortestColumn(that.columnArray),
+                    windowHeight = that.getViewport(),
+                    scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+                if (that.getTop(min) + min.clientHeight < windowHeight + scrollHeight) {
+                    if (that.control) {
+                        that.control = false;
+                        that.cpage++;
+                        that.getData();
+                    }
+                }
+            });
+            // 给封装容器添加事件代理，代理来自图片上的点击事件
+            _CalF.delegateEvent(this.gallery, "img", "click", function () {
+                var img = document.createElement("img");
+                that.imgPop.className = "show";
+                that.imgPop.innerHTML = "";
+                img.src = this.src;
+                that.imgPop.appendChild(img);
+            });
+            _CalF.bind(this.imgPop, "click", function (event) {
+                event = event || window.event;
+                if(event.target.id === "gallery-pop") {
+                    that.imgPop.className = "";
+                }
+            });
         },
-        getClientWidth: function () {
-            return document.documentElement.clientWidth || document.body.clientWidth;
+        // 创建弹出层
+        createPop: function () {
+            this.imgPop = document.createElement("div");
+            this.imgPop.id = "gallery-pop";
+            return this.imgPop;
         },
+        // 创建封装容器
         createContainer: function (id) {
-            if (!!document.querySelector("#" + id)) {
+            if (!!_CalF.$("#" + id)) {
                 console.warn(id + " has already existed");
                 return;
             }
-            this.container = document.createElement("div");
-            this.container.id = id;
-            this.container.style.width = "100%";
-            this.container.style.padding = "16px 8px 0";
-            this.container.className = "clearFloat";
-            document.querySelector("body").appendChild(this.container);
+            var container = document.createElement("div");
+            container.id = id;
+            this.gallery = document.createElement("div");
+            this.gallery.className = "gallery";
+            container.appendChild(this.gallery);
+            container.appendChild(this.createPop());
+            _CalF.$("body")[0].appendChild(container);
         },
-        renderColumn: function (columnNumer) {
+        // 生成列
+        renderColumn: function (col) {
             var columnDOM = null,
                 i = 0,
                 that = this;
             this.columnArray = [];
-            for (; i < columnNumer; i++) {
+            for (; i < col; i++) {
                 columnDOM = document.createElement("div");
-                columnDOM.className = "column";
-                columnDOM.style.padding = "0 8px";
-                columnDOM.style.width = this.getWidth(columnNumer) + "px";
+                columnDOM.className = "gallery-column";
+                columnDOM.style.width = this.gallery.clientWidth / this.col + "px";
+                this.colWidth = this.gallery.clientWidth / this.col;
                 this.columnArray.push(columnDOM);
-                this.container.appendChild(columnDOM);
+                this.gallery.appendChild(columnDOM);
             }
-            _CalF.bind(window, "resize", function () {
-                var len = that.columnArray.length,
-                    newWidth = that.getWidth(columnNumer);
-                for (i = 0; i < len; i++) {
-                    that.columnArray[i].style.width = newWidth + "px";
-                }
-            });
-            _CalF.ajax("get", "getPics.php", "cpage=1", function (data) {
+        },
+        // 通过AJAX每次获取一页数据
+        getData: function () {
+            var that = this;
+            _CalF.ajax("get", "getPics.php", "cpage=" + that.cpage, function (data) {
                 data = JSON.parse(data);
                 that.addContent(data);
             });
         },
-        getWidth: function (columnNumer) {
-            return (this.getClientWidth() - 16) / columnNumer;
-        },
-        addContent: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var columnItem = document.createElement("div"),
-                    imgOfItem = document.createElement("img"),
-                    pOfItem = document.createElement("p");
-                columnItem.className = "columnItem";
-                imgOfItem.src = data[i].preview;
-                imgOfItem.style.display = "block";
-                pOfItem.innerHTML = data[i].title;
-                columnItem.appendChild(imgOfItem);
-                columnItem.appendChild(pOfItem);
-                that.getShortestColumn(that.columnArray).appendChild(columnItem);
+        // 获取视口大小
+        getViewport: function () {
+            if (document.compatMode == "BackCompat") {
+                return document.body.clientHeight;
+            } else {
+                return document.documentElement.clientHeight;
             }
         },
+        // 获取元素的top值
+        getTop: function (element) {
+            var actualTop = element.offsetTop,
+                current = element.offsetParent;
+            while (current !== null) {
+                actualTop += current.offsetTop;
+                current = current.offsetParent;
+            }
+            return actualTop;
+        },
+        // 将每次获取到的数据添加到页面中
+        addContent: function (data) {
+            var i = 0,
+                imageItem = null,
+                divItem = null,
+                pItem = null;
+            for (; i < data.length; i++) {
+                divItem = document.createElement("div");
+                divItem.className = "gallery-column-item";
+                imageItem = document.createElement("img");
+                imageItem.src = data[i].preview;
+                imageItem.style.width = this.colWidth - 16 + "px";
+                imageItem.style.height = data[i].height * (this.colWidth - 16) / data[i].width + "px";
+
+                pItem = document.createElement("p");
+                pItem.innerHTML = data[i].title;
+                divItem.appendChild(imageItem);
+                divItem.appendChild(pItem);
+                this.getShortestColumn(this.columnArray).appendChild(divItem);
+            }
+            this.control = true;
+        },
+        // 获取高度最小的列
         getShortestColumn: function (columnArray) {
             var min = columnArray[0];
             for (var i = 1; i < columnArray.length; i++) {
-                if (columnArray[i].offsetHeight < min.offsetHeight) {
+                if (columnArray[i].clientHeight < min.clientHeight) {
                     min = columnArray[i];
                 }
             }
