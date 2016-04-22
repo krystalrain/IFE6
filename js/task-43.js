@@ -14,8 +14,12 @@
             this.wrap.style.width = this.width = param.width || '960px';
             this.wrap.style.height = this.height = param.height || '400px';
 
-            this.imgPop = document.createElement('div');
-            this.imgPop.id = 'Jigsaw-pop';
+            this.imgPop = document.querySelector('#Jigsaw-pop') || null;
+            if(!this.imgPop) {
+                this.imgPop = document.createElement('div');
+                this.imgPop.id = 'Jigsaw-pop';
+                document.body.appendChild(this.imgPop);
+            }
             this.imgPop.addEventListener('click', function (event) {
                 event = event || window.event;
                 if(event.target.id === 'Jigsaw-pop') {

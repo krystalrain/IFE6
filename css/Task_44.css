@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft YaHei UI", sans-serif;
+}
+
+.clearFloat {
+    zoom: 1;
+}
+.clearFloat::after {
+    content: "";
+    display: block;
+    clear: both;
+}
