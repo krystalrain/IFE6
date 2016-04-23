@@ -36,7 +36,6 @@ header#top {
     background: rgba(0, 0, 0, 1);
 }
 h1 {
-    width: 100%;
     height: 100px;
     line-height: 100px;
     padding-left: 50px;
@@ -62,7 +61,6 @@ section ul.clearfix::after {
 }
 
 footer {
-    width: 100%;
     background: black;
 }
 footer a {
