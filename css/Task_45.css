@@ -3,27 +3,14 @@ body {
     font-size: 14px;
 }
 
-/* custom style */
 .rowphotoContainer {
     margin: 0 auto;
-    width: 1000px;
+    width: 90%;
 }
-.rowphotoBox .content {
-    position: absolute;
-    bottom: 0;
-    color: white
-}
-
-/* use with rowphotojs*/
 .rowphotoRow {
     white-space: nowrap;
-    overflow: hidden;
 }
 .rowphotoBox {
     box-sizing: border-box;
     display: inline-block;
-    position: relative;
-}
-.rowphotoBox img {
-    height: 100%;
 }

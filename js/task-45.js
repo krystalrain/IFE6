@@ -1,138 +1,102 @@
-/**
- *
- * Rowphoto v0.0.1
- * Description, by StevenYu.
- * @desc use with rowphoto.css
- * @author StevenYu
- */
-
-;(function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define([], factory);
-    } else if (typeof module === 'object' && module.exports) {
-        module.exports = factory();
-    } else {
-        // Browser globals (root is window)
-        root.Rowphoto = factory();
+(function (window, undefined) {
+    function Barrel() {
+        return new Barrel.prototype.init();
     }
-}(this, function() {
-
-    'use strict';
-
-    /**
-     * @param {Object} opts - options used in plugin
-     * @constructor
-     */
-
-    var Rowphoto = function(opts) {
-
-        opts = opts || {};
-        var containerSelector = opts.containerSelector || '.rowphotoContainer';
-        var boxSelector = opts.boxSelector || '.rowphotoBox';
-
-        this.rowMinHeight = opts.rowMinHeight || '200px';
-        this.container = document.querySelector(containerSelector);
-        this.boxes = this.container ? Array.prototype.slice.call(this.container.querySelectorAll(boxSelector)) : [];
-
-        for (var i = 0; i < this.boxes.length; i++) {
-            this.boxes[i].ratio = this.boxes[i].clientWidth / this.boxes[i].clientHeight;
-        }
-        // init rowphoto
-        this.compose();
-    }
-
-    /**
-     * @desc Plugin prototype definition.
-     */
-
-    Rowphoto.prototype = {
-
-        /**
-         * @desc compose the Rowphoto
-         */
-
-        compose: function() {
-
-            var rows = this.calcRow();
-            var index = 0;
-            var i;
-
-            // initial the rows
-            this.initRow(rows);
-
-            // add the box to the rows according to the index
-            for (i = 0; i < this.boxes.length; i++) {
-                if (i > rows[index].number) index ++;
-                this.boxes[i].style.height = '100%';
-                this.boxes[i].style.width = '';
-                this.addBox(this.boxes[i], index);
+    Barrel.prototype = {
+        init: function(param) {
+            this.loadNumber = 30; // 一次性加载的图片数量
+            this.baseUrl = "http://placehold.it/";
+            this.minHeight = 400;
+            this.sourceImages = [];
+            this.createContainer();
+            this.getImage();
+            this.renderRows(this.calcRow());
+        },
+        createContainer: function() {
+            this.container = document.createElement("div");
+            this.container.className = "rowphotoContainer";
+            document.body.appendChild(this.container);
+        },
+        getImage: function () {
+            var i,
+                width,
+                height;
+            for (i = 0; i < this.loadNumber; i++) {
+                width = Math.floor(Math.random() * 5 + 1) * 100;
+                height = Math.floor(Math.random() * 5 + 1) * 100;
+                this.sourceImages.push({
+                    width: width,
+                    height: height,
+                    url: this.baseUrl + width + "x" + height + "/" + this.randomColor() + "/fff",
+                    ratio: width / height
+                });
             }
         },
-
-        /**
-         * @desc calculate the rows according to the minium height
-         * @return {Array} rows -object including the number of rows and the height of the rows
-         */
-
+        randomColor: function () {
+            var rand = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+            if (rand.length === 6) {
+                return rand;
+            } else {
+                return this.randomColor();
+            }
+        },
         calcRow: function() {
-
-            var height = this.rowMinHeight.slice(0,-2);
-            var rows = [];
-            var width = 0;
-            var ratio;
-            var totalWidth;
-            var totalHeight;
-            var i;
-
-            // compare the total width with the container width
-            // if the total width is grater than container width
-            // than push to the row array which include the number and height
-            // clear data and loop again until end
-            for (i = 0; i < this.boxes.length; i++) {
-                this.boxes[i].style.height = height + 'px';
-                this.boxes[i].style.width = (height * this.boxes[i].ratio) + 'px';
-                width += height * this.boxes[i].ratio;
+            var height = this.minHeight,
+                width = 0,
+                ratio,
+                totalHeight,
+                rows = [],
+                startIndex = 0,
+                endIndex = 0,
+                i;
+            for (i = 0; i < this.sourceImages.length; i++) {
+                this.sourceImages[i].height = height;
+                this.sourceImages[i].width = height * this.sourceImages[i].ratio;
+                width += this.sourceImages[i].width;
+                endIndex = i;
                 if (width > this.container.clientWidth) {
-                    totalWidth = width - this.boxes[i].clientWidth;
+                    totalWidth = width - this.sourceImages[i].width;
                     ratio = height / totalWidth;
                     totalHeight = this.container.clientWidth * ratio;
-                    rows.push({number: i-1, height: totalHeight});
-                    width = this.boxes[i].clientWidth;
+                    rows.push({
+                        start: startIndex,
+                        end: endIndex - 1,
+                        height: totalHeight
+                    });
+                    width = this.sourceImages[i].width;
+                    startIndex = i;
                 }
             }
-            rows.push({number: i, height: 200});
+            rows.push({
+                start: startIndex,
+                end: endIndex,
+                height: height
+            });
             return rows;
         },
-
-        /**
-         * @desc init the rows
-         * @param {Array} row -object including the number of rows and the height of the rows
-         */
-
-        initRow: function(row) {
-            this.rows = [];
-            for (var i = 0; i < row.length; i++) {
-                var rowDiv = document.createElement('div');
-                rowDiv.className = 'rowphotoRow';
-                rowDiv.style.height = row[i].height + 'px';
-                this.rows.push(rowDiv);
-                this.container.appendChild(rowDiv);
+        renderRows: function (rows) {
+            var i,
+                j,
+                rowDOM,
+                boxDOM,
+                img;
+            for (i = 0; i < rows.length; i++) {
+                rowDOM = document.createElement("div");
+                rowDOM.className = "rowphotoRow";
+                rowDOM.style.height = rows[i].height + "px";
+                for (j = rows[i].start; j <= rows[i].end; j++) {
+                    boxDOM = document.createElement("div");
+                    boxDOM.className = "rowphotoBox";
+                    img = document.createElement("img");
+                    img.src = this.sourceImages[j].url;
+                    img.style.height = rows[i].height + "px";
+                    boxDOM.appendChild(img);
+                    rowDOM.appendChild(boxDOM);
+                }
+                this.container.appendChild(rowDOM);
             }
-        },
-
-        /**
-         * @desc add the box to the row
-         * @param {Object} ele - the box element
-         * @param {Number} index - the index of the rows
-         */
-
-        addBox: function(ele, index) {
-            var row = this.rows[index];
-            row.appendChild(ele);
         }
-
-    }
-
-    return Rowphoto;
-
-}));
+    };
+    Barrel.prototype.init.prototype = Barrel.prototype;
+    window.Barrel = Barrel;
+})(window, undefined);
