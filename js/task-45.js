@@ -4,9 +4,9 @@
     }
     Barrel.prototype = {
         init: function(param) {
-            this.loadNumber = 30; // 一次性加载的图片数量
+            this.loadNumber = 50; // 一次性加载的图片数量
             this.baseUrl = "http://placehold.it/";
-            this.minHeight = 400;
+            this.minHeight = 200;
             this.sourceImages = [];
             this.createContainer();
             this.getImage();
@@ -22,8 +22,8 @@
                 width,
                 height;
             for (i = 0; i < this.loadNumber; i++) {
-                width = Math.floor(Math.random() * 5 + 1) * 100;
-                height = Math.floor(Math.random() * 5 + 1) * 100;
+                width = Math.floor(Math.random() * 300 + 300);
+                height = Math.floor(Math.random() * 30 + 300);
                 this.sourceImages.push({
                     width: width,
                     height: height,
@@ -57,7 +57,7 @@
                 if (width > this.container.clientWidth) {
                     totalWidth = width - this.sourceImages[i].width;
                     ratio = height / totalWidth;
-                    totalHeight = this.container.clientWidth * ratio;
+                    totalHeight = (this.container.clientWidth - (endIndex - startIndex - 1) * 8) * ratio;
                     rows.push({
                         start: startIndex,
                         end: endIndex - 1,
@@ -94,6 +94,15 @@
                     rowDOM.appendChild(boxDOM);
                 }
                 this.container.appendChild(rowDOM);
+            }
+        },
+        addEvent: function (element, event, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(event, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent(event, handler);
+            } else {
+                element["on" + event] = handler;
             }
         }
     };
