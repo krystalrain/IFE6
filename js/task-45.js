@@ -9,8 +9,40 @@
             this.minHeight = 200;
             this.sourceImages = [];
             this.createContainer();
+            this.control = false;
+            this.draw();
+            var that = this;
+            this.addEvent(window, "scroll", function () {
+                var windowHeight = that.getViewport(),
+                    scrollHeight = document.documentElement.scrollTop || document.body.scrollTop;
+                if (that.getTop(that.lastRow) + that.lastRow.clientHeight < windowHeight + scrollHeight) {
+                    if (that.control) {
+                        that.control = false;
+                        that.draw();
+                    }
+                }
+            });
+        },
+        draw: function () {
             this.getImage();
             this.renderRows(this.calcRow());
+            this.control = true;
+        },
+        getViewport: function () {
+            if (document.compatMode == "BackCompat") {
+                return document.body.clientHeight;
+            } else {
+                return document.documentElement.clientHeight;
+            }
+        },
+        getTop: function (element) {
+            var actualTop = element.offsetTop,
+                current = element.offsetParent;
+            while (current !== null) {
+                actualTop += current.offsetTop;
+                current = current.offsetParent;
+            }
+            return actualTop;
         },
         createContainer: function() {
             this.container = document.createElement("div");
@@ -67,11 +99,12 @@
                     startIndex = i;
                 }
             }
-            rows.push({
+            /*rows.push({ // 最后一行留给下一次
                 start: startIndex,
                 end: endIndex,
                 height: height
             });
+            console.log(rows);*/
             return rows;
         },
         renderRows: function (rows) {
@@ -93,7 +126,15 @@
                     boxDOM.appendChild(img);
                     rowDOM.appendChild(boxDOM);
                 }
+                if (i == rows.length - 1) { // 获取对最后一行的引用
+                    this.lastRow = rowDOM;
+                }
                 this.container.appendChild(rowDOM);
+            }
+            for (i = 0; i < rows.length; i++) { // 最后一行留给下一次
+                for (j = rows[i].start; j <= rows[i].end; j++) {
+                    this.sourceImages.shift();
+                }
             }
         },
         addEvent: function (element, event, handler) {
