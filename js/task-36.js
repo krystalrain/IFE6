@@ -513,7 +513,7 @@ Square.prototype.findway = function (points, start, end) {
             for (var i = 0; i < rounds.length; i++) {
                 if (rounds[i].dataset.wall === "1" || inList(closes, rounds[i]) || inList(opens, rounds[i])) {
                     continue;
-                } else if (!inList(opens, rounds[i]) && rounds[i].dataset.wall !== "1") {
+                } else {
                     rounds[i].G = cur.G + 1;//不算斜的，只算横竖，设每格距离为1
                     rounds[i].H = Math.abs(parseInt(rounds[i].dataset.col) - parseInt(end.dataset.col)) + Math.abs(parseInt(rounds[i].dataset.row) - parseInt(end.dataset.row));
                     rounds[i].F = rounds[i].G + rounds[i].H;
