@@ -1,22 +1,29 @@
 var main = (function () {
     var wrapper, canvas, ctx, // 变量--html结构
-        canWidth, canHeight, cellLength, // 变量--画布宽高，地图单元格大小
+        canWidth, canHeight, // 变量--画布宽高，地图单元格大小
         deltaTime, lateTime, loop, // 变量--两次绘制的时间差，动画名
         block, // 变量--blockObj类的对象实例
         hero, // 变量--heroObj类的对象实例
         target, // 变量--targetObj类的对象实例
         map = [], // 变量--二维数组记录虚拟地图
-        Level = 0; // 变量--设定关卡难度
-
-    wrapper = document.getElementById("wrapper"); // 各变量初始化
+        Level = 0, // 变量--设定关卡难度
+        canRow,
+        canCol,
+        cellWidth,
+        cellHeight;
+    
+    wrapper = document.getElementById('wrapper'); // 各变量初始化
     canWidth = wrapper.clientWidth;
     canHeight = wrapper.clientHeight;
-    canvas = document.createElement("canvas");
+    canvas = document.createElement('canvas');
     canvas.width = canWidth;
     canvas.height = canHeight;
     wrapper.appendChild(canvas);
-    ctx = canvas.getContext("2d");
-    cellLength = 20;
+    ctx = canvas.getContext('2d');
+    canRow = 30;
+    canCol = 25;
+    cellWidth = canWidth / canCol;
+    cellHeight = canHeight / canRow;
 
     window.requestAnimationFrame = window.requestAnimationFrame ||
         window.mozRequestAnimationFrame ||
@@ -35,8 +42,8 @@ var main = (function () {
                     y: event.clientY - bbox.top * (canvas.height / bbox.height)
                 },
                 cell = {
-                    col: Math.floor(coordinates.x / cellLength),
-                    row: Math.floor(coordinates.y / cellLength)
+                    row: Math.floor(coordinates.y / cellHeight),
+                    col: Math.floor(coordinates.x / cellWidth)
                 },
                 path,
                 timer;
@@ -44,7 +51,7 @@ var main = (function () {
             if (path) {
                 var i = 0;
                 timer = setInterval(function(){
-                    hero.move(path[i].col, path[i].row);
+                    hero.move(path[i].row, path[i].col);
                     if (path[i].row == target.coordinates.row && path[i].col == target.coordinates.col) {
                         path = [];
                         reset();
@@ -64,7 +71,6 @@ var main = (function () {
     var initObj = function () {
         lateTime = Date.now();
         deltaTime = 0;
-        block.init();
         block.buildMap();
         hero.init();
         target.init();
@@ -104,7 +110,7 @@ var main = (function () {
 
     var reset = function () { // 重置函数
         cancelAnimationFrame(loop);
-        Level = Level > 20 ? Level : Level + 1;
+        Level++;
         initObj();
         gameLoop();
     };
@@ -115,7 +121,10 @@ var main = (function () {
         ctx: ctx,
         canWidth: canWidth,
         canHeight: canHeight,
-        cellLength: cellLength,
+        canRow: canRow, 
+        canCol: canCol,
+        cellWidth: cellWidth,
+        cellHeight: cellHeight,
         deltaTime: deltaTime,
         lateTime: lateTime,
         loop: loop,
