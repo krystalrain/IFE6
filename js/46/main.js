@@ -6,7 +6,7 @@ var main = (function () {
         hero, // 变量--heroObj类的对象实例
         target, // 变量--targetObj类的对象实例
         map = [], // 变量--二维数组记录虚拟地图
-        Level = 0, // 变量--设定关卡难度
+        Level = 1, // 变量--设定关卡难度
         canRow,
         canCol,
         cellWidth,

@@ -94,7 +94,7 @@ var findway = (function () {
                     if (inList(closes, rounds[i]) || inList(opens, rounds[i]) || rounds[i].empty == false) {
                         continue;
                     } else {
-                        rounds[i].G = cur.G + 1;//不算斜的，只算横竖，设每格距离为1
+                        rounds[i].G = cur.G + 10;//不算斜的，只算横竖，设每格距离为1
                         rounds[i].H = Math.abs(rounds[i].col - end.col) + Math.abs(rounds[i].row - end.row);
                         rounds[i].F = rounds[i].G + rounds[i].H;
                         rounds[i].P = cur;//cur为.P的父指针
