@@ -1,171 +1,182 @@
 var findway = (function () {
-    /**
-     * 监测是否在列表中
-     * @param list
-     * @param current
-     * @returns {boolean}
-     */
-    function inList(list, current) {
-        for (var i = 0, len = list.length; i < len; i++) {
-            if (current === list[i]) {
-                return true;
+    var closelist = new Array(),
+        openlist = new Array(),
+        gw = 10,
+        gh = 10,
+        gwh = 14,
+        p_start = new Array(2),
+        p_end = new Array(2),
+        s_path,
+        n_path,
+        w,
+        h,
+        finalPath = new Array();
+    function GetRound(pos) {
+        var a = new Array();
+        a[0] = (pos[0] + 1) + "," + (pos[1] - 1);
+        a[1] = (pos[0] + 1) + "," + pos[1];
+        a[2] = (pos[0] + 1) + "," + (pos[1] + 1);
+        a[3] = pos[0] + "," + (pos[1] + 1);
+        a[4] = (pos[0] - 1) + "," + (pos[1] + 1);
+        a[5] = (pos[0] - 1) + "," + pos[1];
+        a[6] = (pos[0] - 1) + "," + (pos[1] - 1);
+        a[7] = pos[0] + "," + (pos[1] - 1);
+        return a;
+    }
+    function GetF(arr) {
+        var t, G, H, F;
+        for (var i = 0; i < arr.length; i++) {
+            t = arr[i].split(",");
+            t[0] = parseInt(t[0]); t[1] = parseInt(t[1]);
+            if (IsOutScreen([t[0], t[1]]) || IsPass(arr[i]) || InClose([t[0], t[1]]) || IsStart([t[0], t[1]]) || !IsInTurn([t[0], t[1]]))
+                continue;
+            if ((t[0] - s_path[3][0]) * (t[1] - s_path[3][1]) != 0)
+                G = s_path[1] + gwh;
+            else
+                G = s_path[1] + gw;
+            if (InOpen([t[0], t[1]])) {
+                if (G < openlist[num][1]) {
+                    openlist[num][0] = (G + openlist[num][2]);
+                    openlist[num][1] = G;
+                    openlist[num][4] = s_path[3];
+                }
+                else {
+                    G = openlist[num][1];
+                }
+            }
+            else {
+                H = (Math.abs(p_end[0] - t[0]) + Math.abs(p_end[1] - t[1])) * gw;
+                F = G + H;
+                arr[i] = new Array();
+                arr[i][0] = F;
+                arr[i][1] = G;
+                arr[i][2] = H;
+                arr[i][3] = [t[0], t[1]];
+                arr[i][4] = s_path[3];
+                openlist[openlist.length] = arr[i];
             }
         }
+    }
+    function IsStart(arr) {
+        if (arr[0] == p_start[0] && arr[1] == p_start[1])
+            return true;
         return false;
     }
-    /**
-     * 重置所有P指针
-     */
-    function resetP(map) {
-        for (var i = 0; i < map.length; i++) {
-            for (var j = 0; j < map[0].length; j++) {
-                map[i][j].P = null;
+    function IsInTurn(arr) {
+        if (arr[0] > s_path[3][0]) {
+            if (arr[1] > s_path[3][1]) {
+                if (IsPass((arr[0] - 1) + "," + arr[1]) || IsPass(arr[0] + "," + (arr[1] - 1)))
+                    return false;
+            }
+            else if (arr[1] < s_path[3][1]) {
+                if (IsPass((arr[0] - 1) + "," + arr[1]) || IsPass(arr[0] + "," + (arr[1] + 1)))
+                    return false;
             }
         }
+        else if (arr[0] < s_path[3][0]) {
+            if (arr[1] > s_path[3][1]) {
+                if (IsPass((arr[0] + 1) + "," + arr[1]) || IsPass(arr[0] + "," + (arr[1] - 1)))
+                    return false;
+            }
+            else if (arr[1] < s_path[3][1]) {
+                if (IsPass((arr[0] + 1) + "," + arr[1]) || IsPass(arr[0] + "," + (arr[1] + 1)))
+                    return false;
+            }
+        }
+        return true;
     }
-    /**
-     * 获取四周点
-     * @param points
-     * @param current
-     * @returns {Array}
-     */
-    function getRounds(points, current) {
-        var u = null;//上
-        var l = null;//左
-        var d = null;//下
-        var r = null;//右
-        var rounds = [];
-        // 上
-        if (current.row - 1 >= 0) {
-            u = points[current.row - 1][current.col];
-            rounds.push(u);
-        }
-        // 左
-        if (current.col - 1 >= 0) {
-            l = points[current.row][current.col - 1];
-            rounds.push(l);
-        }
-        // 下
-        if (current.row + 1 < points.length) {
-            d = points[current.row + 1][current.col];
-            rounds.push(d);
-        }
-        // 右
-        if (current.col + 1 < points[0].length) {
-            r = points[current.row][current.col + 1];
-            rounds.push(r);
-        }
-        return rounds;
+    function IsOutScreen(arr) {
+        if (arr[0] < 0 || arr[1] < 0 || arr[0] > (w - 1) || arr[1] > (h - 1))
+            return true;
+        return false;
     }
-    return function (points, start, end) {
-        if (start.row == end.row && start.col == end.col || end.wall || end.guard) {
+    function InOpen(arr) {
+        var bool = false;
+        for (var i = 0; i < openlist.length; i++) {
+            if (arr[0] == openlist[i][3][0] && arr[1] == openlist[i][3][1]) {
+                bool = true; num = i; break;
+            }
+        }
+        return bool;
+    }
+    function InClose(arr) {
+        var bool = false;
+        for (var i = 0; i < closelist.length; i++) {
+            if ((arr[0] == closelist[i][3][0]) && (arr[1] == closelist[i][3][1])) {
+                bool = true; break;
+            }
+        }
+        return bool;
+    }
+    function IsPass(pos) {
+        if ((";" + n_path + ";").indexOf(";" + pos + ";") != -1)
+            return true;
+        return false;
+    }
+    function Sort(arr) {
+        var temp;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr.length == 1) break;
+            if (arr[i][0] <= arr[i + 1][0]) {
+                temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+            }
+            if ((i + 1) == (arr.length - 1))
+                break;
+        }
+    }
+    function main() {
+        GetF(GetRound(s_path[3]));
+        Sort(openlist);
+        s_path = openlist[openlist.length - 1];
+        closelist[closelist.length] = s_path;
+        openlist[openlist.length - 1] = null;
+        if (openlist.length == 0) { // 找不到路径
+            finalPath.push(false);
             return;
         }
-        resetP(main.map);//每次执行MOV TO指令时先重置所有P指针
-        var opens = [];  // 存放可检索的方块(开启列表)
-        var closes = [];  // 存放已检索的方块（关闭列表）
-        var cur = null;  // 当前指针
-        var bFind = true;  // 是否检索
-        // 设置开始点的F、G为0并放入opens列表（F=G+H）
-        start.F = 0;
-        start.G = 0;
-        start.H = 0;
-        // 将起点压入closes数组，并设置cur指向起始点
-        closes.push(start);
-        cur = start;
-        // 如果起始点紧邻结束点则不计算路径直接将起始点和结束点压入closes数组
-        if (Math.abs(start.row - end.row) + Math.abs(start.col - end.col) == 1) {
-            end.P = start;
-            closes.push(end);
-            bFind = false;
-        }
-        // 计算路径
-        while (cur && bFind) {
-            //如果当前元素cur不在closes列表中，则将其压入closes列表中
-            if (!inList(closes, cur)) {
-                closes.push(cur);
-            }
-            // 然后获取当前点四周点
-            var rounds = getRounds(points, cur);
-            // 当四周点不在opens数组中并且可移动，设置G、H、F和父级P，并压入opens数组
-            for (var i = 0; i < rounds.length; i++) {
-                if (inList(closes, rounds[i]) || inList(opens, rounds[i]) || rounds[i].wall || rounds[i].guard) {
-                    continue;
-                } else {
-                    rounds[i].G = cur.G + 10;//不算斜的，只算横竖，设每格距离为1
-                    rounds[i].H = Math.abs(rounds[i].col - end.col) + Math.abs(rounds[i].row - end.row);
-                    rounds[i].F = rounds[i].G + rounds[i].H;
-                    rounds[i].P = cur;//cur为.P的父指针
-                    opens.push(rounds[i]);
-                }
-            }
-            // 如果获取完四周点后opens列表为空，则代表无路可走，此时退出循环
-            if (!opens.length) {
-                cur = null;
-                opens = [];
-                closes = [];
-                break;
-            }
-            // 按照F值由小到大将opens数组排序
-            opens.sort(function (a, b) {
-                return a.F - b.F;
-            });
-            // 取出opens数组中F值最小的元素，即opens数组中的第一个元素
-            var oMinF = opens[0];
-            var aMinF = [];  // 存放opens数组中F值最小的元素集合
-            // 循环opens数组，查找F值和cur的F值一样的元素，并压入aMinF数组。即找出和最小F值相同的元素有多少
-            for (var i = 0; i < opens.length; i++) {
-                if (opens[i].F == oMinF.F)
-                    aMinF.push(opens[i]);
-            }
-            // 如果最小F值有多个元素
-            if (aMinF.length > 1) {
-                // 计算元素与cur的曼哈顿距离
-                for (var i = 0; i < aMinF.length; i++) {
-                    aMinF[i].D = Math.abs(aMinF[i].row - cur.row) + Math.abs(aMinF[i].col - cur.col);
-                }
-                // 将aMinF按照D曼哈顿距离由小到大排序（按照数值的大小对数字进行排序）
-                aMinF.sort(function (a, b) {
-                    return a.D - b.D;
-                });
-                oMinF = aMinF[0];
-            }
-            // 将cur指向D值最小的元素
-            cur = oMinF;
-            // 将cur压入closes数组
-            if (!inList(closes, cur)) {
-                closes.push(cur);
-            }
-            // 将cur从opens数组中删除
-            for (var i = 0; i < opens.length; i++) {
-                if (opens[i] == cur) {
-                    opens.splice(i, 1);//将第i个值删除
-                    break;
-                }
-            }
-            // 找到最后一点，并将结束点压入closes数组
-            if (cur.H == 1) {
-                end.P = cur;
-                closes.push(end);
-                cur = null;
-            }
-        }
-        if (closes.length) {
-            // 从结尾开始往前找
-            var dotCur = closes[closes.length - 1];
-            var path = [];  // 存放最终路径
-            var i = 0;
-            while (dotCur) {
-                path.unshift(dotCur);  // 将当前点压入path数组的头部
-                dotCur = dotCur.P;  // 设置当前点指向父级
-                if (!dotCur.P) {
-                    dotCur = null;
-                }
-            }
-            return path;
+        openlist.length = openlist.length - 1;
+        if ((s_path[3][0] == p_end[0]) && (s_path[3][1] == p_end[1])) {
+            getPath();
         }
         else {
-            return;
+            main();
         }
+    }
+    function getPath() {
+        var path = [];
+        var t = closelist[closelist.length - 1][4];
+        while (1) {
+            path.unshift(t.reverse());
+            for (var i = 0; i < closelist.length; i++) {
+                if (closelist[i][3][0] == t[0] && closelist[i][3][1] == t[1])
+                    t = closelist[i][4];
+            }
+            if (t[0] == p_start[0] && t[1] == p_start[1])
+                break;
+        }
+        path.push([p_end[1], p_end[0]]);
+        finalPath.push(true, path);
+    }
+    function setPos() {
+        var h = (Math.abs(p_end[0] - p_start[0]) + Math.abs(p_end[1] - p_start[1])) * gw;
+        s_path = [h, 0, h, p_start, p_start];
+    }
+    function reset() {
+        finalPath = [];
+        openlist = [];
+        closelist = [];
+    }
+    return function (start, end, blockCoordinates, col, row) {
+        p_start = start;
+        p_end = end;
+        n_path = blockCoordinates;
+        w = col;
+        h = row;
+        reset();
+        setPos();
+        main();
+        return finalPath;
     };
 })();
