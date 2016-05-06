@@ -7,7 +7,7 @@ blockObj.prototype.draw = function () { // 成员函数--绘制
     main.ctx.fillStyle = '#2E1E1E';
     for(i = 0; i < main.canRow; i++){
         for (j = 0; j < main.canCol; j++) {
-            if (main.map[i][j].empty == false) {
+            if (main.map[i][j] == 'wall') {
                 main.ctx.fillRect(j * main.cellWidth, i * main.cellHeight, main.cellWidth, main.cellHeight);
             }
         }
@@ -15,27 +15,17 @@ blockObj.prototype.draw = function () { // 成员函数--绘制
     main.ctx.restore();
 };
 blockObj.prototype.buildMap = function () { // 成员函数--生成虚拟地图
-    var i,
-        j,
+    var i = 0,
         row,
         col;
-    for(i = 0; i < main.canRow; i++){
-        main.map[i] = [];
-        for (j = 0; j < main.canCol; j++) {
-            main.map[i][j] = {
-                row: i,
-                col: j,
-                empty: true
-            };
-        }
-    }
-    i = 0;
+    this.blockCoordinates = '';
     while (i < this.num) {
         row = Math.floor(Math.random() * (main.canRow - 4) + 2);
         col = Math.floor(Math.random() * main.canCol);
-        if (main.map[row][col].empty == true) {
-            main.map[row][col].empty = false;
+        if (main.map[row][col] == 'empty') {
+            main.map[row][col] = 'wall';
             i++;
+            this.blockCoordinates += col + ',' + row + ';';
         }
     }
 };

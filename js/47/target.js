@@ -7,6 +7,7 @@ targetObj.prototype.init = function () {//成员函数--初始化
         row: Math.floor(Math.random() * 2 + main.canRow - 2),
         col: Math.floor(Math.random() * main.canCol)
     };
+    main.map[this.coordinates.row][this.coordinates.col] = 'target';
     this.x = this.coordinates.col * main.cellWidth;
     this.y = this.coordinates.row * main.cellHeight;
 };
