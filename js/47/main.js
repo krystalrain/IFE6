@@ -11,8 +11,7 @@ var main = (function () {
         canRow, // 变量--地图行数
         canCol, // 变量--地图列数
         cellWidth, // 变量--单元格宽度
-        cellHeight, // 变量--单元格高度
-        requestAnimationFrame;
+        cellHeight; // 变量--单元格高度
     // 各变量初始化
     wrapper = document.getElementById('wrapper');
     canWidth = wrapper.clientWidth;
@@ -20,6 +19,7 @@ var main = (function () {
     canvas = document.createElement('canvas');
     canvas.width = canWidth;
     canvas.height = canHeight;
+    canvas.innerHTML = 'Canvas not supported';
     wrapper.appendChild(canvas);
     ctx = canvas.getContext('2d');
     canRow = 30;
@@ -28,48 +28,47 @@ var main = (function () {
     cellHeight = canHeight / canRow;
     map = [];
     Level = 1;
-    // 获取requestAnimationFrame函数
-    requestAnimationFrame = window.requestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.msRequestAnimationFrame;
     // 游戏初始化
     var init = function () {
+        var timer = null,
+            bbox,
+            coordinates,
+            path,
+            i;
         // 创建实例对象
         block = new blockObj();
         hero = new heroObj();
         target = new targetObj();
         defender = new defenderObj();
+        initObj();
         // 添加点击事件
         addEvent(canvas, 'click', function (event) {
             event = event || window.event;
-            var bbox = canvas.getBoundingClientRect(),
-                coordinates = {
-                    row: Math.floor((event.clientY - bbox.top * (canHeight / bbox.height)) / cellHeight),
-                    col: Math.floor((event.clientX - bbox.left * (canWidth / bbox.width)) / cellWidth)
-                },
-                path,
-                timer,
-                i;
-            if (map[coordinates.row][coordinates.col] != 'wall' && map[coordinates.row][coordinates.col] != 'guard') {
-                path = findway([hero.coordinates.col, hero.coordinates.row], [coordinates.col, coordinates.row], block.blockCoordinates, canCol, canRow);
-                if (path[0]) {
-                    i = 0;
-                    timer = setInterval(function(){
-                        hero.move(path[1][i][0], path[1][i][1]);
-                        if (path[1][i][0] == target.coordinates.row && path[1][i][1] == target.coordinates.col) {
-                            reset();
-                            clearInterval(timer);
-                        }
-                        i++;
-                        if(i >= path[1].length){
-                            clearInterval(timer);
-                        }
-                    }, deltaTime);
-                }
+            clearInterval(timer);
+            bbox = canvas.getBoundingClientRect();
+            coordinates = {
+                row: Math.floor((event.clientY - bbox.top * (canvas.height / bbox.height)) / cellHeight),
+                col: Math.floor((event.clientX - bbox.left * (canvas.width / bbox.width)) / cellWidth)
+            };
+            if (map[coordinates.row][coordinates.col] == 'wall' || map[coordinates.row][coordinates.col] == 'guard' || map[coordinates.row][coordinates.col] == 'hero') {
+                return;
+            }
+            path = aStar([hero.coordinates.col, hero.coordinates.row], [coordinates.col, coordinates.row], block.n_path);
+            if (path) {
+                i = 0;
+                timer = setInterval(function () {
+                    hero.move(path[i][1], path[i][0]);
+                    if (path[i][0] == target.coordinates.col && path[i][1] == target.coordinates.row) {
+                        reset();
+                        clearInterval(timer);
+                    }
+                    i++;
+                    if(i == path.length){
+                        clearInterval(timer);
+                    }
+                }, deltaTime);
             }
         });
-        initObj();
     };
     // 生成虚拟地图
     var virsualMap = function () {
@@ -119,7 +118,13 @@ var main = (function () {
         target.draw();
         defender.draw();
         block.draw();
-        loop = requestAnimationFrame(gameLoop);
+        calculateFps();
+        loop = requestNextAnimationFrame(gameLoop);
+    };
+    // 计算帧率
+    var calculateFps = function () {
+        ctx.fillStyle = 'cornflowerblue';
+        ctx.fillText((1000 / deltaTime).toFixed() + 'fps', 10, 20);
     };
     // 开始游戏入口
     var startGame = function () { // 调用函数
