@@ -35,7 +35,7 @@ var aStar = (function () {
      * @param arr
      * @constructor
      */
-    function GetF(arr){
+    function GetF(arr) {
         var t,
             G,
             H,
@@ -222,12 +222,14 @@ var aStar = (function () {
             t = closelist[closelist.length-1][4];
         while (1) {
             path.unshift(t);
-            for(var i = 0;i < closelist.length; i++){
-                if (closelist[i][3][0] == t[0] && closelist[i][3][1] == t[1])
+            for (var i = 0;i < closelist.length; i++) {
+                if (closelist[i][3][0] == t[0] && closelist[i][3][1] == t[1]) {
                     t = closelist[i][4];
+                }
             }
-            if (t[0] == p_start[0] && t[1] == p_start[1])
+            if (t[0] == p_start[0] && t[1] == p_start[1]) {
                 break;
+            }
         }
         path.push(p_end);
         resultPath = path;
