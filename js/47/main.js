@@ -2,7 +2,7 @@ var main = (function () {
 
     var wrapper, canvas, ctx, // 变量--html结构
         canWidth, canHeight, // 变量--画布宽高，地图单元格大小
-        lastTime, loop, // 变量--两次绘制的时间差，动画名
+        lastTime, // 变量--两次绘制的时间差，动画名
         block, // 变量--blockObj类的对象实例
         hero, // 变量--heroObj类的对象实例
         target, // 变量--targetObj类的对象实例
@@ -225,9 +225,9 @@ var main = (function () {
         ctx.fillStyle = 'cornflowerblue';
         ctx.fillText(calculateFps().toFixed() + 'fps', 10, 20);
         ctx.fillText('第' + Level + '关', 50, 20);
-        if (!isGameOver) {
-            loop = requestAnimationFrame(animate);
-        } else {
+        if (!isGameOver) { // 如果游戏没结束，继续动画循环
+            requestAnimationFrame(animate);
+        } else { // 游戏结束
             gameOver();
         }
     };
