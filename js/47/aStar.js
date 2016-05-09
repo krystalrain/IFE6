@@ -207,7 +207,7 @@ var aStar = (function () {
         closelist[closelist.length] = s_path;
         openlist[openlist.length - 1] = null;
         if (openlist.length == 0) {
-            resultPath = null;
+            resultPath = [];
             return;
         }
         openlist.length = openlist.length - 1;

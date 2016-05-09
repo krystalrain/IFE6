@@ -7,7 +7,7 @@ blockObj.prototype.draw = function () { // 成员函数--绘制
         j;
     main.ctx.save();
     main.ctx.fillStyle = '#2E1E1E';
-    for(i = 0; i < main.canRow; i++){
+    for (i = 0; i < main.canRow; i++) {
         for (j = 0; j < main.canCol; j++) {
             if (main.map[i][j] == 'wall') {
                 main.ctx.fillRect(j * main.cellWidth, i * main.cellHeight, main.cellWidth, main.cellHeight);
