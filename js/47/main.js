@@ -17,6 +17,7 @@ var main = (function () {
         canCol, // 变量--地图列数
         cellWidth, // 变量--单元格宽度
         isGameOver, // 游戏是否结束
+        isGameStart, // 游戏是否开始
         cellHeight; // 变量--单元格高度
 
     // 各变量初始化
@@ -48,40 +49,56 @@ var main = (function () {
         target = new targetObj();
         defender = new defenderObj();
 
-        // 添加点击事件
-        addEvent(canvas, 'click', handler);
-
         // 每隔400ms对特工位置进行检查，看是否处在某个守卫的射击范围之内
-        checkAgentTimer = setInterval(function () {
-            defender.detectAgent(hero);
-        }, 400);
+        openCheckTimer();
 
     };
 
     // 点击事件回调函数
     var handler = function (event) {
 
-        var bbox,
-            coordinates;
+        if (!isGameStart) {
+            isGameStart = true;
+            init();
+            update();
+            animate();
+        } else if (isGameStart && !isGameOver) {
+            var bbox,
+                coordinates;
 
-        // 获取鼠标点击位置的坐标
-        event = event || window.event;
-        bbox = canvas.getBoundingClientRect();
-        coordinates = {
-            row: Math.floor((event.clientY - bbox.top * (canvas.height / bbox.height)) / cellHeight),
-            col: Math.floor((event.clientX - bbox.left * (canvas.width / bbox.width)) / cellWidth)
-        };
+            // 获取鼠标点击位置的坐标
+            event = event || window.event;
+            bbox = canvas.getBoundingClientRect();
+            coordinates = {
+                row: Math.floor((event.clientY - bbox.top * (canvas.height / bbox.height)) / cellHeight),
+                col: Math.floor((event.clientX - bbox.left * (canvas.width / bbox.width)) / cellWidth)
+            };
 
-        // 如果鼠标点击的地方是地面或者目标，英雄进行移动
-        if (map[coordinates.row][coordinates.col] == 'empty' || map[coordinates.row][coordinates.col] == 'target') {
-            heroMove(coordinates.row, coordinates.col);
+            // 如果鼠标点击的地方是地面或者目标，英雄进行移动
+            if (map[coordinates.row][coordinates.col] == 'empty' || map[coordinates.row][coordinates.col] == 'target') {
+                heroMove(coordinates.row, coordinates.col);
+            }
+
+            // 如果鼠标点击的地方是守卫，则判断英雄能否开枪
+            if (map[coordinates.row][coordinates.col] == 'guard') {
+                hero.detectGuard(coordinates.row, coordinates.col);
+            }
+
+        } else if (isGameStart && isGameOver) {
+            isGameOver = false;
+            Level = 1;
+            openCheckTimer();
+            update();
+            animate();
         }
+    };
 
-        // 如果鼠标点击的地方是守卫，则判断英雄能否开枪
-        if (map[coordinates.row][coordinates.col] == 'guard') {
-            hero.detectGuard(coordinates.row, coordinates.col);
-        }
-
+    // 开启特工位置检查定时器
+    var openCheckTimer = function () {
+        // 每隔400ms对特工位置进行检查，看是否处在某个守卫的射击范围之内
+        checkAgentTimer = setInterval(function () {
+            defender.detectAgent(hero);
+        }, 400);
     };
 
     // 根据路径更新英雄坐标位置
@@ -168,33 +185,35 @@ var main = (function () {
     // 更新子弹位置并且绘制
     var updateAndDrawBullet = function () {
         var row,
-            col;
-        for (var bullet of bullets) {
-            bullet.posX = bullet.posX + bullet.speed * bullet.dirX;
-            bullet.posY = bullet.posY + bullet.speed * bullet.dirY;
-            row = Math.floor(bullet.posY / cellHeight);
-            col = Math.floor(bullet.posX / cellWidth);
+            col,
+            i,
+            j;
+        for (i = 0; i < bullets.length; i++) {
+            bullets[i].posX += bullets[i].speed * bullets[i].dirX;
+            bullets[i].posY += bullets[i].speed * bullets[i].dirY;
+            row = Math.floor(bullets[i].posY / cellHeight);
+            col = Math.floor(bullets[i].posX / cellWidth);
             // 子弹打在墙上或者边界上
             if (row < 0 || row > canRow - 1 || col < 0 || col > canCol - 1 || map[row][col] == 'wall') {
-                bullets.splice(bullets.indexOf(bullet), 1);
+                bullets.splice(i, 1);
                 continue;
             }
             // 来自守卫的子弹
-            if (bullet.shooter.name == 'defender' && row == hero.coordinates.row && col == hero.coordinates.col) {
-                isGameOver = true;
+            if (bullets[i].shooter.name == 'defender' && row == hero.coordinates.row && col == hero.coordinates.col) {
+                isGameOver = true; // 特工中枪
                 return;
             }
             // 来自特工的子弹
-            if (bullet.shooter.name == 'hero') {
-                for (var defenderObj of defender.defenders) { // 检查特工射击的是哪一个守卫
-                    if (defenderObj.row == row && defenderObj.col == col) { // 子弹命中守卫
-                        bullets.splice(bullets.indexOf(bullet), 1); // 清除子弹
-                        defender.defenders.splice(defender.defenders.indexOf(defenderObj), 1); // 清除守卫
+            if (bullets[i].shooter.name == 'hero') {
+                for (j = 0; j < defender.defenders.length; j++) { // 检查特工射击的是哪一个守卫
+                    if (defender.defenders[j].row == row && defender.defenders[j].col == col) { // 子弹命中守卫
+                        bullets.splice(i, 1); // 清除子弹
+                        defender.defenders.splice(j, 1); // 清除守卫
                         break;
                     }
                 }
             }
-            bullet.draw();
+            bullets[i].draw();
         }
     };
 
@@ -211,17 +230,20 @@ var main = (function () {
     // 游戏结束
     var gameOver = function () {
         clearInterval(checkAgentTimer); // 清除特工位置检查定时器
-        removeEvent(canvas, 'click', handler); // 移除点击事件
+        clearBullets(); // 清除子弹池
         ctx.clearRect(0, 0, canWidth, canHeight); // 清除画布
-        ctx.textAlign = "center";
-        ctx.font = "25px Arial";
+        ctx.font = '30px sans-serif';
+        ctx.textAlign = 'center';
         ctx.fillStyle = 'cornflowerblue';
-        ctx.fillText('胜败乃兵家常事，大侠请重新来过', canWidth * 0.5, canHeight * 0.5 - 25);
+        ctx.fillText('胜败乃兵家常事，大侠请重新来过', canWidth * 0.5, canHeight * 0.5 - 30);
+        ctx.fillText('点击屏幕继续游戏', canWidth * 0.5, canHeight * 0.5 + 10);
     };
 
     // 游戏主循环
     var animate = function () { // 画布循环绘制函数
         draw();
+        ctx.font = '10px sans-serif';
+        ctx.textAlign = 'left';
         ctx.fillStyle = 'cornflowerblue';
         ctx.fillText(calculateFps().toFixed() + 'fps', 10, 20);
         ctx.fillText('第' + Level + '关', 50, 20);
@@ -243,15 +265,29 @@ var main = (function () {
     // 开始游戏入口
     var startGame = function () { // 调用函数
         isGameOver = false;
-        init();
-        update();
-        animate();
+        isGameStart = false;
+        ctx.font = '50px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'cornflowerblue';
+        ctx.fillText('王牌特工', canWidth * 0.5, canHeight * 0.5 - 50);
+        ctx.font = '20px sans-serif';
+        ctx.fillText('点击屏幕开始游戏', canWidth * 0.5, canHeight * 0.5 + 60);
+        // 添加点击事件
+        addEvent(canvas, 'click', handler);
+    };
+
+    // 清空子弹池，直接bullets = []有问题
+    var clearBullets = function () {
+        while (bullets.length != 0) {
+            bullets.shift();
+        }
     };
 
     // 下一关重置函数
     var reset = function () { // 重置函数
-        Level++;
-        update();
+        clearBullets(); // 清除上一关的子弹池
+        Level++; // 关数增加
+        update(); // 更新内容
     };
 
     // 返回接口

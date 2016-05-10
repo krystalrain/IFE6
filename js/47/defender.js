@@ -8,6 +8,7 @@ defenderObj.prototype.init = function () { // 成员函数--初始化
         col;
     this.num = Math.floor(Math.random() * 5); // 随机生成0-4个守卫
     this.field = 2 * (main.cellWidth + main.cellHeight); // 侦察半径
+    this.defenders = [];
     for (i = 0; i < this.num; i++) {
         row = Math.floor(Math.random() * (main.canRow - 8) + 4);
         col = Math.floor(Math.random() * main.canCol / this.num + i / this.num * main.canCol);
