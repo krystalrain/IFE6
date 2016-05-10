@@ -183,7 +183,7 @@ var main = (function () {
     };
 
     // 更新子弹位置并且绘制
-    var updateAndDrawBullet = function () {
+    var updateBullet = function () {
         var row,
             col,
             i,
@@ -213,6 +213,12 @@ var main = (function () {
                     }
                 }
             }
+        }
+    };
+
+    // 绘制子弹池里存在的所有子弹
+    var drawBullet = function () {
+        for (var i = 0; i < bullets.length; i++) {
             bullets[i].draw();
         }
     };
@@ -224,7 +230,8 @@ var main = (function () {
         target.draw();
         defender.draw();
         block.draw();
-        updateAndDrawBullet();
+        updateBullet();
+        drawBullet();
     };
 
     // 游戏结束
@@ -235,6 +242,7 @@ var main = (function () {
         ctx.font = '30px sans-serif';
         ctx.textAlign = 'center';
         ctx.fillStyle = 'cornflowerblue';
+        ctx.fillText('你在第' + Level + '关失败了', canWidth * 0.5, canHeight * 0.5 - 70);
         ctx.fillText('胜败乃兵家常事，大侠请重新来过', canWidth * 0.5, canHeight * 0.5 - 30);
         ctx.fillText('点击屏幕继续游戏', canWidth * 0.5, canHeight * 0.5 + 10);
     };
