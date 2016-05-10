@@ -225,11 +225,17 @@ var main = (function () {
 
     // 绘制
     var draw = function () {
+        // 每次绘制之前先清除画布
         ctx.clearRect(0, 0, canWidth, canHeight);
+        // 画特工
         hero.draw();
+        // 画目标
         target.draw();
+        // 画守卫者
         defender.draw();
+        // 画障碍物
         block.draw();
+        // 更新子弹位置并绘制出来
         updateBullet();
         drawBullet();
     };
