@@ -2,7 +2,7 @@
 	float: left;
 	font-size: 20px;
 	display: block;
-	
+
 }
 
 .btn, .num {
@@ -27,8 +27,8 @@
 	
 }
 .item{
-	height: 100px;
 	margin-top: 5px;
+	overflow: hidden;
 }
 
 .photo {
