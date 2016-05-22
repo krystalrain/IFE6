@@ -1,347 +1,151 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>木桶三国菜馆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>手机微信订餐购物车结算模板 - 源码之家</title>
-<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/index.css">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="css/base.css">	
+<link rel="stylesheet" type="text/css" href="css/order.css">	
 </head>
-
-<body>
-
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="images/index/shop_1.jpg"></div>
-        <div class="swiper-slide"><img src="images/index/shop_1.jpg"></div>
-        <div class="swiper-slide"><img src="images/index/shop_1.jpg"></div>
+<body class="vshop">
+<section class="mode_webapp">
+<a name="top"></a>
+<header class="menu_header"> 
+     <div class="menu_topbar">
+     <span class="head_btn_left"><a href="javascript:history.go(-1);"><span>返回</span></a><b></b></span>
+     <div id="menu" class="sort "><!--sort_on-->
+        <a href="javascript:showMenu();">请选择分类<b class="tri"></b></a>
+        <ul><li><a href="javascript:showProducts('川菜')">川菜</a></li>
+            <li><a href="javascript:showProducts('白菜')">白菜</a></li>
+            <li><a href="javascript:showAll()">所有商品</a></li>
+        </ul>
     </div>
-</div>
-
-<div class="nav-lf">
-<ul id="nav">
-  <li class="current"><a href="#st1">分类一</a><b></b></li>
-  <li><a href="#st2">分类二</a><b>1</b></li>
-  <li><a href="#st3">分类三</a><b>3</b></li>
-  <li><a href="#st4">分类四</a><b>6</b></li>
+      <a class="head_btn_right" href="#">
+      <span><i class="menu_header_home"></i></span><b></b>
+      </a>
+     </div>
+</header>
+<div  class="c_order">
+<div class="header" onClick="opencaidan()">共计：<span id="cartN">7份 ￥141.30</span>元 <span class="nl_icon top_w"></span></div>
+<div class="c_order_list" id="c_order_list">
+<ul>
+<li><div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+ <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+ </li>
+<li><div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+ <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+ </li>
+ <li><div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+ <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+ </li>
+<li><div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+ <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+ </li> 
 </ul>
-</div>
-
-<div id="container" class="container">
-
-  <div class="section" id="st1">
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品1</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_2.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品1</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_3.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品1</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_4.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品1</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_5.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品1</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  </div>
-    
-    
-
-  
-  <div class="section" id="st2">
-  
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品2</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品2</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品2</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品2</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品2</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  </div>
-  
-  <div class="section" id="st3">
-  
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品3</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品3</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品3</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品3</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品3</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-    
-  </div>
-  
-  <div class="section" id="st4">
-  
-  	<div class="prt-lt">
-    	<div class="lt-lt"><img src="images/index/prt_1.jpg"></div>
-        <div class="lt-ct">
-        	<p>商品4</p>
-            <p class="pr">¥<span class="price">60.00</span></p>
-        </div>
-        <div class="lt-rt">
-        	<input type="button" class="minus"  value="-">
-        	<input type="text" class="result" value="0">
-        	<input type="button" class="add" value="+">
-        </div>
-    </div>
-      
-  </div>
-  
+<div class="tijiao-btn"><a class="new-abtn-type2" href="tijiao_order.html">去结算</a></div></div>
 </div>
 </div>
+
+
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display: none;">
+<div id="Popup" style="display: block;">
+<div class="imgPopup">
+<h3 id="h3title">小王川菜馆</h3>
+    <img id="picsrc" src="images/11.jpg">
+    <p class="price" id="price"><b>价格:</b>&yen;25</p>
+    <p class="jianjie" id="jianjie"><b>介绍:</b>刷招行信用卡，享受9.5折优惠（烟酒水、海河鲜、特价菜、包间费除外、节假日除外）截止时间：2013年12月31日。</p>
+    </div>
 </div>
-<footer>
-	<div class="ft-lt">
-        <p>合计:<span id="total" class="total">163.00元</span><span class="nm">(<label class="share"></label>份)</span></p>
+    <a class="close" onclick="document.getElementById('mcover').style.display='';">X</a></div>
+<section class="menu">
+<section class="list listimg"> 
+<dl>
+<dt>川菜</dt>
+<div class="ccbg">
+    <dd>
+    <div class="tupian"><img src="images/11.jpg">
+        <a href="#">
+        <p class="dish2">蛋炒肉</p>
+        <p class="price2">7.0元/盘</p><p><del>7.0元/盘</del></p></a>
     </div>
-    <div class="ft-rt">
-    	<p>选好了</p>
+    <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+    </dd>
+        <dd>
+    <div class="tupian"><img src="images/11.jpg">
+        <a href="#">
+        <p class="dish2">蛋炒肉</p>
+        <p class="price2">7.0元/盘</p><p><del>7.0元/盘</del></p></a>
     </div>
-</footer>
+    <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+    </dd>
+</div>
+</dl>
+<dl>
+<dt>白菜</dt>
+<div class="ccbg">
+    <dd>
+    <div class="tupian"><img src="images/11.jpg">
+        <a href="#">
+        <p class="dish2">蛋炒肉</p>
+        <p class="price2">7.0元/盘</p><p><del>7.0元/盘</del></p></a>
+    </div>
+    <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+    </dd>
+        <dd>
+    <div class="tupian"><img src="images/11.jpg">
+        <a href="#">
+        <p class="dish2">蛋炒肉</p>
+        <p class="price2">7.0元/盘</p><p><del>7.0元/盘</del></p></a>
+    </div>
+    <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+    </dd>
+</div>
+</dl>
+</section>
+<div class="about">© <a href="#">汕头大学Sakitama版权所有</a></div>
+</section>
 
+<div class="footermenu">
+  <ul>
+        <li>
+            <a href="about.html">
+            <img src="images/i_about.png">
+            <p>关于</p>
+            </a>
+        </li>
+        <li>
+             <a href="index.html" class="active">
+           <img src="images/i_waim.png">
+            <p>外卖</p>
+            </a>
+        </li>
+        <li>
+             <a href="cart.html">
+            <span class="num" id="cartN2">7</span>
+            <img src="images/i_cart.png">
+            <p>购物车</p>
+            </a>
+        </li>
+        <li>
+             <a href="myorder.html">
+            <img src="images/i_order.png">
+            <p>订单</p>
+            </a>
+        </li>
+        <li>
+             <a href="myaddress.html">
+            <img src="images/i_me.png">
+            <p>我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+</section>
+<!--筛选结束-->  
 
-<script type="text/javascript" src="js/Adaptive.js"></script>
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/swiper.min.js"></script>
-<script type="text/javascript" src="js/jquery.nav.js"></script>
-<script type="text/javascript">
-var swiper = new Swiper('.swiper-container', {
-	pagination: '.swiper-pagination',
-	paginationClickable: true,
-	spaceBetween: 30,
-});
-
-$(function(){
-	$('#nav').onePageNav();
-});
-
-</script>
-<script> 
-$(function(){ 
-
-$(".add").click(function(){
-var t=$(this).parent().find('input[class*=result]'); 
-t.val(parseInt(t.val())+1);
-setTotal(); 
-})
- 
-$(".minus").click(function(){ 
-var t=$(this).parent().find('input[class*=result]'); 
-t.val(parseInt(t.val())-1);
-if(parseInt(t.val())<0){ 
-t.val(0); 
-} 
-setTotal(); 
-
-
-})
- 
-function setTotal(){ 
-var s=0;
-var v=0;
-var n=0;
-<!--计算总额--> 
-$(".lt-rt").each(function(){ 
-s+=parseInt($(this).find('input[class*=result]').val())*parseFloat($(this).siblings().find('span[class*=price]').text()); 
-
-});
-
-<!--计算菜种-->
-var nIn = $("li.current a").attr("href");
-$(nIn+" input[type='text']").each(function() {
-	if($(this).val()!=0){
-		n++;
-	}
-});
-
-<!--计算总份数-->
-$("input[type='text']").each(function(){
-	v += parseInt($(this).val());
-});
-if(n>0){
-	$(".current b").html(n).show();		
-	}else{
-	$(".current b").hide();		
-		}	
-$(".share").html(v);
-$("#total").html(s.toFixed(2)); 
-} 
-setTotal(); 
-
-}) 
-</script> 
-<script type="text/javascript" src="js/waypoints.min.js"></script>
-<script type="text/javascript" src="js/navbar2.js"></script>
+<script type="text/javascript" src="js/base.js"></script> 
+  
 </body>
 </html>

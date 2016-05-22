@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>木桶三国菜馆</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="css/base.css">	
+<link rel="stylesheet" type="text/css" href="css/order.css">	
+</head>
+<body class="vshop">
+<section class="mode_webapp">
+<a name="top"></a>
+<header class="menu_header"> 
+     <div class="menu_topbar">
+     <span class="head_btn_left"><a href="javascript:history.go(-1);"><span>返回</span></a><b></b></span>
+     <div id="menu" class="sort "><!--sort_on-->
+        <a href="javascript:showMenu();">请选择分类<b class="tri"></b></a>
+        <ul><li><a href="javascript:showProducts('川菜')">川菜</a></li>
+            <li><a href="javascript:showProducts('白菜')">白菜</a></li>
+            <li><a href="javascript:showAll()">所有商品</a></li>
+        </ul>
+    </div>
+      <a class="head_btn_right" href="#">
+      <span><i class="menu_header_home"></i></span><b></b>
+      </a>
+     </div>
+</header>
+<div id="mcover" onClick="document.getElementById(&#39;mcover&#39;).style.display=&#39;&#39;;">
+
+<div class="textPopup">
+    <h2>是否清空菜单？</h2>
+    <div>
+    <a class="two ok" id="ok" href="javascript:clearCache()">确定</a>	
+    <a class="two" href="javascript:void(0)">取消</a>
+    </div>
+    <a class="x" onClick="document.getElementById(&#39;mcover&#39;).style.display=&#39;&#39;;">X</a>
+</div>
+</div>	
+
+
+<div  class="c_order"><div class="header orderlist">共计：
+<span id="totalNum">8</span>份 ￥<span id="totalPrice">152.40</span>元
+</div></div>
+
+<section class="order">
+  <div class="orderlist">
+  
+     
+    <ul id="ullist"><dt>川菜</dt>
+    
+     <li class="ccbg2">
+     <div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+     <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+     </li>
+     <li class="ccbg2">
+     <div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+     <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+     </li>
+     <li class="ccbg2">
+     <div class="orderdish"><span class="name">鸡血炒青菜</span><span class="price" id="v_0">10.0</span><span class="price">元</span></div>
+     <span class="num-small reduce"><a class="plus">+</a><input type="text" value="1" class="pro_num"/><a  class="reduction_gray">-</a></span>
+     </li>
+</ul>   
+    
+    </ul>
+
+<div class="twobtn">
+<div class="footerbtn"><a class="del right3" href="http://www.apiwx.com/?ac=foodmenu&id=650&shopid=1&c=o7MB9jsjP0O1T5qDVRHv1nhPsFIM">选购</a></div>
+<div class="footerbtn"><a class="submit left3" onClick="clearCache()">清空</a></div>
+            <div class="clr"></div>
+</div>
+  </div> 
+  
+<form name="infoForm" id="infoForm" method="post" action="" style="">
+<div class="contact-info">
+<ul>
+<li class="title">联系信息</li>
+<li>
+<table style="padding: 0; margin: 0; width: 100%;">
+<tbody>
+<tr>
+<td width="80px"><label for="name" class="ui-input-text">联系人：</label></td>
+<td>
+    <input type="hidden" name="insetmb" id="insetmb" value="">
+      
+      	<div class="ui-input-text"><input id="name" name="name" placeholder="如：高华" value="老苏" type="text" class="ui-input-text"></div>
+      </td>
+</tr>
+       
+<tr>
+<td width="80px"><label for="phone" class="ui-input-text">联系电话：</label></td>
+<td>
+      <div class="ui-input-text"><input id="phone" name="phone" placeholder="如：13888888888" value="15874258588" type="tel" class="ui-input-text"></div>
+</td>
+</tr>
+  
+                        <tr>
+<td width="80px"><label for="select1" class="ui-input-text">口味：</label></td><td colspan="2">
+<select name="select1" class="selectstyle" id="select1">
+ <option value="">请选择口味</option>
+        <option value="酸味">酸味</option>
+<option value="甜">甜</option>
+<option value="苦">苦</option>
+<option value="辣">辣</option>
+</select>
+</td>
+</tr>
+                                                                                                               <tr>
+<td width="80px"><label for="address" class="ui-input-text">地址：</label></td>
+          <td><div class="ui-input-text"><textarea id="address" name="address" placeholder="厦门大学厦大西村4#302" class="ui-input-text">http://www.apiwx.com/?ac=foodmenu&amp;id=650&amp;shopid=1&amp;c=o7MB</textarea>
+</div></td>
+</tr>
+                      <tr>
+<td width="80px"><label for="note" class="ui-input-text">备注：</label></td>
+<td><div class="ui-input-text"><textarea name="note" placeholder="请12点前送到！" class="ui-input-text"></textarea></div></td>
+</tr>
+       </tbody></table>
+<table style="display:none" id="paypassword-layout">
+<tbody><tr><td>
+<input type="hidden" name="goodsData" id="goodsData" value=""></td>
+       
+       <td>
+      <input type="hidden" name="issubmit" value="0"></td>
+</tr></tbody>
+                    </table>
+      
+      <div class="footReturn">
+    <a id="showcard" class="submit" href="javascript:submitOrder();">确定提交</a>
+        
+</div>
+      
+    </li></ul></div>
+  </form>
+<div class="about">© 2001-2013 <a href="#">大胖子微信版权所有</a></div>
+</section>
+<div class="footermenu">
+  <ul>
+        <li>
+            <a href="about.html">
+            <img src="images/i_about.png">
+            <p>关于</p>
+            </a>
+        </li>
+        <li>
+             <a href="index.html">
+           <img src="images/i_waim.png">
+            <p>外卖</p>
+            </a>
+        </li>
+        <li>
+             <a href="cart.html"  class="active">
+            <span class="num" id="cartN2">7</span>
+            <img src="images/i_cart.png">
+            <p>购物车</p>
+            </a>
+        </li>
+        <li>
+             <a href="myorder.html">
+            <img src="images/i_order.png">
+            <p>订单</p>
+            </a>
+        </li>
+        <li>
+             <a href="myaddress.html">
+            <img src="images/i_me.png">
+            <p>我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+</section>
+<!--筛选结束-->  
+
+<script type="text/javascript" src="js/base.js"></script> 
+  
+</body>
+</html>

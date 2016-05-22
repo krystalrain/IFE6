@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>店铺介绍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="css/base.css">	
+<link rel="stylesheet" type="text/css" href="css/order.css">	
+</head>
+<body class="vshop">
+<section class="mode_webapp">
+<a name="top"></a>
+<header class="menu_header"> 
+     <div class="menu_topbar">
+     <span class="head_btn_left"><a href="javascript:history.go(-1);"><span>返回</span></a><b></b></span>
+     <div id="menu" class="sort "><!--sort_on-->
+        <a href="#">查看我的订单</a>    
+    </div>
+      <a class="head_btn_right" href="#">
+      <span><i class="menu_header_home"></i></span><b></b>
+      </a>
+     </div>
+</header>
+
+<form class="form" method="post" action="" enctype="#">
+<div class="contact-info" style=" margin-top:10px;margin:10px 8px">
+<ul>
+<li class="title">个人信息</li>
+<li>
+<table style="padding: 0; margin: 0; width: 100%;">
+<tbody>
+                        <tr>
+<td width="80px"><label for="wxname" class="ui-input-text">微信昵称：</label></td>
+<td>
+<div class="ui-input-text"><input type="text" id="wxname" name="wxname" value="问问去" placeholder="如：亲亲小猪" class="ui-input-text"></div>
+</td>
+</tr>
+                        
+                      <tr>
+<td width="80px"><label for="username" class="ui-input-text">姓名：</label></td>
+<td>
+<div class="ui-input-text"><input type="text" id="username" name="username" value="老苏" placeholder="如：张先生、王小姐" class="ui-input-text"></div>
+</td>
+</tr>
+<tr id="nameinfo-layout" style="display: none;">
+<td width="80px"></td>
+<td colspan="2" id="nameinfo" class="cart-editalertinfo"></td>
+</tr>
+
+<tr>
+<td width="80px"><label for="phone" class="ui-input-text">电话：</label></td>
+<td>
+<div class="ui-input-text"><input type="tel" id="phone" name="phone" value="15874258588" placeholder="如：18200000000" class="ui-input-text"></div>
+</td>
+</tr>
+<tr id="phoneinfo-layout" style="display: none;">
+<td width="80px"></td>
+<td colspan="2" id="phoneinfo" class="cart-editalertinfo"></td>
+</tr>	
+
+<tr>
+<td width="80px"><label for="address" class="ui-input-text">地址：</label></td>
+<td><div class="ui-input-text"><textarea id="address" name="address" placeholder="如：XX小区5号楼318" class="ui-input-text">http://www.apiwx.com/?ac=foodmenu&amp;id=650&amp;shopid=1&amp;c=o7MB</textarea>
+</div></td>
+</tr>
+<tr id="addressinfo-layout">
+<td width="80px"></td>
+<td colspan="2" id="addressinfo" class="cart-editalertinfo"></td>
+</tr>
+</tbody></table>					
+</li>
+</ul>
+</div>
+
+<div class="footReturn">
+ <input type="submit" id="showcard" class="submit" value="保存" style="width:100%"> 
+</div>  
+</form>
+
+<div class="footermenu">
+  <ul>
+        <li>
+            <a href="about.html">
+            <img src="images/i_about.png">
+            <p>关于</p>
+            </a>
+        </li>
+        <li>
+             <a href="index.html" >
+           <img src="images/i_waim.png">
+            <p>外卖</p>
+            </a>
+        </li>
+        <li>
+             <a href="cart.html">
+            <span class="num" id="cartN2">7</span>
+            <img src="images/i_cart.png">
+            <p>购物车</p>
+            </a>
+        </li>
+       <li>
+             <a href="myorder.html">
+            <img src="images/i_order.png">
+            <p>订单</p>
+            </a>
+        </li>
+        <li>
+             <a href="myaddress.html"  class="active">
+            <img src="images/i_me.png">
+            <p>我的</p>
+            </a>
+        </li>
+    </ul>
+</div>
+</section>
+<!--筛选结束-->  
+
+</body>
+</html>

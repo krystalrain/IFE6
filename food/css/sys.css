@@ -1,0 +1,21 @@
+@charset "utf-8";
+body,p,div,h2{margin:0;padding:0;font-size:16px;line-height:1.8em;}
+body{ background:#eee;font-size:1em;font-family:'microsoft yahei',Verdana,Arial,Helvetica,sans-serif;color:#000;-webkit-text-size-adjust:none;}
+
+
+.new-header{position: relative;height: 46px;line-height: 46px;background: #ff5a84;color: #fff;box-shadow: inset 0 -2px 0 #f44168;}
+.new-header h2{height:44px;line-height:44px;font-weight:normal;font-size:16px;color:#fff;text-align:center;}
+.vshop .new-header{height: 44px;line-height: 44px;background: #E4393C;box-shadow:none;}
+
+.sys_box .sys_img{ width:110px; margin:0px auto 10px; text-align:center;}
+.sys_box .sys_img img{width:110px;}
+.sys_box p{ margin:0 auto;color:#666; text-shadow:1px 1px 1px rgba(255,255,255,1);font-size:16px; }
+.sys_box p b{color:#555; line-height:35px;}
+.sys_box {overflow:hidden; position: absolute; left:50%;
+margin-top:80px; margin-left:-115px;}
+.sys_box .center{ text-align:center;}
+.sys_box .date_box{ font-size:13px;background:#222224;height: 30px; line-height:30px;text-align:left; color:#fff; padding:0px 10px}
+.sys_box .date_box span{ padding-left:10px;}
+.sys_box .date_box b{ font-weight:400; float:right;}
+.sys_box .sys_time_xiwei{padding:10px 10px 0px 10px;color:#8091a8;}
+.sys_box .by18{ font-size:18px; font-weight:bold; color:#f60;}
