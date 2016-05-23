@@ -116,19 +116,14 @@ box-shadow: 0 1px 5px rgba(0, 0, 0, 0.36);border-bottom: 1px solid #000000;borde
 .menu_header_home {background: url(../images/home.png) no-repeat;background-size: 24px 24px;width: 24px;height: 24px;display: block;margin-top:3px;}
 
 /*底部*/
-.footermenu {position: fixed;bottom: 0;left: 0;right: 0;z-index: 900;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);}
-.footermenu ul {border-top: 1px solid #3D3D46;position: fixed;z-index: 900;bottom: 0;left: 0;right: 0;margin: auto;display: block;width: 100%;
-background: rgba(255,255,255,0.7);height: 48px;display: -webkit-box;display: box;-webkit-box-orient: horizontal;
-background: -webkit-gradient(linear, 0 0, 0 100%, from(#697077), to(#3F434E), color-stop(60%, #464A53));
-background:-moz-linear-gradient(top,#697077,#3F434E);box-shadow: 0 1px 0 #949494 inset;}
-.footermenu ul li{ float:left; width:20%;height: 100%;position: static!important;margin: 0;border-radius: 0!important;box-sizing: border-box;box-shadow: none!important;background: none;}
-.footermenu ul li a { position:relative;height: 48px;color: #fff;font-size: 20px;line-height: 20px;text-align: center;display: block;text-decoration: none;padding-top: 2px;position:relative;text-shadow:0 1px rgba(0, 0, 0, 0.2);}
-.footermenu ul li a.active {    background:-webkit-gradient(linear, 0 0, 0 100%, from(#535A5F), to(#17181B), color-stop(60%, #32363A));
-background:-moz-linear-gradient(top,#535A5F,#17181B);
-border: 1px solid rgba(148, 148, 148, 0.6);border-bottom:0;}
-.footermenu ul li a .num {font-size:10px;position:absolute;z-index: 9;left: 55%;top:-5px;background-color:#eb3634;color:#fff;font-family:Verdana;font-weight:normal;line-height:10px;padding:2px 4px;box-shadow:0 0 0 2px #FFFFFF, 0 2px 5px 3px rgba(0, 0, 0, 0.25);border-radius:15px;}
-.footermenu ul li a img{width:24px;height:24px;}
-.footermenu ul li a p{position: absolute; width:100%; bottom:4px;margin: 2px 0 0 0;font-size: 12px;display: block !important;line-height: 18px;text-align: center;}
+.footermenu { position: fixed; bottom: 0; left: 0; right: 0; z-index: 900; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+.footermenu ul { border-top: 1px solid #404a54; position: fixed; z-index: 900; bottom: 0; left: 0; right: 0; margin: auto; display: block; width: 100%; height: 48px; display: -webkit-box; display: box; -webkit-box-orient: horizontal; background-color: #404a54; background: -webkit-linear-gradient(top, #404a54, #404a54); }
+.footermenu ul li { width: auto!important; height: 100%; position: static!important; margin: 0; border-radius: 0!important; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-box-flex: 1; box-flex: 1; -webkit-box-sizing: border-box; box-shadow: none!important; background: none; }
+.footermenu ul li a { color: #fff; line-height: 20px; text-align: center; display: block; text-decoration: none; padding-top: 2px; font-size: 12px; position: relative; height: 46px; text-shadow: 0 1px rgba(0, 0, 0, 0.2); }
+.footermenu ul li a.active { background: -webkit-linear-gradient(top, #404a54, #252c34); box-shadow: 0 -10px 25px 0px rgba(0,0,0,0.3) inset; }
+.footermenu ul li a .num { font-size: 10px; position: absolute; z-index: 9; left: 55%; top: -5px; background-color: #eb3634; color: #fff; font-family: Verdana; font-weight: normal; line-height: 10px; padding: 2px 4px; box-shadow: 0 0 0 2px #FFFFFF, 0 2px 5px 3px rgba(0, 0, 0, 0.25); border-radius: 15px; }
+.footermenu ul li a img { width: 24px; height: 24px; }
+.footermenu ul li a p { margin: 2px 0 0 0; font-size: 12px; display: block !important; line-height: 18px; text-align: center; }
 .header {padding: 3px 0;color: #FFFFFF; cursor:pointer;
 background: -webkit-gradient(linear, 0 0, 0 100%, from(#E70101), to(#BB0C0C), color-stop(30%, #CF0D0D));
 background:-moz-linear-gradient(top,#E70101,#BB0C0C);
