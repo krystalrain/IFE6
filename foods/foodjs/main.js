@@ -61,6 +61,9 @@ function showProducts(categoryName) {
         }
     }
 }
+function showCart() {
+    window.open("cart.html");
+}
 
 var cart = new OAK.Shop.Cart();
 cart.showProductNum = function (productId, specId, num) {
