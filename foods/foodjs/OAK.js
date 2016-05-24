@@ -62,9 +62,18 @@ OAK.Shop.Cart = function () {
     return OAK.Shop.Cart.single_instance;
 }
 OAK.Shop.Cart.prototype = {
-    specs: {1: "正辣", 2: "微辣", 3: "不辣"},
-    categories:{"1":"\u5ddd\u83dc","2":"\u767d\u83dc","3":"\u82a5\u83dc","1325":"\u82e6\u8336"},
-    total:50,
+    specs: {
+        1: "正常辣", 
+        2: "较辣", 
+        3: "不辣"
+    },
+    categories: {
+        "1": "\u5ddd\u83dc",
+        "2": "\u767d\u83dc",
+        "3": "\u82a5\u83dc",
+        "1325": "\u82e6\u8336"
+    },
+    total: 50,
     saveToCache: function () {
         OAK.Util.setParam("ShoppingCart1", JSON.stringify(this));
     },
@@ -76,32 +85,34 @@ OAK.Shop.Cart.prototype = {
     },
     clear:function(){
         //localStorage.clear();
-        OAK.Util.setParam("ShoppingCart1",null);
+        OAK.Util.setParam("ShoppingCart1", null);
         this._totalNumber = 0;
         this._totalAmount = 0.00;
         this._products = [];
     },
     addProduct: function (p, conditions) {
         this.onBeforeAdd !== null && this.onBeforeAdd(this, p, conditions);
-        var _conditions = conditions || {id: p.id, specId: p.specId, ref: true};
+        var _conditions = conditions || {
+                id: p.id, 
+                specId: p.specId, 
+                ref: true
+            };
         var alreadyExistProduct = this.getProduct(_conditions);
         var ret_num = 0;
-        //一元鸭翅活动
-        if(p.name == "一元鸭翅" && this.existProduct({name:p.name})){
-            alert("每单只能购买一盒一元鸭翅");
-            return;
-        }
-        if (alreadyExistProduct !== null){
+        if (alreadyExistProduct !== null) {
             alreadyExistProduct.number += p.number;
-        }
-        else
+        } else {
             this._products.push(p);
+        }
         this._totalNumber += p.number;
         this._totalAmount += p.number * p.price;
         this.onAfterAdd !== null && this.onAfterAdd(this, alreadyExistProduct ? alreadyExistProduct.number : p.number, _conditions);
     },
     getQuantity: function () {
-        return {totalNumber: this._totalNumber, totalAmount: this._totalAmount};
+        return {
+            totalNumber: this._totalNumber, 
+            totalAmount: this._totalAmount
+        };
     },
     updateNumber: function (num, conditions) {
         this.onBeforeUpdate !== null && this.onBeforeUpdate(this, num, conditions);
