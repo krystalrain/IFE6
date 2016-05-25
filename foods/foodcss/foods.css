@@ -223,14 +223,14 @@ del { color: #B2B2B2; font-size: 12px; }
 .menu_topbar { color: #fff; background-color: #49535d; /*background: -webkit-linear-gradient(top, #49535d, #49535d);*/ border-bottom: 1px solid #313A44; border-top: 0 none; position: fixed; top: 0; left: 0; width: 100%; height: 40px; line-height: 40px; text-align: center; }
 .head-title { font-size: 16px; font-weight: normal; }
 .head_btn_left { display: block; position: absolute; left: 0; top: 0; height: 40px; width: 64px; font-size: 14px; }
-.head_btn_left a { background: url(http://img.ishangtong.com/images/s22KaR0Wtcuu.png) 5px center no-repeat; background-size: 24px 24px; height: 24px; width: 50px; display: block; padding: 8px 7px 8px 10px; text-indent: 15px; color: #fff; line-height: 24px; }
+.head_btn_left a { background: url(../images/foodcssimage/s22KaR0Wtcuu.png) 5px center no-repeat; background-size: 24px 24px; height: 24px; width: 50px; display: block; padding: 8px 7px 8px 10px; text-indent: 15px; color: #fff; line-height: 24px; }
 .head_btn_left a:active { background-color: rgba(0,0,0,0.2) }
-.head_btn_left span { background-image: url(http://img.ishangtong.com/images/zEdepbMPHt.png); background-position: left -32px; background-size: 105px; padding-left: 17px; float: left; display: inline-block; height: 32px; line-height: 30px; color: #fff; padding-right: 4px; }
-.head_btn_right span { float: left; display: inline-block; height: 32px; line-height: 30px; color: #fff; background-image: url(http://img.ishangtong.com/images/zEdepbMPHt.png); background-size: 105px; padding-left: 10px; padding-right: 4px; font-weight: normal; font-size: 14px; }
-.head_btn_left b, .head_btn_right b { background-image: url(http://img.ishangtong.com/images/zEdepbMPHt.png); background-position: bottom right; background-size: 105px; width: 6px; height: 32px; float: left; }
+.head_btn_left span { background-image: url(../images/foodcssimage/zEdepbMPHt.png); background-position: left -32px; background-size: 105px; padding-left: 17px; float: left; display: inline-block; height: 32px; line-height: 30px; color: #fff; padding-right: 4px; }
+.head_btn_right span { float: left; display: inline-block; height: 32px; line-height: 30px; color: #fff; background-image: url(../images/foodcssimage/zEdepbMPHt.png); background-size: 105px; padding-left: 10px; padding-right: 4px; font-weight: normal; font-size: 14px; }
+.head_btn_left b, .head_btn_right b { background-image: url(../images/foodcssimage/zEdepbMPHt.png); background-position: bottom right; background-size: 105px; width: 6px; height: 32px; float: left; }
 .head_btn_right { display: block; position: absolute; right: 0; top: 0; height: 40px; width: 64px; }
 .head_btn_right:active { background-color: rgba(0,0,0,0.2) }
-.menu_header_home { background: url(http://img.ishangtong.com/images/3YQLfzfunJ.png) no-repeat; background-size: 24px 24px; width: 24px; height: 24px; display: block; margin: 8px 20px; }
+.menu_header_home { background: url(../images/foodcssimage/3YQLfzfunJ.png) no-repeat; background-size: 24px 24px; width: 24px; height: 24px; display: block; margin: 8px 20px; }
 .footermenu { position: fixed; bottom: 0; left: 0; right: 0; z-index: 900; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 .footermenu ul { border-top: 1px solid #404a54; position: fixed; z-index: 900; bottom: 0; left: 0; right: 0; margin: auto; display: block; width: 100%; height: 48px; display: -webkit-box; display: box; -webkit-box-orient: horizontal; background-color: #404a54; background: -webkit-linear-gradient(top, #404a54, #404a54); }
 .footermenu ul li { width: auto!important; height: 100%; position: static!important; margin: 0; border-radius: 0!important; -webkit-box-sizing: border-box; box-sizing: border-box; -webkit-box-flex: 1; box-flex: 1; -webkit-box-sizing: border-box; box-shadow: none!important; background: none; }
@@ -303,7 +303,7 @@ p.title { height: 25px; padding: 0 10px; color: #777; line-height: 25px; font-si
     margin-bottom: 12px;
     padding: 0;
     text-align:center;
-    background: url(http://img.ishangtong.com/images/yuBGJlH8Ra.jpg) no-repeat;
+    background: url(../images/foodcssimage/yuBGJlH8Ra.jpg) no-repeat;
     background-size: 100% 100%;
     overflow: hidden;
 }
@@ -330,7 +330,7 @@ p.title { height: 25px; padding: 0 10px; color: #777; line-height: 25px; font-si
 }
 .vgy_user .address {
     font-size: 14px;
-    background: url(http://img.ishangtong.com/images/edit.png) no-repeat left center;
+    background: url(../images/foodcssimage/edit.png) no-repeat left center;
     background-size: 16px auto;
     text-indent: 20px;width: 110px; margin:0 auto;
 }
@@ -363,13 +363,13 @@ p.title { height: 25px; padding: 0 10px; color: #777; line-height: 25px; font-si
     margin-top: -5px;
 }
 .m_order .ico_order {
-    background: url(http://img.ishangtong.com/images/order.png) 10px center no-repeat #fff;
+    background: url(../images/foodcssimage/order.png) 10px center no-repeat #fff;
     background-size: 18px 18px;
     padding: 0 25px 0 35px;
     line-height: 40px;
 }
 .m_order .ico_address {
-    background: url(http://img.ishangtong.com/images/address.png) 10px center no-repeat #fff;
+    background: url(../images/foodcssimage/address.png) 10px center no-repeat #fff;
     background-size: 18px 18px;
     padding: 0 25px 0 35px;
     line-height: 40px;
@@ -387,7 +387,7 @@ p.title { height: 25px; padding: 0 10px; color: #777; line-height: 25px; font-si
 .user_menu ul li p { height: 24px; line-height: 24px; font-size: 12px; }
 .user_menu ul li .num { font-size: 10px; position: absolute; z-index: 6; left: 55%; top: 50%; margin-top: -22px; background-color: #f34; color: #fff; font-family: Verdana; font-weight: normal; line-height: 10px; padding: 2px 4px; border-radius: 100%; }
 .gray-marg { color: #999; margin-left: 10px; font-size: 12px }
-.user_order { background: url(http://img.ishangtong.com/images/yuBGJlH8Ra.jpg) no-repeat left top; background-size: 100% 100%; }
+.user_order { background: url(../images/foodcssimage/yuBGJlH8Ra.jpg) no-repeat left top; background-size: 100% 100%; }
 .user_order ul li { background-color: rgba(255, 255, 255, 0.70); }
 .user_order ul li a.current { background-color: #f7f7f7; border-bottom: 1px solid rgba(0, 0, 0, 0); }
 .car {margin: 10px;}
