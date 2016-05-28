@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>汕大菜館</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="foodcss/foods.css" rel="stylesheet" type="text/css">
+</head>
+<body class="sanckbg mode_webapp">
+
+<div class="menu_header">
+    <div class="menu_topbar">
+        <div id="menu" class="sort">
+            <a href="javascript:showMenu();">请选择分类<b class="tri"></b></a>
+            <ul>
+                <li><a href="javascript:showProducts('川菜')">川菜</a></li>
+                <li><a href="javascript:showProducts('白菜')">白菜</a></li>
+                <li><a href="javascript:showProducts('芥菜')">芥菜</a></li>
+                <li><a href="javascript:showProducts('苦茶')">苦茶</a></li>
+                <li><a href="javascript:showAll()">所有商品</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="header">
+    <div class="left">已选：<span id="cartN">0份　总计：￥0</span>元</div>
+    <div class="right">
+        <a class="xhlbtn" href="javascript:showCart()">选好了</a>
+    </div>
+</div>
+
+<div class="gonggao">
+    <div class="hot">
+        <strong>公告</strong>
+    </div>
+    <div class="content">今天招牌菜剁椒鱼头半价迎宾，欢迎前来品尝！</div>
+</div>
+
+<section class="menu">
+    <section class="list listimg">
+
+        <dl>
+            <dt>川菜</dt>
+            <div class="ccbg">
+                <dd>
+                    <span class="count_zero" id="num_1_500" onClick="addProduct('1','500','小王川菜馆','11.20','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165728_53533.jpg">
+                        <a href="javascript:addProduct('1','500','小王川菜馆','11.20','1',1);" class="add" data-foodid="1_500">
+                            <p class="dish2">小王川菜馆</p>
+                            <p class="price2">11.20元/件</p>
+                            <p><del>112.00元/件</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','500',1);" class="reduce" id="del_1_500"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_499" onClick="addProduct('1','499','红烧肉','80.30','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165726_57026.jpg">
+                        <a href="javascript:addProduct('1','499','红烧肉','80.30','1',1);" class="add" data-foodid="1_499">
+                            <p class="dish2">红烧肉</p>
+                            <p class="price2">80.30元/盘</p>
+                            <p><del>100.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','499',1);" class="reduce" id="del_1_499"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_498" onClick="addProduct('1','498','鸡血炒青菜','10.70','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165725_74803.jpg">
+                        <a href="javascript:addProduct('1','498','鸡血炒青菜','10.70','1',1);" class="add" data-foodid="1_498">
+                            <p class="dish2">鸡血炒青菜</p>
+                            <p class="price2">10.70元/盘</p>
+                            <p><del>11.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','498',1);" class="reduce" id="del_1_498"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_497" onClick="addProduct('1','497','蛋炒肉','7.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165543_95706.jpg">
+                        <a href="javascript:addProduct('1','497','蛋炒肉','7.00','1',1);" class="add" data-foodid="1_497">
+                            <p class="dish2">蛋炒肉</p>
+                            <p class="price2">7.00元/盘</p>
+                            <p><del>7.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','497',1);" class="reduce" id="del_1_497"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_496" onClick="addProduct('1','496','炒牛肉','18.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165418_25487.jpg">
+                        <a href="javascript:addProduct('1','496','炒牛肉','18.00','1',1);" class="add" data-foodid="1_496">
+                            <p class="dish2">炒牛肉</p>
+                            <p class="price2">18.00元/盘</p>
+                            <p><del>20.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','496',1);" class="reduce" id="del_1_496"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_495" onClick="addProduct('1','495','煮红暑','10.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165724_41703.jpg">
+                        <a href="javascript:addProduct('1','495','煮红暑','10.00','1',1);" class="add" data-foodid="1_495">
+                            <p class="dish2">煮红暑</p>
+                            <p class="price2">10.00元/盘</p>
+                            <p><del>11.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','495',1);" class="reduce" id="del_1_495"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_493" onClick="addProduct('1','493','小王川菜馆','11.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165723_93509.jpg">
+                        <a href="javascript:addProduct('1','493','小王川菜馆','11.00','1',1);" class="add" data-foodid="1_493">
+                            <p class="dish2">小王川菜馆</p>
+                            <p class="price2">11.00元/件</p>
+                            <p><del>111.00元/件</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','493',1);" class="reduce" id="del_1_493"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_492" onClick="addProduct('1','492','炒白菜','80.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165614_62437.jpg">
+                        <a href="javascript:addProduct('1','492','炒白菜','80.00','1',1);" class="add" data-foodid="1_492">
+                            <p class="dish2">炒白菜</p>
+                            <p class="price2">80.00元/盘</p>
+                            <p><del>100.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','492',1);" class="reduce" id="del_1_492"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_491" onClick="addProduct('1','491','鸡血炒青菜','10.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165723_93509.jpg">
+                        <a href="javascript:addProduct('1','491','鸡血炒青菜','10.00','1',1);" class="add" data-foodid="1_491">
+                            <p class="dish2">鸡血炒青菜</p>
+                            <p class="price2">10.00元/盘</p>
+                            <p><del>11.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','491',1);" class="reduce" id="del_1_491"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1_2" onClick="addProduct('1','2','红烧牛肉','30.00','1',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165728_53533.jpg">
+                        <a href="javascript:addProduct('1','2','红烧牛肉','30.00','1',1);" class="add" data-foodid="1_2">
+                            <p class="dish2">红烧牛肉</p>
+                            <p class="price2">30.00元/盘</p>
+                            <p><del>32.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1','2',1);" class="reduce" id="del_1_2"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+            </div>
+        </dl>
+
+        <dl>
+            <dt>白菜</dt>
+            <div class="ccbg">
+                <dd>
+                    <span class="count_zero" id="num_2_474" onClick="addProduct('2','474','小王川菜馆','11.00','2',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165543_95706.jpg">
+                        <a href="javascript:addProduct('2','474','小王川菜馆','11.00','2',1);" class="add" data-foodid="2_474">
+                            <p class="dish2">小王川菜馆</p>
+                            <p class="price2">11.00元/件</p>
+                            <p><del>111.00元/件</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('2','474',1);" class="reduce" id="del_2_474"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_2_6" onClick="addProduct('2','6','青炒白菜','10.00','2',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165724_60773.jpg">
+                        <a href="javascript:addProduct('2','6','青炒白菜','10.00','2',1);" class="add" data-foodid="2_6">
+                            <p class="dish2">青炒白菜</p>
+                            <p class="price2">10.00元/盘</p>
+                            <p><del>12.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('2','6',1);" class="reduce" id="del_2_6"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+            </div>
+        </dl>
+
+        <dl>
+            <dt>芥菜</dt>
+            <div class="ccbg">
+                <dd>
+                    <span class="count_zero" id="num_3_471" onClick="addProduct('3','471','蛋炒肉','7.00','3',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165543_95706.jpg">
+                        <a href="javascript:addProduct('3','471','蛋炒肉','7.00','3',1);" class="add" data-foodid="3_471">
+                            <p class="dish2">蛋炒肉</p>
+                            <p class="price2">7.00元/盘</p>
+                            <p><del>7.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('3','471',1);" class="reduce" id="del_3_471"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_3_470" onClick="addProduct('3','470','炒牛肉','18.00','3',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165728_53533.jpg">
+                        <a href="javascript:addProduct('3','470','炒牛肉','18.00','3',1);" class="add" data-foodid="3_470">
+                            <p class="dish2">炒牛肉</p>
+                            <p class="price2">18.00元/盘</p>
+                            <p><del>20.00元/盘</del></p>
+                            <div class="reduce2"><b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('3','470',1);" class="reduce" id="del_3_470"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_3_469" onClick="addProduct('3','469','煮红暑','10.00','3',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165724_41703.jpg">
+                        <a href="javascript:addProduct('3','469','煮红暑','10.00','3',1);" class="add" data-foodid="3_469">
+                            <p class="dish2">煮红暑</p>
+                            <p class="price2">10.00元/盘</p>
+                            <p><del>11.00元/盘</del></p>
+                            <div class="reduce2"><b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('3','469',1);" class="reduce" id="del_3_469"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+            </div>
+        </dl>
+
+        <dl>
+            <dt>苦茶</dt>
+            <div class="ccbg">
+                <dd>
+                    <span class="count_zero" id="num_1325_5" onClick="addProduct('1325','5','碳烤茄子','24.00','4',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165614_62437.jpg">
+                        <a href="javascript:addProduct('1325','5','碳烤茄子','24.00','1325',1);" class="add" data-foodid="1325_5">
+                            <p class="dish2">碳烤茄子</p>
+                            <p class="price2">24.00元/盘</p>
+                            <p><del>26.00元/盘</del></p>
+                            <div class="reduce2"><b class="ico_increase">加一份</b></div>
+                        </a>
+                        <a href="javascript:reduceProduct('1325','5',1);" class="reduce" id="del_1325_5"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1325_4" onClick="addProduct('1325','4','红烧鲫鱼','18.00','4',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165616_28393.jpg">
+                        <a href="javascript:addProduct('1325','4','红烧鲫鱼','18.00','1325',1);" class="add" data-foodid="1325_4">
+                            <p class="dish2">红烧鲫鱼</p>
+                            <p class="price2">18.00元/盘</p>
+                            <p><del>20.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div>
+                        </a>
+                        <a href="javascript:reduceProduct('1325','4',1);" class="reduce" id="del_1325_4"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+                <dd>
+                    <span class="count_zero" id="num_1325_3" onClick="addProduct('1325','3','青椒炒肉','10.00','4',1);">0</span>
+                    <div class="tupian">
+                        <img src="images/foodimage/20131030165615_17222.jpg">
+                        <a href="javascript:addProduct('1325','3','青椒炒肉','10.00','1325',1);" class="add" data-foodid="1325_3">
+                            <p class="dish2">青椒炒肉</p>
+                            <p class="price2">10.00元/盘</p>
+                            <p><del>12.00元/盘</del></p>
+                            <div class="reduce2">
+                                <b class="ico_increase">加一份</b>
+                            </div></a>
+                        <a href="javascript:reduceProduct('1325','3',1);" class="reduce" id="del_1325_3"><b class="ico_reduce">减一份</b></a>
+                    </div>
+                </dd>
+            </div>
+        </dl>
+
+    </section>
+    <div class="about">
+        <a href="#" style="color:#cccccc"style="font-size: 2px;">© 2016-2030 汕大微信版权所有</a>
+    </div>
+</section>
+
+<div class="footermenu">
+    <ul>
+        <li>
+            <a href="about.html">
+                <img src="images/foodimage/xxyX63YryG.png">
+                <p>关于</p>
+            </a>
+        </li>
+        <li>
+            <a class="active" href="food.html">
+                <img src="images/foodimage/Lngjm86JQq.png">
+                <p>菜单</p>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script src="foodjs/cookie.js" type="text/javascript"></script>
+<script src="foodjs/OAK.js" type="text/javascript"></script>
+<script src="foodjs/main.js" type="text/javascript"></script>
+<script src="foodjs/common.js" type="text/javascript"></script>
+</body>
