@@ -1,34 +1,85 @@
 @charset "utf-8";
 /* CSS Document */
-
-
-
 /******轮播图******/
-.main_banner{margin:0 auto;  height:200px;position:relative;}
-.swipe{width:100%;margin: 0 auto; height:200px; overflow:hidden; border-radius:0px;
-box-shadow:0px 0px 2px #690c19; 
+.main_banner {
+	margin: 0 auto;
+	height: 200px;
+	position: relative;
 }
-.swipe ul{
-	-webkit-transition:left 800ms ease-in 0;
-	-moz-transition:left 800ms ease-in 0;
-	-o-transition:left 800ms ease-in 0;
-	-ms-transition:left 800ms ease-in 0;
-	transition:left 800ms ease-in 0;
+.swipe {
+	width: 100%;
+	margin: 0 auto;
+	height:200px;
+	overflow: hidden;
+	border-radius: 0;
+	box-shadow: 0 0 2px #690c19;
 }
-.swipe ul li{ height:200px;overflow:hidden;position:relative; }
-.swipe .slider_div img{width:100%;min-height:200px;}
-.swipe .slider_div p{width:100%; position: absolute; bottom:0px; left:0px;z-index:2; height:25px;
-line-height:25px; text-indent:5px; color:#fff; font-size:13px; text-align:left;
-overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
-background-color:rgba(0,0, 0, 0.7);}
-.slider ul li:first-child{ display:block;}
- #pagenavi{text-align:right;width:98%; z-index:3;position: absolute; bottom:3px; left:0px;}
- #pagenavi a{width:10px;height:10px;line-height:99em;background:#333;-webkit-border-radius:50%;
--moz-border-radius:50%;border-radius:50%;margin:0 1px 0px 2px;overflow:hidden;
-box-shadow:0px 0px 11px #999 inset;
-cursor:pointer;display:inline-block;*display:inline;*zoom:1;filter:alpha(opacity=50); -moz-opacity:0.5; 
--khtml-opacity: 0.5; opacity:0.5;}
- #pagenavi a.active {background:#fff;
-box-shadow:0px 0px 11px #ddd inset;
-filter:alpha(opacity=90); -moz-opacity:0.9; 
--khtml-opacity: 0.9; opacity:0.9;}
+.swipe ul {
+	-webkit-transition: left 800ms ease-in;
+	-moz-transition: left 800ms ease-in;
+	-o-transition: left 800ms ease-in;
+	transition: left 800ms ease-in;
+}
+.swipe ul li {
+	height: 200px;
+	overflow: hidden;
+	position: relative;
+}
+.swipe .slider_div img {
+	width: 100%;
+	min-height: 200px;
+}
+.swipe .slider_div p {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 2;
+	height: 25px;
+	line-height: 25px;
+	text-indent: 5px;
+	color: #fff;
+	font-size: 13px;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background-color: rgba(0,0, 0, 0.7);
+}
+.slider ul li:first-child {
+	display:block;
+}
+#pagenavi {
+	text-align: right;
+	width: 98%;
+	z-index: 3;
+	position: absolute;
+	bottom: 3px;
+	left: 0;
+}
+#pagenavi a {
+	 width: 10px;
+	 height: 10px;
+	 line-height: 99em;
+	 background: #333;
+	 -webkit-border-radius: 50%;
+	 -moz-border-radius: 50%;
+	 border-radius: 50%;
+	 margin: 0 1px 0 2px;
+	 overflow: hidden;
+	 box-shadow: 0 0 11px #999 inset;
+	 cursor: pointer;
+	 display: inline-block;
+	 *display: inline;
+	 *zoom: 1;
+	 filter: alpha(opacity=50);
+	 -moz-opacity: 0.5;
+	 opacity: 0.5;
+}
+#pagenavi a.active {
+	background: #fff;
+	box-shadow: 0 0 11px #ddd inset;
+	filter: alpha(opacity=90);
+	-moz-opacity: 0.9;
+	opacity: 0.9;
+}
