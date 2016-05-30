@@ -61,13 +61,14 @@ function showProducts(categoryName) {
         }
     }
 }
-function showCart() {
-    if(typeof window.postMessage == "undefined") {
-        alert("postMessage not supported in this browser!");
+function addEvent(element, type, handler) {
+    if (element.addEventListener) {
+        element.addEventListener(type, handler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent("on" + type, handler);
     } else {
-        alert("support");
+        element["on" + type] = handler;
     }
-    window.open("cart.html");
 }
 
 var cart = new OAK.Shop.Cart();

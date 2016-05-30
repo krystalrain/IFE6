@@ -22,11 +22,19 @@ function renderList(arr, parent) {
     li.innerHTML = '<div class="orderdish"><span class="price">共计' + count + '份</span><span class="price"> ￥' + total + '元</span></div>';
     parent.appendChild(li);
 }
-window.onload = function () {
-    var ullist = document.getElementById("ullist"),
-        goBackToList = document.getElementById("goBackToList");
-    renderList(window.opener.cart._products, ullist);
-    goBackToList.onclick = function () {
-        window.close();
-    };
-};
+function addEvent(element, type, handler) {
+    if (element.addEventListener) {
+        element.addEventListener(type, handler, false);
+    } else if (element.attachEvent) {
+        element.attachEvent("on" + type, handler);
+    } else {
+        element["on" + type] = handler;
+    }
+}
+addEvent(window, "load", function (e) {
+    if (window.opener) {
+        alert("支持");
+    } else {
+        alert("不支持");
+    }
+});
