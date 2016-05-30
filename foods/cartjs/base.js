@@ -33,8 +33,8 @@ function addEvent(element, type, handler) {
 }
 addEvent(window, "load", function (e) {
     if (window.opener) {
-        alert("支持");
+        alert("support");
     } else {
-        alert("不支持");
+        alert("no");
     }
 });

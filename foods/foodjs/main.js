@@ -70,6 +70,9 @@ function addEvent(element, type, handler) {
         element["on" + type] = handler;
     }
 }
+function showCart() {
+    window.open("cart.html");
+}
 
 var cart = new OAK.Shop.Cart();
 cart.showProductNum = function (productId, specId, num) {
