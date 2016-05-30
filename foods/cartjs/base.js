@@ -33,7 +33,7 @@ function addEvent(element, type, handler) {
 }
 addEvent(window, "load", function (e) {
     if (window.opener) {
-        alert("support");
+        alert(window.opener.cart);
     } else {
         alert("no");
     }
