@@ -62,6 +62,11 @@ function showProducts(categoryName) {
     }
 }
 function showCart() {
+    if(typeof window.postMessage == "undefined") {
+        alert("postMessage not supported in this browser!");
+    } else {
+        alert("support");
+    }
     window.open("cart.html");
 }
 

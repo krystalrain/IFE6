@@ -494,6 +494,6 @@ em.shanchu { color: #333;border: 1px solid #ddd;background-color: #fff; position
 .car_info_b a.queren{background-color: #ff6600;border: 1px solid #ff6600; color:#FFF;}
 .car_info_b a.tixing{background-color: #1CC200;border: 1px solid #1CC200; color:#FFF;}
 
-.menu_topbar {position: absolute;}
+/*.menu_topbar {position: absolute;}*/
 .mode_webapp {padding: 0 0 60px 0;}
 .menu_header {height: 40px !important;}

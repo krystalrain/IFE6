@@ -30,7 +30,3 @@ window.onload = function () {
         window.close();
     };
 };
-
-var a = {};
-a[a] = 2;
-console.log(a["[object Object]"]);
