@@ -32,9 +32,6 @@ function addEvent(element, type, handler) {
     }
 }
 addEvent(window, "load", function (e) {
-    if (window.opener) {
-        alert(window.opener.cart);
-    } else {
-        alert("no");
-    }
+    var ullist = document.getElementById("ullist");
+    renderList(JSON.parse(localStorage.getItem("cart"))._products, ullist);
 });

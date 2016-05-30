@@ -1,6 +1,3 @@
-function toCart() {
-    location.href = "/cart?wxuserid=o25KXjmh2NgsebTMJoZdDMfDAf9k";
-}
 function g(id) {
     return document.getElementById(id);
 }
@@ -70,8 +67,9 @@ function addEvent(element, type, handler) {
         element["on" + type] = handler;
     }
 }
-function showCart() {
-    window.open("cart.html");
+function goToCart() {
+    location.href = "cart.html";
+    OAK.Util.setParam("cart", JSON.stringify(cart));
 }
 
 var cart = new OAK.Shop.Cart();
