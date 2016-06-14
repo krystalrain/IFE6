@@ -1,4 +1,0 @@
-一共有3个页面
-food.html是菜单
-about.html是店面介绍
-cart.html是购物车
