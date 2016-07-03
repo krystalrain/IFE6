@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>汕大菜館</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="aboutcss/base.css">
+<link rel="stylesheet" href="aboutcss/touchScroll.css" type="text/css">
+<style type="text/css">
+.order {
+	font-size: 17px;
+	margin-left: 20px;
+	color: #e60012;
+	font-weight: bold;
+}
+</style>
+</head>
+<body class="vshop">
+
+	<section class="mode_webapp">
+		<header class="menu_header">
+			<div class="menu_topbar">
+				<div id="menu" class="sort ">
+					<a href="javascript:void(0);">个人中心</a>
+				</div>
+			</div>
+		</header>
+
+		<div class="main_banner">
+			<div class="swipe">
+				<ul id="slider">
+					<li style="display: block"><div class="slider_div">
+							<img src="images/1.jpg">
+							<p>本店美图</p>
+						</div></li>
+					<li><div class="slider_div">
+							<img src="images/2.jpg">
+							<p>本店美图</p>
+						</div></li>
+					<li><div class="slider_div">
+							<img src="images/1.jpg">
+							<p>本店美图</p>
+						</div></li>
+					<li><div class="slider_div">
+							<img src="images/2.jpg">
+							<p>本店美图</p>
+						</div></li>
+				</ul>
+			</div>
+
+			<div id="pagenavi">
+				<a href="javascript:void(0);">1</a> <a href="javascript:void(0);">2</a>
+				<a href="javascript:void(0);">3</a> <a href="javascript:void(0);">4</a>
+			</div>
+		</div>
+
+		<div class="cardexplain">
+			<div class="detailcontent">
+				<h2></h2>
+				<div class="content">
+					<img src="images/NOTEPAD.png"> <span class="order">我的订单</span>
+						<span> <img src="images/arrow1.png"
+							style="float: right; width: 24px;" onclick='showhidediv("myorder")'></span>
+				</div>
+			</div>
+			<ul class="round" id="myorder">
+				<table width="100%" border="0" cellpadding="0" cellspacing="0"
+					class="cpbiaoge">
+					<tbody>
+						<tr>
+							<td>时间</td>
+							<td>金额</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>2016.06.10</td>
+							<td>456元</td>
+							<td><a href="order.html">查看</a></td>
+						</tr>
+						<tr>
+							<td>2016.06.10</td>
+							<td>456元</td>
+							<td><a href="order.html">查看</a></td>
+						</tr>
+						<tr>
+							<td>2016.06.10</td>
+							<td>456元</td>
+							<td><a href="order.html">查看</a></td>
+						</tr>
+						<tr>
+							<td>2016.06.10</td>
+							<td>456元</td>
+							<td><a href="order.html">查看</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</ul>
+
+
+		</div>
+
+		<div class="about">
+			© 2016-2030 <a href="javascript:void(0);">汕大微信版权所有</a>
+		</div>
+	</section>
+
+	<div class="footermenu">
+		<ul>
+			<li>
+				<a href="javascript:goToPage('about.html');">
+					<img src="images/i_about.png">
+					<p>关于</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:goToPage('food.html');">
+					<img src="images/i_waim.png">
+					<p>菜单</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:goToPage('game.html');">
+					<img src="images/foodimage/game.png">
+					<p>游戏</p>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:goToPage('user.html');" class="active">
+					<img src="images/foodimage/USER.png">
+					<p>个人中心</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<script type="text/javascript" src="commonjs/href.js"></script>
+	<script type="text/javascript" src="aboutjs/touchScroll.js"></script>
+	<script type="text/javascript" src="aboutjs/touchslider.dev.js"></script>
+	<script language="javascript">
+		//创建一个showhidediv的方法，直接跟ID属性  
+		function showhidediv(id) {
+			var sbtitle = document.getElementById(id);
+			if (sbtitle) {
+				if (sbtitle.style.display == 'block') {
+					sbtitle.style.display = 'none';
+				} else {
+					sbtitle.style.display = 'block';
+				}
+			}
+		}
+	</script>
+
+</body>
+</html>
